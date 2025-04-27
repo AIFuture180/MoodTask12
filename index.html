@@ -186,7 +186,10 @@
             height: 150px;
             border: 2px solid transparent;
             transition: transform 0.3s, background 0.3s, border 0.3s;
-            opacity: 1;
+            opacity: 0; /* Start hidden for fade-in */
+        }
+        .mood-grid.active .mood-option {
+            animation: fadeIn 0.5s ease forwards;
         }
         .mood-option:hover {
             transform: scale(1.05);
@@ -214,6 +217,10 @@
             font-size: 0.8em;
             margin: 0;
             color: rgba(255, 255, 255, 0.8);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes glow {
             0% { box-shadow: 0 0 5px #FFD700; }
@@ -1132,7 +1139,7 @@
             const grid = document.getElementById('moodGrid');
             if (grid) {
                 grid.classList.toggle('active');
-                console.log('Mood grid toggled:', grid.classList.contains('active') ? 'visible' : 'hidden');
+                console.log('Mood grid toggled:', grid.classList.contains('active') ? 'Visible' : 'Hidden');
             } else {
                 console.error('Mood grid element not found');
             }
@@ -1152,7 +1159,7 @@
             const recommendation = document.getElementById(mood + 'Recommendation');
             if (recommendation) {
                 recommendation.classList.add('active');
-                console.log('Showing recommendation for:', mood);
+                console.log('Showing recommendation for mood:', mood);
             } else {
                 console.error('Recommendation element not found for mood:', mood);
             }
@@ -1161,13 +1168,14 @@
                 grid.classList.remove('active');
             }
 
-            const today = new Date().toISOString().split('T')[0];
+            // Save the mood to localStorage for tracking on the dashboard
+            const today = new Date().toISOString().split('T')[0]; // e.g., 2025-04-27
             const storedMood = localStorage.getItem(`mood-${today}`);
             if (!storedMood) {
                 localStorage.setItem(`mood-${today}`, mood);
-                console.log(`Saved mood for ${today}: ${mood}`);
+                console.log(`Mood "${mood}" saved for ${today}. This will be reflected on the dashboard.`);
             } else {
-                console.log(`Mood already saved for ${today}: ${storedMood}`);
+                console.log(`Mood already saved for ${today}: ${storedMood}. No changes made.`);
             }
         }
 
@@ -1202,6 +1210,7 @@
             } else {
                 console.error('Mood button not found');
             }
+
             const moodOptions = document.querySelectorAll('.mood-option');
             if (moodOptions.length > 0) {
                 moodOptions.forEach(option => {

@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MoodTask helps you improve your mood with personalized, science-backed activities.">
+    <meta name="keywords" content="MoodTask, mental health, mood tracker, emotional well-being, stress relief">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="MoodTask">
+    <title>MoodTask - Transform Your Mood</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+        .nav-bar {
+            background-color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            max-width: 1400px;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            height: 60px; /* Fixed height for desktop */
+            backdrop-filter: blur(5px); /* Subtle blur for premium look */
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent */
+        }
+        .nav-bar .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #4A90E2;
+        }
+        .nav-bar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-left: 30px;
+            padding-right: 20px;
+        }
+        .nav-bar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #2C3E50;
+            font-weight: 400;
+            transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 5px;
+        }
+        .nav-bar a:hover {
+            background-color: #f0f0f0;
+            color: #2C3E50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-bar a.active {
+            background-color: #4A90E2;
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .nav-bar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .nav-bar .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+        }
+        .nav-bar .dropdown-content a {
+            color: #2C3E50;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0;
+            line-height: 1.5;
+        }
+        .nav-bar .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+        .nav-bar .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .main-content {
+            transition: opacity 0.5s ease;
+            padding-top: 60px; /* Default padding to match nav-bar height */
+        }
+        .main-content.fade-out {
+            opacity: 0;
+        }
+        .main-content.fade-in {
+            opacity: 1;
+        }
+        .hero {
+            background: linear-gradient(135deg, #4A90E2, #2C3E50);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .mood-button {
+            padding: 15px 30px;
+            background-color: #FFC107;
+            color: #333;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 10;
+        }
+        .mood-button:hover {
+            background-color: #FFB300;
+            transform: scale(1.05);
+        }
+        .mood-button:focus {
+            outline: 2px solid #FFD700;
+            outline-offset: 2px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 193, 7, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); }
+        }
+        .mood-grid {
+            display: none;
+            position: relative;
+            margin-top: 20px;
+            min-height: 400px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .mood-grid.active {
+            display: block;
+        }
+        .mood-option {
+            display: none;
+            position: absolute;
+            background: linear-gradient(135deg, #D6D1F5, #B0A8E5);
+            color: #333;
+            padding: 15px 30px;
+            text-align: center;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            opacity: 0;
+            animation: flyIn 0.5s ease forwards;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            min-width: 120px;
+            border: 2px solid transparent;
+            transition: left 0.5s ease, top 0.5s ease, transform 0.3s, background 0.3s, border 0.3s;
+        }
+        .mood-grid.active .mood-option {
+            display: flex;
+        }
+        .mood-option:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #B0A8E5, #D6D1F5);
+            border: 2px solid #FFD700;
+        }
+        .mood-option:focus {
+            outline: 2px solid #FFD700;
+            outline-offset: 2px;
+        }
+        .mood-option.selected {
+            border: 2px solid #FFD700;
+            box-shadow: 0 0 10px #FFD700;
+            animation: glow 0.5s ease;
+        }
+        @keyframes flyIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #FFD700; }
+            50% { box-shadow: 0 0 15px #FFD700; }
+            100% { box-shadow: 0 0 5px #FFD700; }
+        }
+        .mood-option[data-mood="Sad"] { background: linear-gradient(135deg, #4A90E2, #87CEEB); color: #fff; }
+        .mood-option[data-mood="Angry"] { background: linear-gradient(135deg, #FF6B6B, #FF8787); color: #fff; }
+        .mood-option[data-mood="Frustrated"] { background: linear-gradient(135deg, #FF8C00, #FFA940); color: #333; }
+        .mood-option[data-mood="Anxious"] { background: linear-gradient(135deg, #FFD700, #FFE066); color: #333; }
+        .mood-option[data-mood="Stressed"] { background: linear-gradient(135deg, #FF4040, #FF6666); color: #fff; }
+        .mood-option[data-mood="Tired"] { background: linear-gradient(135deg, #A9A9A9, #C0C0C0); color: #333; }
+        .mood-option[data-mood="Bored"] { background: linear-gradient(135deg, #808080, #A9A9A9); color: #fff; }
+        .mood-option[data-mood="Excited"] { background: linear-gradient(135deg, #FF69B4, #FF85C2); color: #fff; }
+        .mood-option[data-mood="Relaxed"] { background: linear-gradient(135deg, #32CD32, #4DED4D); color: #333; }
+        .mood-option[data-mood="Happy"] { background: linear-gradient(135deg, #FFD700, #FFE066); color: #333; }
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .welcome-guide {
+            flex: 1;
+            max-width: 600px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 20px;
+            text-align: left;
+        }
+        .welcome-guide h2 {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+        .welcome-guide h3 {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: #4A90E2;
+            margin-top: 20px;
+            margin-bottom: 10MISpx;
+        }
+        .welcome-guide p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .welcome-guide a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+        .welcome-guide a:hover {
+            text-decoration: underline;
+        }
+        .recommendation {
+            display: none;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            max-width: 600px;
+            margin: 20px;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: relative;
+            border-left: 4px solid transparent;
+        }
+        .recommendation.active {
+            display: block;
+            opacity: 1;
+            animation: glowRecommendation 0.5s ease;
+        }
+        @keyframes glowRecommendation {
+            0% { box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+            50% { box-shadow: 0 0 15px rgba(0,0,0,0.2); }
+            100% { box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        }
+        .recommendation .back-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #4A90E2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+        .recommendation .back-button:hover {
+            background-color: #2C3E50;
+        }
+        .recommendation .back-button:focus {
+            outline: 2px solid #FFD700;
+            outline-offset: 2px;
+        }
+        .recommendation h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        .recommendation p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        .recommendation ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .recommendation li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .recommendation a {
+            color: #4A90E2;
+            text-decoration: underline;
+        }
+        .recommendation a:hover {
+            color: #2C3E50;
+        }
+        .expert-explanation {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .recommendation[data-mood="Sad"] { border-left-color: #4A90E2; }
+        .recommendation[data-mood="Sad"] h3 { color: #4A90E2; }
+        .recommendation[data-mood="Angry"] { border-left-color: #FF6B6B; }
+        .recommendation[data-mood="Angry"] h3 { color: #FF6B6B; }
+        .recommendation[data-mood="Frustrated"] { border-left-color: #FF8C00; }
+        .recommendation[data-mood="Frustrated"] h3 { color: #FF8C00; }
+        .recommendation[data-mood="Anxious"] { border-left-color: #FFD700; }
+        .recommendation[data-mood="Anxious"] h3 { color: #FFD700; }
+        .recommendation[data-mood="Stressed"] { border-left-color: #FF4040; }
+        .recommendation[data-mood="Stressed"] h3 { color: #FF4040; }
+        .recommendation[data-mood="Tired"] { border-left-color: #A9A9A9; }
+        .recommendation[data-mood="Tired"] h3 { color: #A9A9A9; }
+        .recommendation[data-mood="Bored"] { border-left-color: #808080; }
+        .recommendation[data-mood="Bored"] h3 { color: #808080; }
+        .recommendation[data-mood="Excited"] { border-left-color: #FF69B4; }
+        .recommendation[data-mood="Excited"] h3 { color: #FF69B4; }
+        .recommendation[data-mood="Relaxed"] { border-left-color: #32CD32; }
+        .recommendation[data-mood="Relaxed"] h3 { color: #32CD32; }
+        .recommendation[data-mood="Happy"] { border-left-color: #FFD700; }
+        .recommendation[data-mood="Happy"] h3 { color: #FFD700; }
+        .ad-player {
+            flex: 0 0 450px;
+            margin: 20px;
+            text-align: left;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            border: 1px solid #4A90E2;
+        }
+        .ad-player:hover {
+            transform: scale(1.02);
+        }
+        .ad-player video {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+        .ad-content {
+            padding: 10px;
+        }
+        .ad-player-text {
+            margin: 10px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            background-color: #00A651;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: block;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        .ad-player-text:hover {
+            background-color: #00843D;
+            text-decoration: none;
+        }
+        .ad-player-text:hover .benefit-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .ad-player-text i {
+            margin-right: 5px;
+        }
+        .ad-player-text .highlight {
+            font-weight: 700;
+            color: #FFC107;
+        }
+        .benefit-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            white-space: nowrap;
+        }
+        .cta-button {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #00A651;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #00843D;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+        .footer h3 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        .footer a {
+            color: #D6D1F5;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer .affiliate-note {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .footer .connect a {
+            padding: 10px 20px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+        .footer .connect .coffee {
+            background-color: #FFC107;
+            color: #333;
+        }
+        .footer .connect .therapy {
+            background-color: #4A90E2;
+            color: white;
+        }
+        .footer .connect .mindfulness {
+            background-color: #6BCB77;
+            color: white;
+        }
+        @media (max-width: 600px) {
+            .nav-bar {
+                flex-direction: column;
+                gap: 8px; /* Reduced gap for tighter spacing */
+                padding: 10px 20px; /* Reduced padding */
+                height: auto; /* Allow height to adjust */
+                min-height: 120px; /* Minimum height for mobile */
+            }
+            .nav-bar .nav-links {
+                flex-direction: column;
+                gap: 8px; /* Reduced gap */
+                align-items: center;
+                width: 100%;
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .nav-bar a {
+                padding: 8px 20px; /* Reduced padding */
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+            }
+            .nav-bar .dropdown {
+                width: 100%;
+            }
+            .nav-bar .dropdown-content {
+                width: 100%;
+                left: 0;
+            }
+            .main-content {
+                padding-top: 130px; /* Increased padding to account for taller nav-bar on mobile */
+            }
+            .hero {
+                padding: 60px 15px;
+            }
+            .hero h1 {
+                font-size: 1.8em;
+            }
+            .mood-grid {
+                min-height: 500px;
+            }
+            .mood-option {
+                padding: 10px 20px;
+                font-size: 1em;
+                min-width: 100px;
+            }
+            .content-wrapper {
+                flex-direction: column;
+                padding: 0 10px;
+            }
+            .welcome-guide {
+                margin: 20px auto;
+                max-width: 100%;
+                padding: 20px;
+            }
+            .welcome-guide h2 {
+                font-size: 1.5em;
+            }
+            .welcome-guide h3 {
+                font-size: 1.2em;
+            }
+            .welcome-guide p {
+                font-size: 0.95em;
+            }
+            .ad-player {
+                flex: 0 0 450px;
+                margin: 20px auto;
+                text-align: center;
+            }
+            .recommendation {
+                margin: 20px auto;
+                max-width: 100%;
+                padding: 20px;
+            }
+            .recommendation h3 {
+                font-size: 1.3em;
+            }
+            .recommendation p, .recommendation li {
+                font-size: 0.95em;
+            }
+            .ad-player video {
+                width: 100%;
+            }
+            .ad-player-text {
+                font-size: 0.95em;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="logo">MoodTask</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="calendar.html">Dashboard</a>
+            <a href="activities.html">Activities</a>
+            <a href="music.html">Mood Music</a>
+            <a href="blog.html">Blog</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+        </div>
+    </div>
+    <div class="main-content fade-in">
+        <div class="hero">
+            <h1>Transform Your Mood</h1>
+            <p>Discover science-backed activities tailored to how you feel right now.</p>
+            <button class="mood-button" id="moodButton" tabindex="0" aria-label="Open mood selection">How are you feeling?</button>
+            <div class="mood-grid" id="moodGrid">
+                <div class="mood-option" data-mood="Sad" tabindex="0" aria-label="Select Sad mood">😢 Sad</div>
+                <div class="mood-option" data-mood="Angry" tabindex="0" aria-label="Select Angry mood">😡 Angry</div>
+                <div class="mood-option" data-mood="Frustrated" tabindex="0" aria-label="Select Frustrated mood">😤 Frustrated</div>
+                <div class="mood-option" data-mood="Anxious" tabindex="0" aria-label="Select Anxious mood">😟 Anxious</div>
+                <div class="mood-option" data-mood="Stressed" tabindex="0" aria-label="Select Stressed mood">😫 Stressed</div>
+                <div class="mood-option" data-mood="Tired" tabindex="0" aria-label="Select Tired mood">😴 Tired</div>
+                <div class="mood-option" data-mood="Bored" tabindex="0" aria-label="Select Bored mood">😐 Bored</div>
+                <div class="mood-option" data-mood="Excited" tabindex="0" aria-label="Select Excited mood">🎉 Excited</div>
+                <div class="mood-option" data-mood="Relaxed" tabindex="0" aria-label="Select Relaxed mood">🧘 Relaxed</div>
+                <div class="mood-option" data-mood="Happy" tabindex="0" aria-label="Select Happy mood">😊 Happy</div>
+            </div>
+        </div>
+        <div class="content-wrapper">
+            <div class="welcome-guide">
+                <h2>Welcome to MoodTask</h2>
+                <p>MoodTask is your go-to platform for improving your emotional well-being through personalized, science-backed activities. Whether you’re feeling sad, stressed, or excited, we’re here to help you navigate your emotions with tools designed to transform your mood. Our mission is to empower you with practical, accessible ways to manage stress, boost happiness, and find balance in your daily life.</p>
+                
+                <h3>Why MoodTask Works</h3>
+                <p>Our activities are rooted in science, drawing on principles from neuroscience and psychology to help you feel better. For example, engaging in gratitude exercises can increase dopamine and serotonin levels, enhancing your mood naturally. Breathing techniques activate the parasympathetic nervous system to reduce stress, while creative tasks like doodling stimulate the brain’s reward centers. MoodTask offers a variety of tools to suit your needs, ensuring you have the right support for any emotional state.</p>
+                
+                <h3>How to Use This Page</h3>
+                <p>Start by clicking the “How are you feeling?” button above to reveal a grid of mood options. Select the mood that best matches your current state—whether it’s anxious, happy, or tired—and you’ll receive tailored recommendations for activities to try. Each suggestion links to our <a href="activities.html">Activities</a> page, where you can explore tools like breathing exercises, guided meditation, or gratitude notes. Your mood is saved for the day, so you can track your emotional journey over time on the <a href="calendar.html">Dashboard</a>.</p>
+                
+                <h3>Explore More Features</h3>
+                <p>MoodTask offers more than just activities! Check out our <a href="music.html">Mood Music</a> page for playlists to match or shift your mood, or visit our <a href="blog.html">Blog</a> for tips on mindfulness, stress management, and emotional wellness. Start your journey with MoodTask today and discover how small, intentional actions can lead to big improvements in how you feel!</p>
+            </div>
+            <div class="ad-player" id="adPlayer">
+                <a href="https://amzn.to/4jbEB3h" target="_blank">
+                    <video autoplay muted loop controls poster="https://via.placeholder.com/450x75?text=AG1+Product+Shot">
+                        <source src="./AG1 Clip.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </a>
+                <div class="ad-content">
+                    <a href="https://amzn.to/4jbEB3h" target="_blank" class="ad-player-text">
+                        <i class="fas fa-leaf"></i> Discover <span class="highlight">AG1</span> – a daily health drink with <span class="highlight">75 nutrients</span> to help <span class="highlight">alleviate bloating</span> and support <span class="highlight">sustained energy</span>.
+                        <span class="benefit-tooltip">Also supports gut health!</span>
+                    </a>
+                    <a href="https://amzn.to/4jbEB3h" target="_blank" class="cta-button">
+                        Try AG1 Today
+                    </a>
+                </div>
+            </div>
+            <div class="recommendation" id="SadRecommendation" data-mood="Sad" role="region" aria-label="Recommendation for Sad mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Sad</h3>
+                <p>Lift your spirits with these science-backed activities:</p>
+                <ul>
+                    <li><a href="activities.html">Gratitude Note</a>: Reflect on positive moments.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Gratitude activates the prefrontal cortex, regulating emotional processing and reducing sadness, as Huberman notes in his work on neural plasticity.
+                    </div>
+                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Calm your body and mind.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Matt Walker):</strong> Progressive Muscle Relaxation reduces emotional distress by releasing physical tension, calming the amygdala and promoting relaxation, as supported by stress research.
+                    </div>
+                    <li><a href="activities.html">Breathing Exercise</a>: Try slow, deep breaths.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Deep breathing stimulates the vagus nerve, reducing sadness by activating the parasympathetic nervous system, as Huberman explains.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="AngryRecommendation" data-mood="Angry" role="region" aria-label="Recommendation for Angry mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Angry</h3>
+                <p>Channel your energy with these activities:</p>
+                <ul>
+                    <li><a href="activities.html">Punching Bag</a>: Release tension with a virtual punching bag.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Physical activity reduces cortisol and adrenaline, dissipating anger. Huberman emphasizes that exertion calms the amygdala, restoring emotional balance.
+                    </div>
+                    <li><a href="activities.html">Breathing Exercise</a>: Practice 4-7-8 breathing.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Slow breathing shifts emotional states by altering physiological arousal, as Barrett’s theory of constructed emotion suggests.
+                    </div>
+                    <li><a href="activities.html">Worry Shredder</a>: Write and shred your frustrations.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Expressive writing externalizes anger, reducing amygdala activity and promoting clarity, per Huberman’s stress research.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="FrustratedRecommendation" data-mood="Frustrated" role="region" aria-label="Recommendation for Frustrated mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Frustrated</h3>
+                <p>Reset with these activities:</p>
+                <ul>
+                    <li><a href="activities.html">Punching Bag</a>: Release frustration physically.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Physical exertion lowers cortisol, diffusing frustration and calming the amygdala, per Huberman’s stress research.
+                    </div>
+                    <li><a href="activities.html">Worry Shredder</a>: Write down what’s bothering you.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Conventional wisdom):</strong> Expressive writing reduces amygdala activity, processing negative emotions, as suggested by psychological research.
+                    </div>
+                    <li><a href="activities.html">Breathing Exercise</a>: Try slow breathing.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Breathing alters physiological arousal, reshaping frustration into calm, per Barrett’s emotion construction theory.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="AnxiousRecommendation" data-mood="Anxious" role="region" aria-label="Recommendation for Anxious mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Anxious</h3>
+                <p>Calm your mind with these activities:</p>
+                <ul>
+                    <li><a href="activities.html">Breathing Exercise</a>: Try 4-7-8 breathing.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Extended exhalation triggers the parasympathetic response, reducing anxiety by calming the nervous system, as Huberman explains.
+                    </div>
+                    <li><a href="activities.html">Color Focus</a>: Ground yourself with a color focus exercise.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Visual focus diverts attention from anxious thoughts, stabilizing heart rate by engaging the occipital lobe, per Huberman’s work.
+                    </div>
+                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Calm your body and mind.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Matt Walker):</strong> Progressive Muscle Relaxation eases anxiety by systematically releasing muscle tension, lowering sympathetic nervous system activity, as stress studies show.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="StressedRecommendation" data-mood="Stressed" role="region" aria-label="Recommendation for Stressed mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Stressed</h3>
+                <p>Relieve tension with these activities:</p>
+                <ul>
+                    <li><a href="activities.html">Stretch</a>: Try a stretch routine or a <a href="https://amzn.to/4i6jcXK">Weighted Heated Lap Pad</a>.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Stretching releases muscle tension, and weighted pressure calms the nervous system via deep pressure touch, reducing stress, per Huberman.
+                    </div>
+                    <li><a href="activities.html">Worry Shredder</a>: Write and shred your stressors.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Writing externalizes stress, altering emotional perception and reducing amygdala overactivity, as Barrett’s research suggests.
+                    </div>
+                    <li><a href="activities.html">Breathing Exercise</a>: Practice slow breathing.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Slow breathing lowers cortisol and activates the vagus nerve, reducing stress, as Huberman’s neuroscience work shows.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="TiredRecommendation" data-mood="Tired" role="region" aria-label="Recommendation for Tired mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Tired</h3>
+                <p>Recharge with these activities:</p>
+                <ul>
+                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Relax your body and mind.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Matt Walker):</strong> Progressive Muscle Relaxation promotes relaxation by releasing muscle tension, helping combat fatigue and supporting rest, as stress research demonstrates.
+                    </div>
+                    <li><a href="activities.html">Breathing Exercise</a>: Try a relaxing breath cycle.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Slow breathing reduces heart rate and prepares the body for rest, enhancing energy, per Huberman’s work on arousal.
+                    </div>
+                    <li><a href="activities.html">Stretch</a>: Do a gentle stretch routine.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Matt Walker):</strong> Gentle movement increases blood flow, reducing fatigue and supporting sleep readiness, as Walker’s studies suggest.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="BoredRecommendation" data-mood="Bored" role="region" aria-label="Recommendation for Bored mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Bored</h3>
+                <p>Spark interest with these activities:</p>
+                <ul>
+                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Engage your body and mind.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Progressive Muscle Relaxation engages your body and mind, reducing boredom by focusing on physical sensations, as stress research suggests.
+                    </div>
+                    <li><a href="activities.html">Guided Meditation</a>: Engage your mind with mindfulness.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Guided Meditation engages your mind by focusing attention, reducing boredom through mindfulness, as Huberman’s focus studies show.
+                    </div>
+                    <li><a href="activities.html">Color Focus</a>: Engage with a color focus exercise.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Visual engagement shifts emotional perception, reducing boredom by creating new sensory experiences, per Barrett.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="ExcitedRecommendation" data-mood="Excited" role="region" aria-label="Recommendation for Excited mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Excited</h3>
+                <p>Channel your energy with these activities:</p>
+                <ul>
+                    <li><a href="activities.html">Guided Meditation</a>: Channel your enthusiasm mindfully.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Guided Meditation channels your excitement by focusing your energy, sustaining positive arousal, as Huberman’s focus studies show.
+                    </div>
+                    <li><a href="activities.html">Doodle</a>: Express your enthusiasm creatively.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Creative expression channels high arousal into positive outcomes, shaping emotional experiences, as Barrett’s work shows.
+                    </div>
+                    <li><a href="activities.html">Gratitude Note</a>: Reflect on what’s sparking your excitement.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Gratitude reinforces positive neural circuits, sustaining high energy, per Huberman’s insights on optimism.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="RelaxedRecommendation" data-mood="Relaxed" role="region" aria-label="Recommendation for Relaxed mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Relaxed</h3>
+                <p>Enhance your calm with these activities:</p>
+                <ul>
+                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Deepen your relaxation.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Matt Walker):</strong> Progressive Muscle Relaxation deepens relaxation by systematically releasing tension, reducing sympathetic activity, as stress research shows.
+                    </div>
+                    <li><a href="activities.html">Gratitude Note</a>: Reflect on positive moments.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Gratitude reinforces positive neural circuits, sustaining calm, as Huberman’s optimism research shows.
+                    </div>
+                    <li><a href="activities.html">Stretch</a>: Try a gentle stretch routine.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Stretching maintains relaxation by releasing muscle tension and boosting endorphins, per Huberman’s work.
+                    </div>
+                </ul>
+            </div>
+            <div class="recommendation" id="HappyRecommendation" data-mood="Happy" role="region" aria-label="Recommendation for Happy mood">
+                <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
+                <h3>You're Feeling Happy!</h3>
+                <p>Keep that positive vibe going with these expert-recommended activities:</p>
+                <ul>
+                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Maintain your positive mood.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Progressive Muscle Relaxation maintains your positive mood by releasing any subtle tension, keeping you grounded, as stress research suggests.
+                    </div>
+                    <li><a href="activities.html">Gratitude Note</a>: Write down three things you’re thankful for.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Gratitude reshapes emotional perception by focusing on positive experiences, strengthening neural pathways for optimism, as Barrett’s work on emotion construction suggests.
+                    </div>
+                    <li><a href="activities.html">Doodle</a>: Express your happiness through creative sketching.</li>
+                    <div class="expert-explanation">
+                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Creative tasks like doodling engage the prefrontal cortex, channeling positive energy into productive outlets, per Huberman’s insights on neural creativity.
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <div>
+                <h3>MoodTask</h3>
+                <p>Transform your mood with science-backed activities designed to improve your emotional well-being.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Use</a>
+            </div>
+            <div class="connect">
+                <h3>Connect</h3>
+                <a href="https://twitter.com/share?url=https://moodtask.org"><i class="fab fa-twitter"></i> Share on Twitter</a>
+                <a href="https://www.buymeacoffee.com/moodtask" class="coffee"><i class="fas fa-coffee"></i> Buy Me a Coffee</a>
+                <a href="https://www.online-therapy.com/?aff_id=12345" class="therapy">Online Therapy</a>
+                <a href="https://www.mindfulness.com/?aff_id=67890" class="mindfulness">Mindfulness</a>
+            </div>
+            <div class="affiliate-note">
+                AFFILIATE DISCLOSURE: Some links on this site are affiliate links. We may earn a commission on purchases at no extra cost to you.<br>
+                © 2025 MoodTask. All rights reserved.
+            </div>
+        </div>
+    </div>
+    <script>
+        // Dynamically adjust padding-top for main-content based on nav-bar height
+        function adjustMainContentPadding() {
+            const navBar = document.querySelector('.nav-bar');
+            const mainContent = document.querySelector('.main-content');
+            if (navBar && mainContent) {
+                const navHeight = navBar.offsetHeight;
+                mainContent.style.paddingTop = `${navHeight + 10}px`; // Add a small buffer
+            }
+        }
+
+        function toggleMoodGrid() {
+            const grid = document.getElementById('moodGrid');
+            if (grid) {
+                grid.classList.toggle('active');
+                if (grid.classList.contains('active')) {
+                    positionMoodButtons();
+                    setTimeout(positionInTwoRows, 1000);
+                }
+                console.log('Mood grid toggled:', grid.classList.contains('active') ? 'visible' : 'hidden');
+            } else {
+                console.error('Mood grid element not found');
+            }
+        }
+
+        function positionMoodButtons() {
+            const moodOptions = document.querySelectorAll('.mood-option');
+            const grid = document.getElementById('moodGrid');
+            const gridWidth = grid.offsetWidth;
+            const gridHeight = grid.offsetHeight;
+            const centerX = gridWidth / 2;
+            const centerY = gridHeight / 2;
+            const buttonCount = moodOptions.length;
+            const avgButtonWidth = 120;
+            const avgButtonHeight = 40;
+            const minRadius = Math.max(avgButtonWidth * buttonCount / (2 * Math.PI), 150) * 1.5;
+            const maxRadius = Math.min(gridWidth, gridHeight) / 2 - Math.max(avgButtonWidth, avgButtonHeight);
+            const radius = Math.min(minRadius, maxRadius) * 0.9;
+
+            moodOptions.forEach((option, index) => {
+                const angle = (index / buttonCount) * 2 * Math.PI;
+                const x = centerX + radius * Math.cos(angle) - (avgButtonWidth / 2);
+                const y = centerY + radius * Math.sin(angle) - (avgButtonHeight / 2);
+                option.style.left = `${x}px`;
+                option.style.top = `${y}px`;
+                option.style.animationDelay = `${index * 0.1}s`;
+            });
+        }
+
+        function positionInTwoRows() {
+            const moodOptions = document.querySelectorAll('.mood-option');
+            const grid = document.getElementById('moodGrid');
+            const gridWidth = grid.offsetWidth;
+            const buttonsPerRow = 5;
+            const buttonWidth = 120;
+            const buttonHeight = 40;
+            const gap = 30;
+            const totalRowWidth = (buttonWidth * buttonsPerRow) + (gap * (buttonsPerRow - 1));
+            const startX = (gridWidth - totalRowWidth) / 2;
+            const rowHeight = buttonHeight + gap;
+
+            moodOptions.forEach((option, index) => {
+                const row = Math.floor(index / buttonsPerRow);
+                const col = index % buttonsPerRow;
+                const x = startX + (col * (buttonWidth + gap));
+                const y = 50 + (row * rowHeight);
+                option.style.left = `${x}px`;
+                option.style.top = `${y}px`;
+            });
+        }
+
+        function showRecommendation(mood) {
+            document.querySelectorAll('.mood-option').forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.mood === mood) {
+                    option.classList.add('selected');
+                }
+            });
+
+            document.querySelectorAll('.recommendation').forEach(rec => {
+                rec.classList.remove('active');
+            });
+            const recommendation = document.getElementById(mood + 'Recommendation');
+            if (recommendation) {
+                recommendation.classList.add('active');
+                console.log('Showing recommendation for:', mood);
+            } else {
+                console.error('Recommendation element not found for mood:', mood);
+            }
+            const grid = document.getElementById('moodGrid');
+            if (grid) {
+                grid.classList.remove('active');
+            }
+
+            const today = new Date().toISOString().split('T')[0];
+            const storedMood = localStorage.getItem(`mood-${today}`);
+            if (!storedMood) {
+                localStorage.setItem(`mood-${today}`, mood);
+                console.log(`Saved mood for ${today}: ${mood}`);
+            } else {
+                console.log(`Mood already saved for ${today}: ${storedMood}`);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-bar .nav-links a');
+            const mainContent = document.querySelector('.main-content');
+
+            // Fade in on page load
+            mainContent.classList.add('fade-in');
+
+            // Adjust padding on load
+            adjustMainContentPadding();
+
+            // Fade out when navigating away
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent immediate navigation
+                    mainContent.classList.remove('fade-in');
+                    mainContent.classList.add('fade-out');
+                    setTimeout(() => {
+                        window.location.href = link.href; // Navigate after fade-out
+                    }, 500); // Match the CSS transition duration
+                });
+            });
+
+            const moodButton = document.getElementById('moodButton');
+            if (moodButton) {
+                moodButton.addEventListener('click', toggleMoodGrid);
+                moodButton.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleMoodGrid();
+                    }
+                });
+                console.log('Mood button event listener attached');
+            } else {
+                console.error('Mood button not found');
+            }
+            const moodOptions = document.querySelectorAll('.mood-option');
+            if (moodOptions.length > 0) {
+                moodOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        const mood = option.dataset.mood;
+                        showRecommendation(mood);
+                    });
+                    option.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            const mood = option.dataset.mood;
+                            showRecommendation(mood);
+                        }
+                    });
+                });
+                console.log('Mood option event listeners attached:', moodOptions.length);
+            } else {
+                console.error('No mood options found');
+            }
+
+            const backButtons = document.querySelectorAll('.back-button');
+            backButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.recommendation').forEach(rec => {
+                        rec.classList.remove('active');
+                    });
+                    toggleMoodGrid();
+                });
+                button.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        document.querySelectorAll('.recommendation').forEach(rec => {
+                            rec.classList.remove('active');
+                        });
+                        toggleMoodGrid();
+                    }
+                });
+            });
+
+            const adPlayer = document.getElementById('adPlayer');
+            if (adPlayer) {
+                console.log('Ad player initialized with autoplay and loop');
+                adPlayer.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'VIDEO') {
+                        console.log('Ad player video clicked, redirecting to affiliate link');
+                    }
+                });
+                const video = adPlayer.querySelector('video');
+                if (video) {
+                    video.play().catch(error => {
+                        console.error('Autoplay failed:', error);
+                    });
+                }
+            } else {
+                console.error('Ad player element not found');
+            }
+
+            window.addEventListener('resize', () => {
+                if (document.getElementById('moodGrid').classList.contains('active')) {
+                    positionMoodButtons();
+                    setTimeout(positionInTwoRows, 1000);
+                }
+                adjustMainContentPadding(); // Adjust padding on resize
+            });
+        });
+    </script>
+</body>
+</html>

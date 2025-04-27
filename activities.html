@@ -121,6 +121,50 @@
             50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 193, 7, 0.8); }
             100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); }
         }
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .welcome-guide {
+            flex: 1;
+            max-width: 600px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            text-align: left;
+        }
+        .welcome-guide h2 {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+        .welcome-guide h3 {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: #4A90E2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .welcome-guide p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .welcome-guide a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+        .welcome-guide a:hover {
+            text-decoration: underline;
+        }
         .activities-grid {
             display: none;
             margin-top: 30px;
@@ -144,7 +188,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            width: 250px;
+            width: 280px;
             text-align: center;
             transition: transform 0.3s, background 0.3s;
             opacity: 0;
@@ -189,43 +233,8 @@
         .activity-card .try-button:hover {
             background-color: #2C3E50;
         }
-        .activity-card .guide {
-            display: none;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-size: 0.85em;
-            line-height: 1.5;
-        }
-        .activity-card .guide.active {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-        .activity-card .log-button {
-            padding: 8px 15px;
-            background-color: #6BCB77;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-            display: none;
-        }
-        .activity-card .log-button.active {
-            display: inline-block;
-        }
-        .activity-card .log-button:hover {
-            background-color: #5BBF66;
-        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .activity-summary {
@@ -366,6 +375,207 @@
             background-color: #6BCB77;
             color: white;
         }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            font-size: 1em;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        .popup-content h4 {
+            font-size: 1.3em;
+            font-weight: 600;
+            line-height: 1.6;
+            color: #2C3E50;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #333;
+        }
+        .task-tiles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .task-tile {
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            line-height: 1.6;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 120px;
+            height: 80px;
+            padding: 10px;
+            text-align: center;
+        }
+        .task-tile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .task-tile.breathing-type {
+            background: linear-gradient(135deg, #4A90E2, #2C3E50);
+        }
+        .task-tile.breathing-type:hover {
+            background: linear-gradient(135deg, #3B82F6, #1A2A44);
+        }
+        .task-tile.gratitude-type {
+            background: linear-gradient(135deg, #F4A261, #FF6F61);
+        }
+        .task-tile.gratitude-type:hover {
+            background: linear-gradient(135deg, #ED8936, #F56565);
+        }
+        .task-tile.meditation-type {
+            background: linear-gradient(135deg, #9F7AEA, #B794F4);
+        }
+        .task-tile.meditation-type:hover {
+            background: linear-gradient(135deg, #805AD5, #9F7AEA);
+        }
+        .task-tile.pmr-type {
+            background: linear-gradient(135deg, #2C7A7B, #4C9A9B);
+        }
+        .task-tile.pmr-type:hover {
+            background: linear-gradient(135deg, #1A5F60, #2C7A7B);
+        }
+        .task-tile.walk-type {
+            background: linear-gradient(135deg, #68D391, #48BB78);
+        }
+        .task-tile.walk-type:hover {
+            background: linear-gradient(135deg, #48BB78, #38A169);
+        }
+        .task-tile.journaling-type {
+            background: linear-gradient(135deg, #6B46C1, #805AD5);
+        }
+        .task-tile.journaling-type:hover {
+            background: linear-gradient(135deg, #553C9A, #6B46C1);
+        }
+        .task-tile.reframing-type {
+            background: linear-gradient(135deg, #FF6F61, #E53E3E);
+        }
+        .task-tile.reframing-type:hover {
+            background: linear-gradient(135deg, #F56565, #C53030);
+        }
+        #breathing-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #2C3E50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1em;
+            margin: 20px auto;
+            transition: all 0.3s;
+        }
+        #breathing-circle.inhale { transform: scale(1.2); background: #4A90E2; }
+        #breathing-circle.hold { transform: scale(1); background: #3B82F6; }
+        #breathing-circle.exhale { transform: scale(0.8); background: #2C3E50; }
+        .progress-container {
+            width: 100%;
+            background: #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            width: 0;
+            height: 10px;
+            background: #4A90E2;
+            border-radius: 5px;
+            transition: width 1s linear;
+        }
+        #breathing-instruction, #meditation-prompt, #pmr-prompt, #walk-timer, #journaling-prompt, #reframing-prompt {
+            margin: 10px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        #journaling-text, #reframing-text {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            resize: none;
+            font-size: 1em;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        .action-button {
+            background: #4A90E2;
+            color: #fff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1em;
+            font-weight: 500;
+            line-height: 1.6;
+            transition: background-color 0.3s;
+        }
+        .action-button:hover {
+            background: #2C3E50;
+        }
+        .log-button {
+            padding: 8px 15px;
+            background-color: #6BCB77;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            display: none;
+        }
+        .log-button.active {
+            display: inline-block;
+        }
+        .log-button:hover {
+            background-color: #5BBF66;
+        }
+        .affirmation {
+            display: none;
+            color: #4A90E2;
+            font-style: italic;
+            margin-top: 10px;
+        }
         @media (max-width: 600px) {
             .nav-bar {
                 flex-direction: column;
@@ -422,6 +632,29 @@
             .activity-summary .trend p {
                 font-size: 0.9em;
             }
+            .content-wrapper {
+                flex-direction: column;
+                padding: 0 10px;
+            }
+            .welcome-guide {
+                margin: 20px auto;
+                max-width: 100%;
+                padding: 20px;
+            }
+            .welcome-guide h2 {
+                font-size: 1.5em;
+            }
+            .welcome-guide h3 {
+                font-size: 1.2em;
+            }
+            .welcome-guide p {
+                font-size: 0.95em;
+            }
+            .task-tile {
+                width: 100px;
+                height: 70px;
+                font-size: 0.85em;
+            }
         }
     </style>
 </head>
@@ -444,61 +677,54 @@
             <p>Discover science-backed activities to improve your emotional well-being.</p>
             <button class="activity-button" id="activityButton" tabindex="0" aria-label="Explore activities">Explore Activities</button>
             <div class="activities-grid" id="activitiesGrid">
-                <div class="activity-card">
-                    <i class="fas fa-breath"></i>
+                <div class="activity-card" data-tool="breathing">
+                    <i class="fas fa-wind"></i>
                     <h3>Breathing Exercises</h3>
                     <p>Calm your mind with deep breathing techniques.</p>
                     <div class="insight">Reduces cortisol – Dr. Andrew Huberman</div>
                     <button class="try-button">Try Now</button>
-                    <div class="guide">
-                        1. Inhale deeply through your nose for 4 seconds.<br>
-                        2. Hold your breath for 4 seconds.<br>
-                        3. Exhale slowly through your mouth for 6 seconds.<br>
-                        4. Repeat for 5 minutes.
-                    </div>
-                    <button class="log-button">Log Activity</button>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-pen"></i>
-                    <h3>Gratitude Journaling</h3>
-                    <p>Write down three things you’re grateful for today.</p>
+                <div class="activity-card" data-tool="gratitude">
+                    <i class="fas fa-heart"></i>
+                    <h3>Gratitude Notes</h3>
+                    <p>Reflect on things you’re grateful for today.</p>
                     <div class="insight">Boosts dopamine – Dr. Lisa Feldman Barrett</div>
                     <button class="try-button">Try Now</button>
-                    <div class="guide">
-                        1. Find a quiet space.<br>
-                        2. Write down three things you’re thankful for.<br>
-                        3. Reflect on why they matter to you.<br>
-                        4. Spend 5-10 minutes on this activity.
-                    </div>
-                    <button class="log-button">Log Activity</button>
                 </div>
-                <div class="activity-card">
+                <div class="activity-card" data-tool="meditation">
+                    <i class="fas fa-spa"></i>
+                    <h3>Guided Meditation</h3>
+                    <p>Relax with a short mindfulness meditation.</p>
+                    <div class="insight">Lowers anxiety – Dr. Jon Kabat-Zinn</div>
+                    <button class="try-button">Try Now</button>
+                </div>
+                <div class="activity-card" data-tool="pmr">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3>Progressive Muscle Relaxation</h3>
+                    <p>Tense and relax muscle groups to release stress.</p>
+                    <div class="insight">Reduces tension – Dr. Edmund Jacobson</div>
+                    <button class="try-button">Try Now</button>
+                </div>
+                <div class="activity-card" data-tool="walk">
                     <i class="fas fa-walking"></i>
                     <h3>Nature Walk</h3>
-                    <p>Take a short walk in a park or natural setting.</p>
+                    <p>Take a short walk in a natural setting.</p>
                     <div class="insight">Lowers stress – Dr. Roger Ulrich</div>
                     <button class="try-button">Try Now</button>
-                    <div class="guide">
-                        1. Find a nearby park or green space.<br>
-                        2. Walk for 15-20 minutes.<br>
-                        3. Focus on the sights and sounds around you.<br>
-                        4. Avoid using your phone during the walk.
-                    </div>
-                    <button class="log-button">Log Activity</button>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-music"></i>
-                    <h3>Listen to Uplifting Music</h3>
-                    <p>Play a playlist that lifts your spirits.</p>
-                    <div class="insight">Enhances mood – Dr. Daniel Levitin</div>
+                <div class="activity-card" data-tool="journaling">
+                    <i class="fas fa-pen"></i>
+                    <h3>Mindful Journaling</h3>
+                    <p>Engage in reflective writing to process emotions.</p>
+                    <div class="insight">Improves clarity – Dr. James Pennebaker</div>
                     <button class="try-button">Try Now</button>
-                    <div class="guide">
-                        1. Choose a playlist with positive, uplifting songs.<br>
-                        2. Find a comfortable spot to sit or lie down.<br>
-                        3. Listen for 10-15 minutes.<br>
-                        4. Let the music wash over you and elevate your mood.
-                    </div>
-                    <button class="log-button">Log Activity</button>
+                </div>
+                <div class="activity-card" data-tool="reframing">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Cognitive Reframing</h3>
+                    <p>Shift your perspective to promote positive thinking.</p>
+                    <div class="insight">Enhances resilience – Dr. Aaron Beck</div>
+                    <button class="try-button">Try Now</button>
                 </div>
             </div>
             <div class="activity-summary" id="activitySummary">
@@ -525,6 +751,21 @@
                 <a href="index.html" class="cta-button" id="logMoodCTA">Log Today's Mood</a>
             </div>
         </div>
+        <div class="content-wrapper">
+            <div class="welcome-guide">
+                <h2>Your Guide to Mood-Boosting Activities</h2>
+                <p>Welcome to MoodTask’s Activities page! Here, you’ll find a variety of science-backed tools designed to help you manage stress, enhance your mood, and promote emotional well-being. Our activities—such as Breathing Exercises, Gratitude Notes, Guided Meditation, and Progressive Muscle Relaxation—are tailored to support you in moments of stress, anxiety, or low energy. Each tool offers a unique way to reconnect with yourself and find balance.</p>
+                
+                <h3>Why These Activities Work</h3>
+                <p>Engaging in intentional activities can have a profound impact on your mental health. For example, deep breathing exercises can activate the parasympathetic nervous system, reducing stress and promoting relaxation. Practicing gratitude has been shown to increase positive emotions and improve overall happiness by shifting focus to what’s good in your life. Activities like Mindful Journaling and Cognitive Reframing engage your reflective and cognitive skills, helping to process emotions and foster a positive mindset. At MoodTask, we’ve curated these tools to provide quick, effective ways to improve your emotional state.</p>
+                
+                <h3>How to Use This Page</h3>
+                <p>Getting started is easy! Click the "Explore Activities" button to reveal a variety of activities. Select an activity tile, such as Breathing Exercises, to open a popup with guided techniques like Box Breathing or 4-7-8. Follow the prompts to complete the activity, and log your progress to track your journey over time. Explore all the options to discover which ones work best for you—whether you need to relax, refocus, or build resilience.</p>
+                
+                <h3>Explore More with MoodTask</h3>
+                <p>Your journey to emotional wellness doesn’t stop here. After trying these activities, visit our <a href="music.html">Mood Music</a> page to find calming or motivating tracks, or check out our <a href="blog.html">Blog</a> for more tips on mindfulness and mental health. MoodTask is here to help you create a more balanced, joyful life—one activity at a time!</p>
+            </div>
+        </div>
         <div class="footer">
             <div>
                 <h3>MoodTask</h3>
@@ -548,6 +789,124 @@
                 © 2025 MoodTask. All rights reserved.
             </div>
         </div>
+
+        <!-- Popups -->
+        <div id="breathing-popup" class="popup">
+            <div class="popup-content">
+                <h4>Breathing Exercises</h4>
+                <p>Select a breathing technique to begin:</p>
+                <div class="task-tiles" id="breathing-tiles">
+                    <button class="task-tile breathing-type" onclick="startBreathingTechnique('diaphragmatic')">360 Diaphragmatic</button>
+                    <button class="task-tile breathing-type" onclick="startBreathingTechnique('resonance')">Resonance</button>
+                    <button class="task-tile breathing-type" onclick="startBreathingTechnique('4-7-8')">4-7-8</button>
+                    <button class="task-tile breathing-type" onclick="startBreathingTechnique('box')">Box Breathing</button>
+                </div>
+                <div id="breathing-circle" style="display: none;"><span id="breathing-step">Inhale</span></div>
+                <p id="breathing-instruction"></p>
+                <button class="action-button" id="breathing-try-another" style="display: none;" onclick="resetBreathing()">Try Another</button>
+                <button class="log-button" id="breathing-log">Log Activity</button>
+                <p class="affirmation">Well done completing the breathing exercise.</p>
+                <button class="close-button" onclick="closePopup('breathing')"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div id="gratitude-popup" class="popup">
+            <div class="popup-content">
+                <h4>Gratitude Notes</h4>
+                <p>Select a gratitude prompt to reflect on:</p>
+                <div class="task-tiles" id="gratitude-tiles">
+                    <button class="task-tile gratitude-type" onclick="startGratitudeTechnique('daily')">Daily Gratitude</button>
+                    <button class="task-tile gratitude-type" onclick="startGratitudeTechnique('relationships')">Relationships</button>
+                    <button class="task-tile gratitude-type" onclick="startGratitudeTechnique('achievements')">Achievements</button>
+                </div>
+                <textarea id="gratitude-text" rows="3" style="display: none;"></textarea>
+                <button class="action-button" id="gratitude-save" style="display: none;" onclick="saveGratitude()">Save Gratitude</button>
+                <button class="log-button" id="gratitude-log">Log Activity</button>
+                <p class="affirmation">Your gratitude note has been saved successfully.</p>
+                <button class="close-button" onclick="closePopup('gratitude')"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div id="meditation-popup" class="popup">
+            <div class="popup-content">
+                <h4>Guided Meditation</h4>
+                <p>Select a meditation technique to begin:</p>
+                <div class="task-tiles" id="meditation-tiles">
+                    <button class="task-tile meditation-type" onclick="startMeditationTechnique('breath-awareness')">Breath Awareness</button>
+                    <button class="task-tile meditation-type" onclick="startMeditationTechnique('body-scan')">Body Scan</button>
+                    <button class="task-tile meditation-type" onclick="startMeditationTechnique('visualization')">Visualization</button>
+                </div>
+                <p id="meditation-prompt"></p>
+                <button class="action-button" id="meditation-try-another" style="display: none;" onclick="resetMeditation()">Try Another</button>
+                <button class="log-button" id="meditation-log">Log Activity</button>
+                <p class="affirmation">Thank you for taking time to center yourself.</p>
+                <button class="close-button" onclick="closePopup('meditation')"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div id="pmr-popup" class="popup">
+            <div class="popup-content">
+                <h4>Progressive Muscle Relaxation</h4>
+                <p>Select a relaxation focus to begin:</p>
+                <div class="task-tiles" id="pmr-tiles">
+                    <button class="task-tile pmr-type" onclick="startPMRTechnique('full-body')">Full Body</button>
+                    <button class="task-tile pmr-type" onclick="startPMRTechnique('lower-body')">Lower Body</button>
+                    <button class="task-tile pmr-type" onclick="startPMRTechnique('upper-body')">Upper Body</button>
+                </div>
+                <p id="pmr-prompt"></p>
+                <button class="action-button" id="pmr-try-another" style="display: none;" onclick="resetPMR()">Try Another</button>
+                <button class="log-button" id="pmr-log">Log Activity</button>
+                <p class="affirmation">Thank you for taking time to relax your body.</p>
+                <button class="close-button" onclick="closePopup('pmr')"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div id="walk-popup" class="popup">
+            <div class="popup-content">
+                <h4>Nature Walk</h4>
+                <p>Select a nature walk focus to begin:</p>
+                <div class="task-tiles" id="walk-tiles">
+                    <button class="task-tile walk-type" onclick="startWalkTechnique('mindful')">Mindful Walk</button>
+                    <button class="task-tile walk-type" onclick="startWalkTechnique('sensory')">Sensory Focus</button>
+                    <button class="task-tile walk-type" onclick="startWalkTechnique('gratitude')">Gratitude Walk</button>
+                </div>
+                <div class="progress-container"><div id="walk-progress" class="progress-bar"></div></div>
+                <p id="walk-timer"></p>
+                <button class="log-button" id="walk-log">Log Activity</button>
+                <p class="affirmation">Great job connecting with nature.</p>
+                <button class="close-button" onclick="closePopup('walk')"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div id="journaling-popup" class="popup">
+            <div class="popup-content">
+                <h4>Mindful Journaling</h4>
+                <p>Select a journaling prompt to begin:</p>
+                <div class="task-tiles" id="journaling-tiles">
+                    <button class="task-tile journaling-type" onclick="startJournalingTechnique('emotions')">Explore Emotions</button>
+                    <button class="task-tile journaling-type" onclick="startJournalingTechnique('goals')">Reflect on Goals</button>
+                    <button class="task-tile journaling-type" onclick="startJournalingTechnique('challenges')">Address Challenges</button>
+                </div>
+                <p id="journaling-prompt"></p>
+                <textarea id="journaling-text" rows="3" style="display: none;"></textarea>
+                <button class="action-button" id="journaling-save" style="display: none;" onclick="saveJournaling()">Save Entry</button>
+                <button class="log-button" id="journaling-log">Log Activity</button>
+                <p class="affirmation">Thank you for reflecting mindfully.</p>
+                <button class="close-button" onclick="closePopup('journaling')"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div id="reframing-popup" class="popup">
+            <div class="popup-content">
+                <h4>Cognitive Reframing</h4>
+                <p>Select a reframing exercise to begin:</p>
+                <div class="task-tiles" id="reframing-tiles">
+                    <button class="task-tile reframing-type" onclick="startReframingTechnique('negative-thought')">Reframe a Negative Thought</button>
+                    <button class="task-tile reframing-type" onclick="startReframingTechnique('stressful-event')">Reframe a Stressful Event</button>
+                    <button class="task-tile reframing-type" onclick="startReframingTechnique('self-criticism')">Reframe Self-Criticism</button>
+                </div>
+                <p id="reframing-prompt"></p>
+                <textarea id="reframing-text" rows="3" style="display: none;"></textarea>
+                <button class="action-button" id="reframing-save" style="display: none;" onclick="saveReframing()">Save Reframe</button>
+                <button class="log-button" id="reframing-log">Log Activity</button>
+                <p class="affirmation">Great job shifting your perspective.</p>
+                <button class="close-button" onclick="closePopup('reframing')"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
     </div>
     <script>
         function adjustMainContentPadding() {
@@ -569,9 +928,16 @@
                 console.error('Activities grid or summary element not found:', { grid, summary });
                 return;
             }
+            console.log('Before toggle - Grid display:', window.getComputedStyle(grid).display);
+            console.log('Before toggle - Summary display:', window.getComputedStyle(summary).display);
+            
             grid.classList.toggle('active');
             summary.classList.toggle('active');
+            
+            console.log('After toggle - Grid display:', window.getComputedStyle(grid).display);
+            console.log('After toggle - Summary display:', window.getComputedStyle(summary).display);
             console.log('Activities grid toggled:', grid.classList.contains('active') ? 'Visible' : 'Hidden');
+            
             if (grid.classList.contains('active')) {
                 analyzeActivityTrends();
             }
@@ -579,25 +945,22 @@
 
         function setupActivityCards() {
             const tryButtons = document.querySelectorAll('.try-button');
-            const logButtons = document.querySelectorAll('.log-button');
-
             tryButtons.forEach((button, index) => {
                 button.addEventListener('click', () => {
                     const card = button.closest('.activity-card');
-                    const guide = card.querySelector('.guide');
-                    const logButton = card.querySelector('.log-button');
-                    if (guide && logButton) {
-                        guide.classList.toggle('active');
-                        logButton.classList.toggle('active');
-                        console.log(`Guide toggled for activity card ${index}`);
-                    }
+                    const tool = card.getAttribute('data-tool');
+                    openPopup(tool);
+                    console.log(`Opened popup for activity: ${tool}`);
                 });
             });
 
-            logButtons.forEach((button, index) => {
+            // Setup log buttons in popups
+            const logButtons = document.querySelectorAll('.log-button');
+            logButtons.forEach((button) => {
                 button.addEventListener('click', () => {
-                    const card = button.closest('.activity-card');
-                    const activityName = card.querySelector('h3').textContent;
+                    const popup = button.closest('.popup');
+                    const tool = popup.id.split('-')[0];
+                    const activityName = popup.querySelector('h4').textContent;
                     const today = new Date('2025-04-27').toISOString().split('T')[0];
                     const activityKey = `activity-${today}`;
                     let activities = JSON.parse(localStorage.getItem(activityKey)) || [];
@@ -610,6 +973,341 @@
                     button.style.backgroundColor = '#A9A9A9';
                 });
             });
+            console.log('Activity cards set up with', tryButtons.length, 'try buttons');
+        }
+
+        function openPopup(tool) {
+            const popup = document.getElementById(`${tool}-popup`);
+            popup.style.display = 'flex';
+            const logButton = popup.querySelector('.log-button');
+            logButton.classList.add('active');
+            if (tool === 'walk') initWalk();
+        }
+
+        function closePopup(tool) {
+            const popup = document.getElementById(`${tool}-popup`);
+            popup.style.display = 'none';
+            if (tool === 'breathing') stopBreathing();
+            if (tool === 'meditation') resetMeditation();
+            if (tool === 'pmr') resetPMR();
+            if (tool === 'walk') stopWalk();
+            if (tool === 'gratitude') resetGratitude();
+            if (tool === 'journaling') resetJournaling();
+            if (tool === 'reframing') resetReframing();
+        }
+
+        // Breathing Exercises
+        let breathingInterval = null;
+        function startBreathingTechnique(type) {
+            const circle = document.getElementById('breathing-circle');
+            const stepText = document.getElementById('breathing-step');
+            const instruction = document.getElementById('breathing-instruction');
+            const tiles = document.getElementById('breathing-tiles');
+            const tryAnotherButton = document.getElementById('breathing-try-another');
+            let phaseIndex = 0;
+            let phaseTime = 0;
+
+            const techniques = {
+                'diaphragmatic': {
+                    instruction: 'Place a hand on your belly. Inhale deeply through your nose, expanding your belly, then exhale slowly. Practice for 60 seconds.',
+                    phases: [
+                        { name: 'inhale', duration: 4, text: 'Inhale' },
+                        { name: 'hold', duration: 2, text: 'Hold' },
+                        { name: 'exhale', duration: 6, text: 'Exhale' }
+                    ]
+                },
+                'resonance': {
+                    instruction: 'Breathe smoothly through your nose. Inhale for 5 seconds, exhale for 5 seconds to find your rhythm. Practice for 60 seconds.',
+                    phases: [
+                        { name: 'inhale', duration: 5, text: 'Inhale' },
+                        { name: 'exhale', duration: 5, text: 'Exhale' }
+                    ]
+                },
+                '4-7-8': {
+                    instruction: 'Inhale quietly through your nose for 4 seconds, hold for 7 seconds, then exhale through pursed lips for 8 seconds. Practice for 60 seconds.',
+                    phases: [
+                        { name: 'inhale', duration: 4, text: 'Inhale' },
+                        { name: 'hold', duration: 7, text: 'Hold' },
+                        { name: 'exhale', duration: 8, text: 'Exhale' }
+                    ]
+                },
+                'box': {
+                    instruction: 'Inhale through your nose for 4 seconds, hold for 4 seconds, exhale for 4 seconds, hold again for 4 seconds—like a box pattern. Practice for 60 seconds.',
+                    phases: [
+                        { name: 'inhale', duration: 4, text: 'Inhale' },
+                        { name: 'hold', duration: 4, text: 'Hold' },
+                        { name: 'exhale', duration: 4, text: 'Exhale' },
+                        { name: 'hold', duration: 4, text: 'Hold' }
+                    ]
+                }
+            };
+
+            const selectedTechnique = techniques[type];
+            const phases = selectedTechnique.phases;
+            instruction.textContent = selectedTechnique.instruction;
+            tiles.style.display = 'none';
+            circle.style.display = 'flex';
+            tryAnotherButton.style.display = 'inline-flex';
+
+            if (breathingInterval) clearInterval(breathingInterval);
+
+            breathingInterval = setInterval(() => {
+                phaseTime++;
+                const currentPhase = phases[phaseIndex];
+                if (phaseTime >= currentPhase.duration) {
+                    phaseTime = 0;
+                    phaseIndex = (phaseIndex + 1) % phases.length;
+                }
+
+                const phaseData = phases[phaseIndex];
+                circle.className = 'breathing-circle ' + phaseData.name;
+                stepText.textContent = phaseData.text;
+            }, 1000);
+        }
+
+        function stopBreathing() {
+            if (breathingInterval) clearInterval(breathingInterval);
+            breathingInterval = null;
+            resetBreathing();
+        }
+
+        function resetBreathing() {
+            const tiles = document.getElementById('breathing-tiles');
+            const circle = document.getElementById('breathing-circle');
+            const instruction = document.getElementById('breathing-instruction');
+            const tryAnotherButton = document.getElementById('breathing-try-another');
+            const affirmation = document.querySelector('#breathing-popup .affirmation');
+            tiles.style.display = 'flex';
+            circle.style.display = 'none';
+            instruction.textContent = 'Select a breathing technique to begin:';
+            tryAnotherButton.style.display = 'none';
+            affirmation.style.display = 'block';
+        }
+
+        // Gratitude Notes
+        function startGratitudeTechnique(type) {
+            const prompt = document.getElementById('gratitude-text');
+            const tiles = document.getElementById('gratitude-tiles');
+            const saveButton = document.getElementById('gratitude-save');
+
+            const prompts = {
+                'daily': 'Write down three things you’re grateful for today.',
+                'relationships': 'Reflect on a relationship you’re thankful for and why.',
+                'achievements': 'Note a recent achievement you’re proud of and why it matters.'
+            };
+
+            prompt.placeholder = prompts[type];
+            tiles.style.display = 'none';
+            prompt.style.display = 'block';
+            saveButton.style.display = 'inline-flex';
+        }
+
+        function saveGratitude() {
+            const gratitudeText = document.getElementById('gratitude-text');
+            if (gratitudeText.value.trim()) {
+                const affirmation = document.querySelector('#gratitude-popup .affirmation');
+                affirmation.style.display = 'block';
+            }
+        }
+
+        function resetGratitude() {
+            const prompt = document.getElementById('gratitude-text');
+            const tiles = document.getElementById('gratitude-tiles');
+            const saveButton = document.getElementById('gratitude-save');
+            prompt.style.display = 'none';
+            prompt.value = '';
+            tiles.style.display = 'flex';
+            saveButton.style.display = 'none';
+        }
+
+        // Guided Meditation
+        function startMeditationTechnique(type) {
+            const prompt = document.getElementById('meditation-prompt');
+            const tiles = document.getElementById('meditation-tiles');
+            const tryAnotherButton = document.getElementById('meditation-try-another');
+
+            const techniques = {
+                'breath-awareness': 'Focus on your breath. Inhale for 4 seconds, exhale for 6 seconds, noticing the air moving. Practice for 60 seconds.',
+                'body-scan': 'Scan your body from your feet to your head. Notice any tension and let it go. Practice for 60 seconds.',
+                'visualization': 'Imagine a peaceful place—perhaps a beach or forest. Picture its details and immerse yourself for 60 seconds.'
+            };
+
+            prompt.textContent = techniques[type];
+            tiles.style.display = 'none';
+            tryAnotherButton.style.display = 'inline-flex';
+            setTimeout(() => {
+                document.querySelector('#meditation-popup .affirmation').style.display = 'block';
+            }, 60000);
+        }
+
+        function resetMeditation() {
+            const prompt = document.getElementById('meditation-prompt');
+            const tiles = document.getElementById('meditation-tiles');
+            const tryAnotherButton = document.getElementById('meditation-try-another');
+            prompt.textContent = 'Select a meditation technique to begin:';
+            tiles.style.display = 'flex';
+            tryAnotherButton.style.display = 'none';
+        }
+
+        // Progressive Muscle Relaxation
+        function startPMRTechnique(type) {
+            const prompt = document.getElementById('pmr-prompt');
+            const tiles = document.getElementById('pmr-tiles');
+            const tryAnotherButton = document.getElementById('pmr-try-another');
+
+            const techniques = {
+                'full-body': 'Start at your feet: tense for 5 seconds, relax for 10 seconds. Move up through your body for 60 seconds.',
+                'lower-body': 'Focus on your feet and legs: tense for 5 seconds, relax for 10 seconds. Repeat for 60 seconds.',
+                'upper-body': 'Focus on your arms and shoulders: tense for 5 seconds, relax for 10 seconds. Repeat for 60 seconds.'
+            };
+
+            prompt.textContent = techniques[type];
+            tiles.style.display = 'none';
+            tryAnotherButton.style.display = 'inline-flex';
+            setTimeout(() => {
+                document.querySelector('#pmr-popup .affirmation').style.display = 'block';
+            }, 60000);
+        }
+
+        function resetPMR() {
+            const prompt = document.getElementById('pmr-prompt');
+            const tiles = document.getElementById('pmr-tiles');
+            const tryAnotherButton = document.getElementById('pmr-try-another');
+            prompt.textContent = 'Select a relaxation focus to begin:';
+            tiles.style.display = 'flex';
+            tryAnotherButton.style.display = 'none';
+        }
+
+        // Nature Walk
+        let walkInterval = null;
+        function initWalk() {
+            const timerText = document.getElementById('walk-timer');
+            const progressBar = document.getElementById('walk-progress');
+            let timeLeft = 300; // 5 minutes
+
+            const updateTimer = () => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerText.textContent = `Time remaining: ${minutes}m ${seconds}s`;
+                progressBar.style.width = `${(300 - timeLeft) / 300 * 100}%`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(walkInterval);
+                    timerText.style.display = 'none';
+                    progressBar.style.display = 'none';
+                    document.querySelector('#walk-popup .affirmation').style.display = 'block';
+                }
+            };
+
+            startWalkTechnique('mindful'); // Default to mindful walk
+            walkInterval = setInterval(updateTimer, 1000);
+        }
+
+        function startWalkTechnique(type) {
+            const timerText = document.getElementById('walk-timer');
+            const tiles = document.getElementById('walk-tiles');
+
+            const focuses = {
+                'mindful': 'Walk slowly, focusing on each step and your breath for 5 minutes.',
+                'sensory': 'Notice the sights, sounds, and smells around you as you walk for 5 minutes.',
+                'gratitude': 'Reflect on things you’re grateful for in nature as you walk for 5 minutes.'
+            };
+
+            timerText.textContent = focuses[type];
+            tiles.style.display = 'none';
+        }
+
+        function stopWalk() {
+            if (walkInterval) clearInterval(walkInterval);
+            walkInterval = null;
+            resetWalk();
+        }
+
+        function resetWalk() {
+            const timerText = document.getElementById('walk-timer');
+            const progressBar = document.getElementById('walk-progress');
+            const tiles = document.getElementById('walk-tiles');
+            timerText.style.display = 'block';
+            progressBar.style.display = 'block';
+            progressBar.style.width = '0%';
+            tiles.style.display = 'flex';
+        }
+
+        // Mindful Journaling
+        function startJournalingTechnique(type) {
+            const prompt = document.getElementById('journaling-prompt');
+            const textArea = document.getElementById('journaling-text');
+            const tiles = document.getElementById('journaling-tiles');
+            const saveButton = document.getElementById('journaling-save');
+
+            const prompts = {
+                'emotions': 'Write about how you’re feeling right now and why.',
+                'goals': 'Reflect on a goal you’d like to achieve and the steps to get there.',
+                'challenges': 'Describe a recent challenge and how you can overcome it.'
+            };
+
+            prompt.textContent = prompts[type];
+            tiles.style.display = 'none';
+            textArea.style.display = 'block';
+            saveButton.style.display = 'inline-flex';
+        }
+
+        function saveJournaling() {
+            const text = document.getElementById('journaling-text');
+            if (text.value.trim()) {
+                document.querySelector('#journaling-popup .affirmation').style.display = 'block';
+            }
+        }
+
+        function resetJournaling() {
+            const prompt = document.getElementById('journaling-prompt');
+            const textArea = document.getElementById('journaling-text');
+            const tiles = document.getElementById('journaling-tiles');
+            const saveButton = document.getElementById('journaling-save');
+            prompt.textContent = 'Select a journaling prompt to begin:';
+            textArea.style.display = 'none';
+            textArea.value = '';
+            tiles.style.display = 'flex';
+            saveButton.style.display = 'none';
+        }
+
+        // Cognitive Reframing
+        function startReframingTechnique(type) {
+            const prompt = document.getElementById('reframing-prompt');
+            const textArea = document.getElementById('reframing-text');
+            const tiles = document.getElementById('reframing-tiles');
+            const saveButton = document.getElementById('reframing-save');
+
+            const prompts = {
+                'negative-thought': 'Write a negative thought you’ve had, then reframe it into a positive or neutral perspective.',
+                'stressful-event': 'Describe a stressful event, then find a positive lesson or opportunity within it.',
+                'self-criticism': 'Note a self-critical thought, then reframe it with self-compassion and encouragement.'
+            };
+
+            prompt.textContent = prompts[type];
+            tiles.style.display = 'none';
+            textArea.style.display = 'block';
+            saveButton.style.display = 'inline-flex';
+        }
+
+        function saveReframing() {
+            const text = document.getElementById('reframing-text');
+            if (text.value.trim()) {
+                document.querySelector('#reframing-popup .affirmation').style.display = 'block';
+            }
+        }
+
+        function resetReframing() {
+            const prompt = document.getElementById('reframing-prompt');
+            const textArea = document.getElementById('reframing-text');
+            const tiles = document.getElementById('reframing-tiles');
+            const saveButton = document.getElementById('reframing-save');
+            prompt.textContent = 'Select a reframing exercise to begin:';
+            textArea.style.display = 'none';
+            textArea.value = '';
+            tiles.style.display = 'flex';
+            saveButton.style.display = 'none';
         }
 
         function analyzeActivityTrends() {
@@ -623,7 +1321,6 @@
             const today = new Date('2025-04-27').toISOString().split('T')[0];
             const allActivities = [];
             
-            // Collect activities from localStorage
             for (let day = 1; day <= 30; day++) {
                 const dateStr = `2025-04-${String(day).padStart(2, '0')}`;
                 const activities = JSON.parse(localStorage.getItem(`activity-${dateStr}`)) || [];
@@ -633,12 +1330,11 @@
             }
             console.log('Collected activities:', allActivities);
 
-            // Most recent activity
             const recentActivity = allActivities.length > 0 ? allActivities[allActivities.length - 1] : null;
             const recentActivityText = document.getElementById('recentActivityText');
             const recentActivityInsight = document.getElementById('recentActivityInsight');
             if (!recentActivityText || !recentActivityInsight) {
-                console.error('Recent activity elements not found');
+                console.error('Recent activity elements not found:', { recentActivityText, recentActivityInsight });
                 return;
             }
             if (recentActivity) {
@@ -649,7 +1345,6 @@
                 recentActivityInsight.textContent = 'Start by trying an activity above!';
             }
 
-            // Most frequent activity
             const activityCounts = {};
             allActivities.forEach(({ name }) => {
                 activityCounts[name] = (activityCounts[name] || 0) + 1;
@@ -658,13 +1353,13 @@
             const frequentActivityText = document.getElementById('frequentActivityText');
             const frequentActivityInsight = document.getElementById('frequentActivityInsight');
             if (!frequentActivityText || !frequentActivityInsight) {
-                console.error('Frequent activity elements not found');
+                console.error('Frequent activity elements not found:', { frequentActivityText, frequentActivityInsight });
                 return;
             }
             if (mostFrequentActivity) {
                 frequentActivityText.textContent = `${mostFrequentActivity} (${activityCounts[mostFrequentActivity]} times)`;
-                if (mostFrequentActivity === 'Gratitude Journaling') {
-                    frequentActivityInsight.textContent = 'Frequent gratitude journaling boosts dopamine – try it daily!';
+                if (mostFrequentActivity === 'Gratitude Notes') {
+                    frequentActivityInsight.textContent = 'Frequent gratitude boosts dopamine – try it daily!';
                 } else if (mostFrequentActivity === 'Breathing Exercises') {
                     frequentActivityInsight.textContent = 'Regular breathing exercises reduce stress – keep it up!';
                 } else {
@@ -675,7 +1370,6 @@
                 frequentActivityInsight.textContent = 'Log an activity to see trends.';
             }
 
-            // Update CTA button
             const logMoodCTA = document.getElementById('logMoodCTA');
             if (!logMoodCTA) {
                 console.error('Log mood CTA element not found');
@@ -719,14 +1413,18 @@
                 activityButton.addEventListener('click', () => {
                     console.log('Activity button clicked');
                     toggleActivitiesGrid();
-                    setupActivityCards();
+                    if (document.getElementById('activitiesGrid').classList.contains('active')) {
+                        setupActivityCards();
+                    }
                 });
                 activityButton.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         console.log('Activity button activated via keyboard');
                         toggleActivitiesGrid();
-                        setupActivityCards();
+                        if (document.getElementById('activitiesGrid').classList.contains('active')) {
+                            setupActivityCards();
+                        }
                     }
                 });
                 console.log('Activity button event listeners attached');

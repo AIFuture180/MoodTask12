@@ -112,7 +112,7 @@
         .hero {
             background: linear-gradient(135deg, #4A90E2, #2C3E50);
             color: white;
-            padding: 60px 20px; /* Reduced padding to bring recommendations closer */
+            padding: 60px 20px;
             text-align: center;
             position: relative;
         }
@@ -152,44 +152,45 @@
         }
         .mood-grid {
             display: none;
-            position: relative;
-            margin-top: 20px;
-            min-height: 400px;
+            margin-top: 30px;
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .mood-grid.active {
-            display: block;
+            display: flex;
         }
         .mood-option {
-            display: none;
-            position: absolute;
-            background: linear-gradient(135deg, #D6D1F5, #B0A8E5);
-            color: #333;
-            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 20px;
             text-align: center;
-            border-radius: 25px;
+            border-radius: 15px;
             cursor: pointer;
             font-size: 1.1em;
             font-weight: 500;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            opacity: 0;
-            animation: flyIn 0.5s ease forwards;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            min-width: 120px;
+            width: 150px;
+            height: 150px;
             border: 2px solid transparent;
-            transition: left 0.5s ease, top 0.5s ease, transform 0.3s, background 0.3s, border 0.3s;
-        }
-        .mood-grid.active .mood-option {
-            display: flex;
+            transition: transform 0.3s, background 0.3s, border 0.3s;
+            opacity: 1;
         }
         .mood-option:hover {
             transform: scale(1.05);
-            background: linear-gradient(135deg, #B0A8E5, #D6D1F5);
+            background: rgba(255, 255, 255, 0.3);
             border: 2px solid #FFD700;
         }
         .mood-option:focus {
@@ -201,28 +202,27 @@
             box-shadow: 0 0 10px #FFD700;
             animation: glow 0.5s ease;
         }
-        @keyframes flyIn {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+        .mood-option i {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        .mood-option span {
+            font-size: 1em;
+            font-weight: 600;
+        }
+        .mood-option p {
+            font-size: 0.8em;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
         }
         @keyframes glow {
             0% { box-shadow: 0 0 5px #FFD700; }
             50% { box-shadow: 0 0 15px #FFD700; }
             100% { box-shadow: 0 0 5px #FFD700; }
         }
-        .mood-option[data-mood="Sad"] { background: linear-gradient(135deg, #4A90E2, #87CEEB); color: #fff; }
-        .mood-option[data-mood="Angry"] { background: linear-gradient(135deg, #FF6B6B, #FF8787); color: #fff; }
-        .mood-option[data-mood="Frustrated"] { background: linear-gradient(135deg, #FF8C00, #FFA940); color: #333; }
-        .mood-option[data-mood="Anxious"] { background: linear-gradient(135deg, #FFD700, #FFE066); color: #333; }
-        .mood-option[data-mood="Stressed"] { background: linear-gradient(135deg, #FF4040, #FF6666); color: #fff; }
-        .mood-option[data-mood="Tired"] { background: linear-gradient(135deg, #A9A9A9, #C0C0C0); color: #333; }
-        .mood-option[data-mood="Bored"] { background: linear-gradient(135deg, #808080, #A9A9A9); color: #fff; }
-        .mood-option[data-mood="Excited"] { background: linear-gradient(135deg, #FF69B4, #FF85C2); color: #fff; }
-        .mood-option[data-mood="Relaxed"] { background: linear-gradient(135deg, #32CD32, #4DED4D); color: #333; }
-        .mood-option[data-mood="Happy"] { background: linear-gradient(135deg, #FFD700, #FFE066); color: #333; }
         .recommendation {
             display: none;
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white to blend with hero */
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -233,7 +233,7 @@
             position: relative;
             border-left: 4px solid transparent;
             max-width: 600px;
-            color: #333; /* Darker text for readability */
+            color: #333;
         }
         .recommendation.active {
             display: block;
@@ -263,60 +263,90 @@
             outline: 2px solid #FFD700;
             outline-offset: 2px;
         }
-        .recommendation h3 {
-            margin-bottom: 15px;
-            font-size: 1.5em;
+        .recommendation .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .recommendation .header h2 {
+            font-size: 1.8em;
             font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 5px;
         }
-        .recommendation p {
-            color: #555;
-            line-height: 1.6;
+        .recommendation .header p {
             font-size: 1em;
-            margin-bottom: 15px;
+            color: #555;
+            font-style: italic;
         }
-        .recommendation ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
+        .recommendation .activity {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
         }
-        .recommendation li {
-            margin-bottom: 10px;
-            line-height: 1.6;
+        .recommendation .activity:hover {
+            background: #f5f5f5;
         }
-        .recommendation a {
+        .recommendation .activity i {
+            font-size: 1.5em;
             color: #4A90E2;
+        }
+        .recommendation .activity div {
+            flex: 1;
+        }
+        .recommendation .activity h4 {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .recommendation .activity p {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .recommendation .activity a {
+            color: #4A90E2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .recommendation .activity a:hover {
             text-decoration: underline;
         }
-        .recommendation a:hover {
-            color: #2C3E50;
-        }
-        .expert-explanation {
-            background-color: #f0f0f0;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 10px;
+        .recommendation .expert-explanation {
             font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            background: #f0f0f0;
+            padding: 10px;
+            border-left: 3px solid #4A90E2;
+            border-radius: 5px;
             line-height: 1.5;
         }
         .recommendation[data-mood="Sad"] { border-left-color: #4A90E2; }
-        .recommendation[data-mood="Sad"] h3 { color: #4A90E2; }
+        .recommendation[data-mood="Sad"] .header h2 { color: #4A90E2; }
         .recommendation[data-mood="Angry"] { border-left-color: #FF6B6B; }
-        .recommendation[data-mood="Angry"] h3 { color: #FF6B6B; }
+        .recommendation[data-mood="Angry"] .header h2 { color: #FF6B6B; }
         .recommendation[data-mood="Frustrated"] { border-left-color: #FF8C00; }
-        .recommendation[data-mood="Frustrated"] h3 { color: #FF8C00; }
+        .recommendation[data-mood="Frustrated"] .header h2 { color: #FF8C00; }
         .recommendation[data-mood="Anxious"] { border-left-color: #FFD700; }
-        .recommendation[data-mood="Anxious"] h3 { color: #FFD700; }
+        .recommendation[data-mood="Anxious"] .header h2 { color: #FFD700; }
         .recommendation[data-mood="Stressed"] { border-left-color: #FF4040; }
-        .recommendation[data-mood="Stressed"] h3 { color: #FF4040; }
+        .recommendation[data-mood="Stressed"] .header h2 { color: #FF4040; }
         .recommendation[data-mood="Tired"] { border-left-color: #A9A9A9; }
-        .recommendation[data-mood="Tired"] h3 { color: #A9A9A9; }
+        .recommendation[data-mood="Tired"] .header h2 { color: #A9A9A9; }
         .recommendation[data-mood="Bored"] { border-left-color: #808080; }
-        .recommendation[data-mood="Bored"] h3 { color: #808080; }
+        .recommendation[data-mood="Bored"] .header h2 { color: #808080; }
         .recommendation[data-mood="Excited"] { border-left-color: #FF69B4; }
-        .recommendation[data-mood="Excited"] h3 { color: #FF69B4; }
+        .recommendation[data-mood="Excited"] .header h2 { color: #FF69B4; }
         .recommendation[data-mood="Relaxed"] { border-left-color: #32CD32; }
-        .recommendation[data-mood="Relaxed"] h3 { color: #32CD32; }
+        .recommendation[data-mood="Relaxed"] .header h2 { color: #32CD32; }
         .recommendation[data-mood="Happy"] { border-left-color: #FFD700; }
-        .recommendation[data-mood="Happy"] h3 { color: #FFD700; }
+        .recommendation[data-mood="Happy"] .header h2 { color: #FFD700; }
         .content-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -526,29 +556,37 @@
                 padding-top: 130px;
             }
             .hero {
-                padding: 40px 15px; /* Further reduced for mobile */
+                padding: 40px 15px;
             }
             .hero h1 {
                 font-size: 1.8em;
             }
             .mood-grid {
-                min-height: 500px;
+                flex-direction: column;
+                align-items: center;
             }
             .mood-option {
-                padding: 10px 20px;
-                font-size: 1em;
-                min-width: 100px;
+                width: 100%;
+                max-width: 300px;
+                height: auto;
+                padding: 15px;
             }
             .recommendation {
                 margin: 20px 10px;
                 max-width: 100%;
                 padding: 20px;
             }
-            .recommendation h3 {
-                font-size: 1.3em;
+            .recommendation .header h2 {
+                font-size: 1.5em;
             }
-            .recommendation p, .recommendation li {
+            .recommendation .header p {
                 font-size: 0.95em;
+            }
+            .recommendation .activity h4 {
+                font-size: 1.1em;
+            }
+            .recommendation .activity p {
+                font-size: 0.9em;
             }
             .content-wrapper {
                 flex-direction: column;
@@ -602,207 +640,426 @@
             <p>Discover science-backed activities tailored to how you feel right now.</p>
             <button class="mood-button" id="moodButton" tabindex="0" aria-label="Open mood selection">How are you feeling?</button>
             <div class="mood-grid" id="moodGrid">
-                <div class="mood-option" data-mood="Sad" tabindex="0" aria-label="Select Sad mood">😢 Sad</div>
-                <div class="mood-option" data-mood="Angry" tabindex="0" aria-label="Select Angry mood">😡 Angry</div>
-                <div class="mood-option" data-mood="Frustrated" tabindex="0" aria-label="Select Frustrated mood">😤 Frustrated</div>
-                <div class="mood-option" data-mood="Anxious" tabindex="0" aria-label="Select Anxious mood">😟 Anxious</div>
-                <div class="mood-option" data-mood="Stressed" tabindex="0" aria-label="Select Stressed mood">😫 Stressed</div>
-                <div class="mood-option" data-mood="Tired" tabindex="0" aria-label="Select Tired mood">😴 Tired</div>
-                <div class="mood-option" data-mood="Bored" tabindex="0" aria-label="Select Bored mood">😐 Bored</div>
-                <div class="mood-option" data-mood="Excited" tabindex="0" aria-label="Select Excited mood">🎉 Excited</div>
-                <div class="mood-option" data-mood="Relaxed" tabindex="0" aria-label="Select Relaxed mood">🧘 Relaxed</div>
-                <div class="mood-option" data-mood="Happy" tabindex="0" aria-label="Select Happy mood">😊 Happy</div>
+                <div class="mood-option" data-mood="Sad" tabindex="0" aria-label="Select Sad mood">
+                    <i class="fas fa-frown"></i>
+                    <span>Sad</span>
+                    <p>Feeling down? Let’s lift your spirits.</p>
+                </div>
+                <div class="mood-option" data-mood="Angry" tabindex="0" aria-label="Select Angry mood">
+                    <i class="fas fa-angry"></i>
+                    <span>Angry</span>
+                    <p>Need to vent? Let’s channel your energy.</p>
+                </div>
+                <div class="mood-option" data-mood="Frustrated" tabindex="0" aria-label="Select Frustrated mood">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Frustrated</span>
+                    <p>Feeling stuck? Let’s reset your mind.</p>
+                </div>
+                <div class="mood-option" data-mood="Anxious" tabindex="0" aria-label="Select Anxious mood">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Anxious</span>
+                    <p>Feeling nervous? Let’s calm your mind.</p>
+                </div>
+                <div class="mood-option" data-mood="Stressed" tabindex="0" aria-label="Select Stressed mood">
+                    <i class="fas fa-bolt"></i>
+                    <span>Stressed</span>
+                    <p>Overwhelmed? Let’s ease the tension.</p>
+                </div>
+                <div class="mood-option" data-mood="Tired" tabindex="0" aria-label="Select Tired mood">
+                    <i class="fas fa-bed"></i>
+                    <span>Tired</span>
+                    <p>Low energy? Let’s recharge you.</p>
+                </div>
+                <div class="mood-option" data-mood="Bored" tabindex="0" aria-label="Select Bored mood">
+                    <i class="fas fa-meh"></i>
+                    <span>Bored</span>
+                    <p>Need inspiration? Let’s spark your interest.</p>
+                </div>
+                <div class="mood-option" data-mood="Excited" tabindex="0" aria-label="Select Excited mood">
+                    <i class="fas fa-star"></i>
+                    <span>Excited</span>
+                    <p>Feeling energized? Let’s harness it.</p>
+                </div>
+                <div class="mood-option" data-mood="Relaxed" tabindex="0" aria-label="Select Relaxed mood">
+                    <i class="fas fa-spa"></i>
+                    <span>Relaxed</span>
+                    <p>Feeling calm? Let’s enhance your peace.</p>
+                </div>
+                <div class="mood-option" data-mood="Happy" tabindex="0" aria-label="Select Happy mood">
+                    <i class="fas fa-smile"></i>
+                    <span>Happy</span>
+                    <p>Feeling great? Let’s keep it going.</p>
+                </div>
             </div>
-            <!-- Recommendations moved inside hero section -->
             <div class="recommendation" id="SadRecommendation" data-mood="Sad" role="region" aria-label="Recommendation for Sad mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Sad</h3>
-                <p>Lift your spirits with these science-backed activities:</p>
-                <ul>
-                    <li><a href="activities.html">Gratitude Note</a>: Reflect on positive moments.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Gratitude activates the prefrontal cortex, regulating emotional processing and reducing sadness, as Huberman notes in his work on neural plasticity.
+                <div class="header">
+                    <h2>You're Feeling Sad</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-pen"></i>
+                    <div>
+                        <h4><a href="activities.html">Gratitude Note</a></h4>
+                        <p>Write down three things you’re thankful for to shift your focus to positivity.</p>
+                        <div class="expert-explanation">
+                            “Gratitude activates the prefrontal cortex, enhancing emotional regulation and reducing sadness.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Calm your body and mind.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Matt Walker):</strong> Progressive Muscle Relaxation reduces emotional distress by releasing physical tension, calming the amygdala and promoting relaxation, as supported by stress research.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-walking"></i>
+                    <div>
+                        <h4>Nature Walk</h4>
+                        <p>Take a 15-minute walk in a park or green space to boost your mood.</p>
+                        <div class="expert-explanation">
+                            “Exposure to nature reduces stress and improves mood by activating restorative brain pathways.” – Dr. Roger Ulrich, Environmental Psychologist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Breathing Exercise</a>: Try slow, deep breaths.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Deep breathing stimulates the vagus nerve, reducing sadness by activating the parasympathetic nervous system, as Huberman explains.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-headphones"></i>
+                    <div>
+                        <h4>Listen to Uplifting Music</h4>
+                        <p>Play an upbeat playlist to increase dopamine and lift your spirits.</p>
+                        <div class="expert-explanation">
+                            “Music can stimulate dopamine release, improving mood and emotional well-being.” – Dr. Daniel Levitin, Neuroscientist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="AngryRecommendation" data-mood="Angry" role="region" aria-label="Recommendation for Angry mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Angry</h3>
-                <p>Channel your energy with these activities:</p>
-                <ul>
-                    <li><a href="activities.html">Punching Bag</a>: Release tension with a virtual punching bag.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Physical activity reduces cortisol and adrenaline, dissipating anger. Huberman emphasizes that exertion calms the amygdala, restoring emotional balance.
+                <div class="header">
+                    <h2>You're Feeling Angry</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-fist-raised"></i>
+                    <div>
+                        <h4><a href="activities.html">Punching Bag</a></h4>
+                        <p>Release tension by using a virtual punching bag to let out your anger.</p>
+                        <div class="expert-explanation">
+                            “Physical activity reduces cortisol and adrenaline, calming the amygdala and restoring emotional balance.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Breathing Exercise</a>: Practice 4-7-8 breathing.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Slow breathing shifts emotional states by altering physiological arousal, as Barrett’s theory of constructed emotion suggests.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-running"></i>
+                    <div>
+                        <h4>Jumping Jacks</h4>
+                        <p>Do 2 minutes of jumping jacks to release endorphins and diffuse anger.</p>
+                        <div class="expert-explanation">
+                            “Exercise triggers endorphin release, which can quickly reduce feelings of anger.” – Dr. John Ratey, Psychiatrist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Worry Shredder</a>: Write and shred your frustrations.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Expressive writing externalizes anger, reducing amygdala activity and promoting clarity, per Huberman’s stress research.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-lungs"></i>
+                    <div>
+                        <h4><a href="activities.html">Breathing Exercise</a></h4>
+                        <p>Practice 4-7-8 breathing to calm your nervous system.</p>
+                        <div class="expert-explanation">
+                            “Slow breathing alters physiological arousal, shifting anger into calm.” – Dr. Lisa Feldman Barrett, Psychologist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="FrustratedRecommendation" data-mood="Frustrated" role="region" aria-label="Recommendation for Frustrated mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Frustrated</h3>
-                <p>Reset with these activities:</p>
-                <ul>
-                    <li><a href="activities.html">Punching Bag</a>: Release frustration physically.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Physical exertion lowers cortisol, diffusing frustration and calming the amygdala, per Huberman’s stress research.
+                <div class="header">
+                    <h2>You're Feeling Frustrated</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-trash"></i>
+                    <div>
+                        <h4><a href="activities.html">Worry Shredder</a></h4>
+                        <p>Write down what’s frustrating you and shred it to let go.</p>
+                        <div class="expert-explanation">
+                            “Expressive writing reduces amygdala activity, helping process and release frustration.” – Dr. James Pennebaker, Psychologist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Worry Shredder</a>: Write down what’s bothering you.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Conventional wisdom):</strong> Expressive writing reduces amygdala activity, processing negative emotions, as suggested by psychological research.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-running"></i>
+                    <div>
+                        <h4>Jumping Jacks</h4>
+                        <p>Do 2 minutes of jumping jacks to release physical tension.</p>
+                        <div class="expert-explanation">
+                            “Physical activity lowers cortisol, diffusing frustration and calming the mind.” – Dr. John Ratey, Psychiatrist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Breathing Exercise</a>: Try slow breathing.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Breathing alters physiological arousal, reshaping frustration into calm, per Barrett’s emotion construction theory.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-lungs"></i>
+                    <div>
+                        <h4><a href="activities.html">Breathing Exercise</a></h4>
+                        <p>Try slow, deep breathing to reset your emotional state.</p>
+                        <div class="expert-explanation">
+                            “Breathing alters physiological arousal, reshaping frustration into calm.” – Dr. Lisa Feldman Barrett, Psychologist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="AnxiousRecommendation" data-mood="Anxious" role="region" aria-label="Recommendation for Anxious mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Anxious</h3>
-                <p>Calm your mind with these activities:</p>
-                <ul>
-                    <li><a href="activities.html">Breathing Exercise</a>: Try 4-7-8 breathing.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Extended exhalation triggers the parasympathetic response, reducing anxiety by calming the nervous system, as Huberman explains.
+                <div class="header">
+                    <h2>You're Feeling Anxious</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-lungs"></i>
+                    <div>
+                        <h4><a href="activities.html">Breathing Exercise</a></h4>
+                        <p>Try 4-7-8 breathing to calm your nervous system.</p>
+                        <div class="expert-explanation">
+                            “Extended exhalation triggers the parasympathetic response, reducing anxiety.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Color Focus</a>: Ground yourself with a color focus exercise.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Visual focus diverts attention from anxious thoughts, stabilizing heart rate by engaging the occipital lobe, per Huberman’s work.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-eye"></i>
+                    <div>
+                        <h4><a href="activities.html">Color Focus</a></h4>
+                        <p>Ground yourself by focusing on a specific color around you.</p>
+                        <div class="expert-explanation">
+                            “Visual focus diverts attention from anxious thoughts, stabilizing heart rate.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Calm your body and mind.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Matt Walker):</strong> Progressive Muscle Relaxation eases anxiety by systematically releasing muscle tension, lowering sympathetic nervous system activity, as stress studies show.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-walking"></i>
+                    <div>
+                        <h4>Nature Walk</h4>
+                        <p>Take a 15-minute walk in nature to reduce anxiety.</p>
+                        <div class="expert-explanation">
+                            “Nature exposure lowers cortisol levels, promoting calmness.” – Dr. Roger Ulrich, Environmental Psychologist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="StressedRecommendation" data-mood="Stressed" role="region" aria-label="Recommendation for Stressed mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Stressed</h3>
-                <p>Relieve tension with these activities:</p>
-                <ul>
-                    <li><a href="activities.html">Stretch</a>: Try a stretch routine or a <a href="https://amzn.to/4i6jcXK">Weighted Heated Lap Pad</a>.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Stretching releases muscle tension, and weighted pressure calms the nervous system via deep pressure touch, reducing stress, per Huberman.
+                <div class="header">
+                    <h2>You're Feeling Stressed</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-lungs"></i>
+                    <div>
+                        <h4><a href="activities.html">Breathing Exercise</a></h4>
+                        <p>Practice slow breathing to lower cortisol levels.</p>
+                        <div class="expert-explanation">
+                            “Slow breathing activates the vagus nerve, reducing stress.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Worry Shredder</a>: Write and shred your stressors.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Writing externalizes stress, altering emotional perception and reducing amygdala overactivity, as Barrett’s research suggests.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-hands"></i>
+                    <div>
+                        <h4><a href="activities.html">Progressive Muscle Relaxation</a></h4>
+                        <p>Tense and relax each muscle group to release stress.</p>
+                        <div class="expert-explanation">
+                            “Progressive Muscle Relaxation lowers sympathetic activity, reducing stress.” – Dr. Matt Walker, Sleep Scientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Breathing Exercise</a>: Practice slow breathing.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Slow breathing lowers cortisol and activates the vagus nerve, reducing stress, as Huberman’s neuroscience work shows.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-walking"></i>
+                    <div>
+                        <h4>Nature Walk</h4>
+                        <p>Walk in a green space for 15 minutes to de-stress.</p>
+                        <div class="expert-explanation">
+                            “Nature exposure reduces cortisol and promotes relaxation.” – Dr. Roger Ulrich, Environmental Psychologist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="TiredRecommendation" data-mood="Tired" role="region" aria-label="Recommendation for Tired mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Tired</h3>
-                <p>Recharge with these activities:</p>
-                <ul>
-                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Relax your body and mind.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Matt Walker):</strong> Progressive Muscle Relaxation promotes relaxation by releasing muscle tension, helping combat fatigue and supporting rest, as stress research demonstrates.
+                <div class="header">
+                    <h2>You're Feeling Tired</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-hands"></i>
+                    <div>
+                        <h4><a href="activities.html">Progressive Muscle Relaxation</a></h4>
+                        <p>Relax your body to combat fatigue and promote rest.</p>
+                        <div class="expert-explanation">
+                            “Progressive Muscle Relaxation releases tension, supporting rest.” – Dr. Matt Walker, Sleep Scientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Breathing Exercise</a>: Try a relaxing breath cycle.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Slow breathing reduces heart rate and prepares the body for rest, enhancing energy, per Huberman’s work on arousal.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-lungs"></i>
+                    <div>
+                        <h4><a href="activities.html">Breathing Exercise</a></h4>
+                        <p>Try a relaxing breath cycle to boost energy.</p>
+                        <div class="expert-explanation">
+                            “Slow breathing prepares the body for rest, enhancing energy.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Stretch</a>: Do a gentle stretch routine.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Matt Walker):</strong> Gentle movement increases blood flow, reducing fatigue and supporting sleep readiness, as Walker’s studies suggest.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-running"></i>
+                    <div>
+                        <h4>Jumping Jacks</h4>
+                        <p>Do 2 minutes of jumping jacks to invigorate your body.</p>
+                        <div class="expert-explanation">
+                            “Light exercise increases blood flow, reducing fatigue.” – Dr. John Ratey, Psychiatrist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="BoredRecommendation" data-mood="Bored" role="region" aria-label="Recommendation for Bored mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Bored</h3>
-                <p>Spark interest with these activities:</p>
-                <ul>
-                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Engage your body and mind.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Progressive Muscle Relaxation engages your body and mind, reducing boredom by focusing on physical sensations, as stress research suggests.
+                <div class="header">
+                    <h2>You're Feeling Bored</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-pen-fancy"></i>
+                    <div>
+                        <h4><a href="activities.html">Doodle</a></h4>
+                        <p>Sketch freely to engage your creativity and spark interest.</p>
+                        <div class="expert-explanation">
+                            “Creative tasks engage the prefrontal cortex, reducing boredom.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Guided Meditation</a>: Engage your mind with mindfulness.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Guided Meditation engages your mind by focusing attention, reducing boredom through mindfulness, as Huberman’s focus studies show.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-headphones"></i>
+                    <div>
+                        <h4>Listen to Uplifting Music</h4>
+                        <p>Play an upbeat playlist to stimulate your brain.</p>
+                        <div class="expert-explanation">
+                            “Music stimulates dopamine, increasing engagement and interest.” – Dr. Daniel Levitin, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Color Focus</a>: Engage with a color focus exercise.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Visual engagement shifts emotional perception, reducing boredom by creating new sensory experiences, per Barrett.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-walking"></i>
+                    <div>
+                        <h4>Nature Walk</h4>
+                        <p>Take a 15-minute walk in nature to inspire curiosity.</p>
+                        <div class="expert-explanation">
+                            “Nature exposure enhances sensory engagement, reducing boredom.” – Dr. Roger Ulrich, Environmental Psychologist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="ExcitedRecommendation" data-mood="Excited" role="region" aria-label="Recommendation for Excited mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Excited</h3>
-                <p>Channel your energy with these activities:</p>
-                <ul>
-                    <li><a href="activities.html">Guided Meditation</a>: Channel your enthusiasm mindfully.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Guided Meditation channels your excitement by focusing your energy, sustaining positive arousal, as Huberman’s focus studies show.
+                <div class="header">
+                    <h2>You're Feeling Excited</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-pen-fancy"></i>
+                    <div>
+                        <h4><a href="activities.html">Doodle</a></h4>
+                        <p>Express your excitement through creative sketching.</p>
+                        <div class="expert-explanation">
+                            “Creative expression channels high arousal into positive outcomes.” – Dr. Lisa Feldman Barrett, Psychologist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Doodle</a>: Express your enthusiasm creatively.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Creative expression channels high arousal into positive outcomes, shaping emotional experiences, as Barrett’s work shows.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-pen"></i>
+                    <div>
+                        <h4><a href="activities.html">Gratitude Note</a></h4>
+                        <p>Reflect on what’s sparking your excitement.</p>
+                        <div class="expert-explanation">
+                            “Gratitude reinforces positive neural circuits, sustaining high energy.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Gratitude Note</a>: Reflect on what’s sparking your excitement.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Gratitude reinforces positive neural circuits, sustaining high energy, per Huberman’s insights on optimism.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-running"></i>
+                    <div>
+                        <h4>Jumping Jacks</h4>
+                        <p>Channel your energy with 2 minutes of jumping jacks.</p>
+                        <div class="expert-explanation">
+                            “Exercise enhances positive arousal, sustaining excitement.” – Dr. John Ratey, Psychiatrist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="RelaxedRecommendation" data-mood="Relaxed" role="region" aria-label="Recommendation for Relaxed mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Relaxed</h3>
-                <p>Enhance your calm with these activities:</p>
-                <ul>
-                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Deepen your relaxation.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Matt Walker):</strong> Progressive Muscle Relaxation deepens relaxation by systematically releasing tension, reducing sympathetic activity, as stress research shows.
+                <div class="header">
+                    <h2>You're Feeling Relaxed</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-hands"></i>
+                    <div>
+                        <h4><a href="activities.html">Progressive Muscle Relaxation</a></h4>
+                        <p>Deepen your relaxation by tensing and relaxing each muscle group.</p>
+                        <div class="expert-explanation">
+                            “Progressive Muscle Relaxation deepens relaxation by reducing sympathetic activity.” – Dr. Matt Walker, Sleep Scientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Gratitude Note</a>: Reflect on positive moments.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Gratitude reinforces positive neural circuits, sustaining calm, as Huberman’s optimism research shows.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-walking"></i>
+                    <div>
+                        <h4>Nature Walk</h4>
+                        <p>Take a leisurely 15-minute walk in nature to maintain your calm.</p>
+                        <div class="expert-explanation">
+                            “Nature exposure enhances relaxation and mental clarity.” – Dr. Roger Ulrich, Environmental Psychologist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Stretch</a>: Try a gentle stretch routine.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Stretching maintains relaxation by releasing muscle tension and boosting endorphins, per Huberman’s work.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-headphones"></i>
+                    <div>
+                        <h4>Listen to Calming Music</h4>
+                        <p>Play a soothing playlist to sustain your relaxed state.</p>
+                        <div class="expert-explanation">
+                            “Calming music reduces stress hormones, enhancing relaxation.” – Dr. Daniel Levitin, Neuroscientist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
             <div class="recommendation" id="HappyRecommendation" data-mood="Happy" role="region" aria-label="Recommendation for Happy mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
-                <h3>You're Feeling Happy!</h3>
-                <p>Keep that positive vibe going with these expert-recommended activities:</p>
-                <ul>
-                    <li><a href="activities.html">Progressive Muscle Relaxation</a>: Maintain your positive mood.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Progressive Muscle Relaxation maintains your positive mood by releasing any subtle tension, keeping you grounded, as stress research suggests.
+                <div class="header">
+                    <h2>You're Feeling Happy!</h2>
+                    <p>Science-Backed Solutions to Transform Your Mood</p>
+                </div>
+                <div class="activity">
+                    <i class="fas fa-pen"></i>
+                    <div>
+                        <h4><a href="activities.html">Gratitude Note</a></h4>
+                        <p>Write down three things you’re thankful for to sustain your positivity.</p>
+                        <div class="expert-explanation">
+                            “Gratitude strengthens neural pathways for optimism, sustaining happiness.” – Dr. Lisa Feldman Barrett, Psychologist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Gratitude Note</a>: Write down three things you’re thankful for.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Lisa Feldman Barrett):</strong> Gratitude reshapes emotional perception by focusing on positive experiences, strengthening neural pathways for optimism, as Barrett’s work on emotion construction suggests.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-pen-fancy"></i>
+                    <div>
+                        <h4><a href="activities.html">Doodle</a></h4>
+                        <p>Express your happiness through creative sketching.</p>
+                        <div class="expert-explanation">
+                            “Creative tasks channel positive energy into productive outlets.” – Dr. Andrew Huberman, Neuroscientist
+                        </div>
                     </div>
-                    <li><a href="activities.html">Doodle</a>: Express your happiness through creative sketching.</li>
-                    <div class="expert-explanation">
-                        <strong>Why it helps (Dr. Andrew Huberman):</strong> Creative tasks like doodling engage the prefrontal cortex, channeling positive energy into productive outlets, per Huberman’s insights on neural creativity.
+                </div>
+                <div class="activity">
+                    <i class="fas fa-headphones"></i>
+                    <div>
+                        <h4>Listen to Uplifting Music</h4>
+                        <p>Play an upbeat playlist to keep your positive vibe going.</p>
+                        <div class="expert-explanation">
+                            “Music stimulates dopamine, enhancing feelings of happiness.” – Dr. Daniel Levitin, Neuroscientist
+                        </div>
                     </div>
-                </ul>
+                </div>
             </div>
         </div>
         <div class="content-wrapper">
@@ -875,60 +1132,10 @@
             const grid = document.getElementById('moodGrid');
             if (grid) {
                 grid.classList.toggle('active');
-                if (grid.classList.contains('active')) {
-                    positionMoodButtons();
-                    setTimeout(positionInTwoRows, 1000);
-                }
                 console.log('Mood grid toggled:', grid.classList.contains('active') ? 'visible' : 'hidden');
             } else {
                 console.error('Mood grid element not found');
             }
-        }
-
-        function positionMoodButtons() {
-            const moodOptions = document.querySelectorAll('.mood-option');
-            const grid = document.getElementById('moodGrid');
-            const gridWidth = grid.offsetWidth;
-            const gridHeight = grid.offsetHeight;
-            const centerX = gridWidth / 2;
-            const centerY = gridHeight / 2;
-            const buttonCount = moodOptions.length;
-            const avgButtonWidth = 120;
-            const avgButtonHeight = 40;
-            const minRadius = Math.max(avgButtonWidth * buttonCount / (2 * Math.PI), 150) * 1.5;
-            const maxRadius = Math.min(gridWidth, gridHeight) / 2 - Math.max(avgButtonWidth, avgButtonHeight);
-            const radius = Math.min(minRadius, maxRadius) * 0.9;
-
-            moodOptions.forEach((option, index) => {
-                const angle = (index / buttonCount) * 2 * Math.PI;
-                const x = centerX + radius * Math.cos(angle) - (avgButtonWidth / 2);
-                const y = centerY + radius * Math.sin(angle) - (avgButtonHeight / 2);
-                option.style.left = `${x}px`;
-                option.style.top = `${y}px`;
-                option.style.animationDelay = `${index * 0.1}s`;
-            });
-        }
-
-        function positionInTwoRows() {
-            const moodOptions = document.querySelectorAll('.mood-option');
-            const grid = document.getElementById('moodGrid');
-            const gridWidth = grid.offsetWidth;
-            const buttonsPerRow = 5;
-            const buttonWidth = 120;
-            const buttonHeight = 40;
-            const gap = 30;
-            const totalRowWidth = (buttonWidth * buttonsPerRow) + (gap * (buttonsPerRow - 1));
-            const startX = (gridWidth - totalRowWidth) / 2;
-            const rowHeight = buttonHeight + gap;
-
-            moodOptions.forEach((option, index) => {
-                const row = Math.floor(index / buttonsPerRow);
-                const col = index % buttonsPerRow;
-                const x = startX + (col * (buttonWidth + gap));
-                const y = 50 + (row * rowHeight);
-                option.style.left = `${x}px`;
-                option.style.top = `${y}px`;
-            });
         }
 
         function showRecommendation(mood) {
@@ -1053,13 +1260,7 @@
                 console.error('Ad player element not found');
             }
 
-            window.addEventListener('resize', () => {
-                if (document.getElementById('moodGrid').classList.contains('active')) {
-                    positionMoodButtons();
-                    setTimeout(positionInTwoRows, 1000);
-                }
-                adjustMainContentPadding();
-            });
+            window.addEventListener('resize', adjustMainContentPadding);
         });
     </script>
 </body>

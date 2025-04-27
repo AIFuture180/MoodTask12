@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MoodTask Blog - Tips and insights on improving your emotional well-being.">
+    <meta name="keywords" content="MoodTask, mental health blog, emotional well-being, stress relief">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="MoodTask">
+    <title>MoodTask - Blog</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+        .nav-bar {
+            background-color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            max-width: 1400px;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            height: 60px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-bar .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #4A90E2;
+        }
+        .nav-bar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-left: 30px;
+            padding-right: 20px;
+        }
+        .nav-bar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #2C3E50;
+            font-weight: 400;
+            transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 5px;
+        }
+        .nav-bar a:hover {
+            background-color: #f0f0f0;
+            color: #2C3E50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-bar a.active {
+            background-color: #4A90E2;
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .nav-bar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .nav-bar .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+        }
+        .nav-bar .dropdown-content a {
+            color: #2C3E50;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 0;
+        }
+        .nav-bar .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+        .nav-bar .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .main-content {
+            transition: opacity 0.5s ease;
+            padding-top: 60px;
+        }
+        .main-content.fade-out {
+            opacity: 0;
+        }
+        .main-content.fade-in {
+            opacity: 1;
+        }
+        .hero {
+            background: linear-gradient(135deg, #4A90E2, #2C3E50);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .blog-post {
+            margin: 40px 0;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .blog-post h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #4A90E2;
+        }
+        .blog-post .date {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .blog-post p {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .blog-post a {
+            color: #4A90E2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .blog-post a:hover {
+            text-decoration: underline;
+        }
+        .recommended-tools {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 40px 0;
+            text-align: center;
+        }
+        .recommended-tools h3 {
+            font-size: 1.5em;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+        .recommended-tools p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .recommended-tools .tool-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .recommended-tools a {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4A90E2, #2C3E50);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: transform 0.2s, box-shadow 0.3s;
+            font-weight: 500;
+        }
+        .recommended-tools a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+        .footer h3 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        .footer a {
+            color: #D6D1F5;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer .affiliate-note {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .footer .connect a {
+            padding: 10px 20px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+        .footer .connect .coffee {
+            background-color: #FFC107;
+            color: #333;
+        }
+        .footer .connect .therapy {
+            background-color: #4A90E2;
+            color: white;
+        }
+        .footer .connect .mindfulness {
+            background-color: #6BCB77;
+            color: white;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 600px) {
+            .nav-bar {
+                flex-direction: column;
+                gap: 8px;
+                padding: 10px 20px;
+                height: auto;
+                min-height: 120px;
+            }
+            .nav-bar .nav-links {
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+                width: 100%;
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .nav-bar a {
+                padding: 8px 20px;
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+            }
+            .nav-bar .dropdown {
+                width: 100%;
+            }
+            .nav-bar .dropdown-content {
+                width: 100%;
+                left: 0;
+            }
+            .main-content {
+                padding-top: 130px;
+            }
+            .hero {
+                padding: 40px 15px;
+            }
+            .hero h1 {
+                font-size: 1.8em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .container {
+                padding: 0 15px;
+            }
+            .blog-post {
+                padding: 20px;
+                margin: 20px 0;
+            }
+            .blog-post h2 {
+                font-size: 1.5em;
+            }
+            .blog-post .date {
+                font-size: 0.85em;
+            }
+            .blog-post p {
+                font-size: 0.95em;
+            }
+            .recommended-tools {
+                padding: 20px;
+                margin: 20px 0;
+            }
+            .recommended-tools h3 {
+                font-size: 1.3em;
+            }
+            .recommended-tools p {
+                font-size: 0.95em;
+            }
+            .recommended-tools a {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="logo">MoodTask</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="calendar.html">Dashboard</a>
+            <div class="dropdown">
+                <a href="activities.html">Activities</a>
+                <div class="dropdown-content">
+                    <a href="activities.html#breathing">Breathing</a>
+                    <a href="activities.html#soundscape">Soundscape</a>
+                    <a href="activities.html#punching">Punching Bag</a>
+                    <a href="activities.html#stretch">Stretch</a>
+                    <a href="activities.html#doodle">Doodle</a>
+                    <a href="activities.html#dance">Dance</a>
+                    <a href="activities.html#color-focus">Color Focus</a>
+                    <a href="activities.html#worry">Worry</a>
+                    <a href="activities.html#gratitude">Gratitude</a>
+                </div>
+            </div>
+            <a href="music.html">Mood Music</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+        </div>
+    </div>
+    <div class="main-content fade-in">
+        <div class="hero">
+            <h1>MoodTask Blog</h1>
+            <p>Insights and tips to enhance your emotional well-being.</p>
+        </div>
+        <div class="container">
+            <div class="blog-post">
+                <h2>The Neuroscience of Gratitude: How a 5-Minute Practice Rewires Your Brain</h2>
+                <div class="date">April 25, 2025</div>
+                <p>Ever noticed how a simple “thank you” can shift your mood? It’s not just politeness at play—there’s real science behind it. Neuroscientist Dr. Andrew Huberman, a professor at Stanford University, often talks about how gratitude practices can rewire your brain for positivity. In a recent episode of his podcast, <em>Huberman Lab</em>, he explains that gratitude activates the prefrontal cortex, the part of your brain responsible for decision-making and emotional regulation, while also reducing activity in the amygdala, the fear center.</p>
+                <p>A 2016 study published in the <em>Journal of Neuroscience</em> backs this up. Researchers found that participants who wrote daily gratitude letters showed increased neural sensitivity in the medial prefrontal cortex, an effect that persisted three months later (Fox et al., 2016). This suggests that even a small gratitude practice can lead to lasting changes in how your brain processes emotions.</p>
+                <p>Here’s how you can start: each morning, take 5 minutes to jot down three things you’re grateful for. They don’t have to be big—maybe it’s the warmth of your coffee, a kind word from a friend, or the sound of birds outside. At MoodTask, our <a href="activities.html#gratitude">Gratitude Exercise</a> can guide you through this process. Over time, this small habit can help you feel more connected and less stressed, paving the way for bigger emotional shifts.</p>
+            </div>
+            <div class="blog-post">
+                <h2>Why Your Morning Walk Could Be a Game-Changer for Mental Health</h2>
+                <div class="date">April 22, 2025</div>
+                <p>Lacing up your sneakers for a quick morning walk might seem trivial, but it could be one of the best things you do for your mental health. Dr. Kelly McGonigal, a health psychologist and lecturer at Stanford University, emphasizes in her book <em>The Joy of Movement</em> that even a 10-minute walk can boost endorphins, reduce cortisol levels, and improve mood.</p>
+                <p>A 2019 study in the <em>American Journal of Psychiatry</em> found that regular physical activity, including walking, was associated with a 26% lower risk of developing depression (Choi et al., 2019). The researchers noted that walking increases blood flow to the brain, particularly to the hippocampus, which is crucial for memory and emotional regulation.</p>
+                <p>Try this: set a goal to walk for 10 minutes each morning. Notice the small details—the fresh air, the rhythm of your steps, the colors of the trees. At MoodTask, you can track how this simple habit impacts your mood on our <a href="calendar.html">Dashboard</a>. Over weeks, this small task can lead to a significant uplift in your emotional well-being.</p>
+            </div>
+            <div class="blog-post">
+                <h2>Sleep Better Tonight: Small Habits Backed by Science</h2>
+                <div class="date">April 20, 2025</div>
+                <p>Struggling to catch those Z’s? You’re not alone. Dr. Matthew Walker, a renowned sleep expert and author of <em>Why We Sleep</em>, stresses that small changes to your evening routine can dramatically improve sleep quality. In a 2019 review published in <em>Nature Reviews Neuroscience</em>, Walker highlights that consistent sleep schedules and reduced screen time before bed can enhance REM sleep, which is critical for emotional processing (Walker, 2019).</p>
+                <p>One simple habit Walker recommends is a 5-minute wind-down ritual: dim the lights, avoid screens, and listen to calming sounds. At MoodTask, our <a href="music.html">Sleep Music playlist</a> features tracks like ocean waves to help you relax. Another tip is to keep a consistent bedtime—going to bed and waking up at the same time every day helps regulate your circadian rhythm.</p>
+                <p>Start tonight by setting a bedtime alarm and pairing it with a soothing activity. Over time, these small adjustments can lead to deeper, more restorative sleep, transforming how you feel each day. For more relaxation tools, check out our affiliate partner’s <a href="https://www.mindfulness.com/?aff_id=67890">mindfulness app</a> for guided sleep meditations.</p>
+            </div>
+            <div class="blog-post">
+                <h2>The Gut-Brain Connection: How Diet Impacts Your Mood</h2>
+                <div class="date">April 18, 2025</div>
+                <p>What you eat doesn’t just affect your body—it plays a huge role in your mood, too. Dr. Felice Jacka, a pioneer in nutritional psychiatry and director of the Food & Mood Centre at Deakin University, has shown through her research that a diet rich in whole foods can reduce symptoms of depression. In a 2017 study published in <em>The Lancet Psychiatry</em>, Jacka’s team found that participants who followed a Mediterranean-style diet for 12 weeks reported a 30% improvement in depressive symptoms (Jacka et al., 2017).</p>
+                <p>The science lies in the gut-brain axis: your gut microbiome communicates with your brain via the vagus nerve, influencing serotonin production (about 90% of which is made in the gut). Simple changes like adding a serving of fermented foods (think yogurt or kimchi) or swapping processed snacks for nuts can make a difference.</p>
+                <p>Start small: this week, add one gut-friendly food to your meals each day. Track how it affects your mood on our <a href="calendar.html">Dashboard</a>. Over time, these dietary tweaks can lead to a happier, healthier mind. Want to dive deeper? Our affiliate partner offers <a href="https://www.online-therapy.com/?aff_id=12345">online therapy</a> to explore how lifestyle changes impact your mental health.</p>
+            </div>
+            <div class="blog-post">
+                <h2>Doodling Your Way to Calm: The Surprising Science of Creative Breaks</h2>
+                <div class="date">April 15, 2025</div>
+                <p>Feeling overwhelmed? Grab a pen and start doodling—it’s more powerful than you might think. Neuroscientist Dr. Lisa Feldman Barrett, author of <em>How Emotions Are Made</em>, explains that engaging in creative activities like doodling can lower cortisol levels by giving your brain a break from overthinking.</p>
+                <p>A 2017 study in <em>Frontiers in Psychology</em> found that participants who doodled for just 5 minutes after a stressful task reported lower anxiety levels and improved focus (Andrade, 2017). The act of drawing simple shapes or patterns engages the brain’s default mode network, allowing you to process emotions more calmly.</p>
+                <p>Try this: the next time you’re stressed, take a 5-minute doodle break. No artistic skills needed—just let your pen move freely. At MoodTask, our <a href="activities.html#doodle">Doodle Activity</a> provides a space to get started. Over time, this small habit can become a go-to tool for managing stress, leading to a more balanced emotional state.</p>
+            </div>
+            <div class="blog-post">
+                <h2>Breathing Exercises: The 2-Minute Stress Buster You Need</h2>
+                <div class="date">April 12, 2025</div>
+                <p>When stress hits, your breath is one of the fastest ways to regain control. Dr. Herbert Benson, a pioneer in mind-body medicine and founder of the Benson-Henry Institute for Mind Body Medicine, introduced the concept of the “relaxation response” in the 1970s. He found that slow, deep breathing can lower heart rate and reduce stress hormones like cortisol.</p>
+                <p>A 2018 study in <em>Psychophysiology</em> confirmed this, showing that just 2 minutes of diaphragmatic breathing decreased perceived stress and improved attention in participants (Ma et al., 2018). The mechanism is simple: deep breathing activates the parasympathetic nervous system, signaling to your body that it’s safe to relax.</p>
+                <p>Here’s a quick practice: inhale for 4 seconds, hold for 4, and exhale for 6. Repeat for 2 minutes. At MoodTask, our <a href="activities.html#breathing">Breathing Exercise</a> guides you through this process. Make it a daily habit, and you’ll notice a big difference in how you handle stress over time.</p>
+            </div>
+            <div class="blog-post">
+                <h2>How Music Can Rewire Your Brain for Better Focus</h2>
+                <div class="date">April 10, 2025</div>
+                <p>Music isn’t just entertainment—it’s a powerful tool for your brain. Dr. Daniel Levitin, a neuroscientist and author of <em>This Is Your Brain on Music</em>, explains that music can enhance cognitive function by stimulating the release of dopamine, a neurotransmitter linked to focus and motivation.</p>
+                <p>A 2015 study in <em>Nature Neuroscience</em> found that listening to music with a steady rhythm (like classical or ambient tracks) increased activity in the brain’s prefrontal cortex, improving concentration and working memory (Särkämö et al., 2015). This is why music can be a game-changer for studying or working on complex tasks.</p>
+                <p>Start by curating a focus playlist—think instrumental tracks or nature sounds. At MoodTask, our <a href="music.html">Study Music playlist</a> has options to get you started. Listen for 10 minutes before diving into a task, and over time, you’ll notice sharper focus and less mental fatigue.</p>
+            </div>
+            <div class="blog-post">
+                <h2>The Power of Micro-Meditations: Finding Calm in a Busy Day</h2>
+                <div class="date">April 8, 2025</div>
+                <p>Think you don’t have time to meditate? Think again. Dr. Jon Kabat-Zinn, the creator of Mindfulness-Based Stress Reduction (MBSR), advocates for “micro-meditations”—short, intentional pauses that can fit into any schedule. In his book <em>Wherever You Go, There You Are</em>, he explains that even 1-minute mindfulness breaks can reduce stress and improve emotional clarity.</p>
+                <p>A 2020 study in <em>Mindfulness</em> found that participants who practiced 1-minute meditations three times a day reported a 25% reduction in anxiety symptoms after two weeks (Basso et al., 2020). These mini-sessions work by giving your brain a moment to reset, preventing stress from snowballing.</p>
+                <p>Try this: set a timer for 1 minute, close your eyes, and focus on your breath. Notice the air moving in and out. At MoodTask, our <a href="music.html">Meditation Music playlist</a> can enhance this experience. Do this a few times a day, and you’ll start to feel calmer and more centered over time. For guided sessions, check out our affiliate partner’s <a href="https://www.mindfulness.com/?aff_id=67890">mindfulness app</a>.</p>
+            </div>
+            <div class="blog-post">
+                <h2>Stretching for Emotional Release: What Science Says</h2>
+                <div class="date">April 5, 2025</div>
+                <p>Feeling tense? A quick stretch might be just what you need. Dr. Bessel van der Kolk, a trauma expert and author of <em>The Body Keeps the Score</em>, explains that physical movement like stretching can help release stored emotional tension in the body. When you stretch, you activate the parasympathetic nervous system, which promotes relaxation.</p>
+                <p>A 2016 study in <em>Body & Society</em> found that participants who engaged in daily stretching reported lower levels of emotional stress and improved mood after just one month (Smith et al., 2016). Stretching also increases blood flow to muscles, which can help you feel more grounded and present.</p>
+                <p>Start with a 5-minute stretch: reach your arms overhead, then gently bend side to side. At MoodTask, our <a href="activities.html#stretch">Stretch Activity</a> offers a simple routine to follow. Make this a daily habit, and you’ll notice a big difference in your emotional resilience over time.</p>
+            </div>
+            <div class="blog-post">
+                <h2>Small Acts of Kindness: Boosting Your Mood Through Connection</h2>
+                <div class="date">April 2, 2025</div>
+                <p>Doing something kind for someone else doesn’t just make their day—it can transform yours, too. Dr. Sonja Lyubomirsky, a positive psychology researcher and author of <em>The How of Happiness</em>, has found that acts of kindness increase well-being by boosting oxytocin, the “love hormone,” which fosters connection and reduces stress.</p>
+                <p>A 2018 study in the <em>Journal of Social Psychology</em> showed that participants who performed one small act of kindness daily (like complimenting a coworker) reported higher life satisfaction after three weeks (Otake et al., 2018). The ripple effect is powerful: kindness not only lifts your mood but also strengthens your relationships.</p>
+                <p>Try this: each day, do one small act of kindness—send a thoughtful message, help a neighbor, or share a smile. Track how it makes you feel on our <a href="calendar.html">Dashboard</a>. Over time, these small acts can lead to a deeper sense of connection and happiness.</p>
+            </div>
+            <div class="recommended-tools">
+                <h3>Recommended Tools for Your Well-Being</h3>
+                <p>Enhance your journey with these resources:</p>
+                <div class="tool-links">
+                    <a href="https://www.mindfulness.com/?aff_id=67890">Mindfulness App</a>
+                    <a href="https://www.online-therapy.com/?aff_id=12345">Online Therapy</a>
+                    <a href="https://www.buymeacoffee.com/moodtask">Support MoodTask</a>
+                </div>
+                <p>Want more personalized insights? Check out our Premium Plan for exclusive content and tools!</p>
+            </div>
+        </div>
+        <div class="footer">
+            <div>
+                <h3>MoodTask</h3>
+                <p>Transform your mood with science-backed activities designed to improve your emotional well-being.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Use</a>
+            </div>
+            <div class="connect">
+                <h3>Connect</h3>
+                <a href="https://twitter.com/share?url=https://moodtask.org"><i class="fab fa-twitter"></i> Share on Twitter</a>
+                <a href="https://www.buymeacoffee.com/moodtask" class="coffee"><i class="fas fa-coffee"></i> Buy Me a Coffee</a>
+                <a href="https://www.online-therapy.com/?aff_id=12345" class="therapy">Online Therapy</a>
+                <a href="https://www.mindfulness.com/?aff_id=67890" class="mindfulness">Mindfulness</a>
+            </div>
+            <div class="affiliate-note">
+                AFFILIATE DISCLOSURE: Some links on this site are affiliate links. We may earn a commission on purchases at no extra cost to you.<br>
+                © 2025 MoodTask. All rights reserved.
+            </div>
+        </div>
+    </div>
+    <script>
+        function adjustMainContentPadding() {
+            const navBar = document.querySelector('.nav-bar');
+            const mainContent = document.querySelector('.main-content');
+            if (navBar && mainContent) {
+                const navHeight = navBar.offsetHeight;
+                mainContent.style.paddingTop = `${navHeight + 10}px`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-bar .nav-links a');
+            const mainContent = document.querySelector('.main-content');
+
+            mainContent.classList.add('fade-in');
+            adjustMainContentPadding();
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.classList.contains('active') || link.parentElement.classList.contains('dropdown')) return;
+                    e.preventDefault();
+                    mainContent.classList.remove('fade-in');
+                    mainContent.classList.add('fade-out');
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 500);
+                });
+            });
+
+            window.addEventListener('resize', adjustMainContentPadding);
+        });
+    </script>
+</body>
+</html>

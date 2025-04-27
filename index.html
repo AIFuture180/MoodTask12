@@ -35,9 +35,9 @@
             margin: 0 auto;
             left: 0;
             right: 0;
-            height: 60px; /* Fixed height for desktop */
-            backdrop-filter: blur(5px); /* Subtle blur for premium look */
-            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent */
+            height: 60px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.95);
         }
         .nav-bar .logo {
             font-size: 1.5em;
@@ -101,7 +101,7 @@
         }
         .main-content {
             transition: opacity 0.5s ease;
-            padding-top: 60px; /* Default padding to match nav-bar height */
+            padding-top: 60px;
         }
         .main-content.fade-out {
             opacity: 0;
@@ -112,7 +112,7 @@
         .hero {
             background: linear-gradient(135deg, #4A90E2, #2C3E50);
             color: white;
-            padding: 100px 20px;
+            padding: 60px 20px; /* Reduced padding to bring recommendations closer */
             text-align: center;
             position: relative;
         }
@@ -220,64 +220,20 @@
         .mood-option[data-mood="Excited"] { background: linear-gradient(135deg, #FF69B4, #FF85C2); color: #fff; }
         .mood-option[data-mood="Relaxed"] { background: linear-gradient(135deg, #32CD32, #4DED4D); color: #333; }
         .mood-option[data-mood="Happy"] { background: linear-gradient(135deg, #FFD700, #FFE066); color: #333; }
-        .content-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .welcome-guide {
-            flex: 1;
-            max-width: 600px;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin: 20px;
-            text-align: left;
-        }
-        .welcome-guide h2 {
-            font-size: 1.8em;
-            font-weight: 600;
-            color: #2C3E50;
-            margin-bottom: 15px;
-        }
-        .welcome-guide h3 {
-            font-size: 1.3em;
-            font-weight: 500;
-            color: #4A90E2;
-            margin-top: 20px;
-            margin-bottom: 10MISpx;
-        }
-        .welcome-guide p {
-            font-size: 1em;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 15px;
-        }
-        .welcome-guide a {
-            color: #4A90E2;
-            text-decoration: none;
-        }
-        .welcome-guide a:hover {
-            text-decoration: underline;
-        }
         .recommendation {
             display: none;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white to blend with hero */
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex: 1;
-            max-width: 600px;
-            margin: 20px;
+            margin: 20px auto;
             text-align: left;
             opacity: 0;
             transition: opacity 0.5s ease;
             position: relative;
             border-left: 4px solid transparent;
+            max-width: 600px;
+            color: #333; /* Darker text for readability */
         }
         .recommendation.active {
             display: block;
@@ -361,6 +317,50 @@
         .recommendation[data-mood="Relaxed"] h3 { color: #32CD32; }
         .recommendation[data-mood="Happy"] { border-left-color: #FFD700; }
         .recommendation[data-mood="Happy"] h3 { color: #FFD700; }
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .welcome-guide {
+            flex: 1;
+            max-width: 600px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 20px;
+            text-align: left;
+        }
+        .welcome-guide h2 {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+        .welcome-guide h3 {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: #4A90E2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .welcome-guide p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .welcome-guide a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+        .welcome-guide a:hover {
+            text-decoration: underline;
+        }
         .ad-player {
             flex: 0 0 450px;
             margin: 20px;
@@ -496,21 +496,21 @@
         @media (max-width: 600px) {
             .nav-bar {
                 flex-direction: column;
-                gap: 8px; /* Reduced gap for tighter spacing */
-                padding: 10px 20px; /* Reduced padding */
-                height: auto; /* Allow height to adjust */
-                min-height: 120px; /* Minimum height for mobile */
+                gap: 8px;
+                padding: 10px 20px;
+                height: auto;
+                min-height: 120px;
             }
             .nav-bar .nav-links {
                 flex-direction: column;
-                gap: 8px; /* Reduced gap */
+                gap: 8px;
                 align-items: center;
                 width: 100%;
                 padding-left: 0;
                 padding-right: 0;
             }
             .nav-bar a {
-                padding: 8px 20px; /* Reduced padding */
+                padding: 8px 20px;
                 width: 100%;
                 text-align: center;
                 box-sizing: border-box;
@@ -523,10 +523,10 @@
                 left: 0;
             }
             .main-content {
-                padding-top: 130px; /* Increased padding to account for taller nav-bar on mobile */
+                padding-top: 130px;
             }
             .hero {
-                padding: 60px 15px;
+                padding: 40px 15px; /* Further reduced for mobile */
             }
             .hero h1 {
                 font-size: 1.8em;
@@ -538,6 +538,17 @@
                 padding: 10px 20px;
                 font-size: 1em;
                 min-width: 100px;
+            }
+            .recommendation {
+                margin: 20px 10px;
+                max-width: 100%;
+                padding: 20px;
+            }
+            .recommendation h3 {
+                font-size: 1.3em;
+            }
+            .recommendation p, .recommendation li {
+                font-size: 0.95em;
             }
             .content-wrapper {
                 flex-direction: column;
@@ -561,17 +572,6 @@
                 flex: 0 0 450px;
                 margin: 20px auto;
                 text-align: center;
-            }
-            .recommendation {
-                margin: 20px auto;
-                max-width: 100%;
-                padding: 20px;
-            }
-            .recommendation h3 {
-                font-size: 1.3em;
-            }
-            .recommendation p, .recommendation li {
-                font-size: 0.95em;
             }
             .ad-player video {
                 width: 100%;
@@ -613,38 +613,7 @@
                 <div class="mood-option" data-mood="Relaxed" tabindex="0" aria-label="Select Relaxed mood">🧘 Relaxed</div>
                 <div class="mood-option" data-mood="Happy" tabindex="0" aria-label="Select Happy mood">😊 Happy</div>
             </div>
-        </div>
-        <div class="content-wrapper">
-            <div class="welcome-guide">
-                <h2>Welcome to MoodTask</h2>
-                <p>MoodTask is your go-to platform for improving your emotional well-being through personalized, science-backed activities. Whether you’re feeling sad, stressed, or excited, we’re here to help you navigate your emotions with tools designed to transform your mood. Our mission is to empower you with practical, accessible ways to manage stress, boost happiness, and find balance in your daily life.</p>
-                
-                <h3>Why MoodTask Works</h3>
-                <p>Our activities are rooted in science, drawing on principles from neuroscience and psychology to help you feel better. For example, engaging in gratitude exercises can increase dopamine and serotonin levels, enhancing your mood naturally. Breathing techniques activate the parasympathetic nervous system to reduce stress, while creative tasks like doodling stimulate the brain’s reward centers. MoodTask offers a variety of tools to suit your needs, ensuring you have the right support for any emotional state.</p>
-                
-                <h3>How to Use This Page</h3>
-                <p>Start by clicking the “How are you feeling?” button above to reveal a grid of mood options. Select the mood that best matches your current state—whether it’s anxious, happy, or tired—and you’ll receive tailored recommendations for activities to try. Each suggestion links to our <a href="activities.html">Activities</a> page, where you can explore tools like breathing exercises, guided meditation, or gratitude notes. Your mood is saved for the day, so you can track your emotional journey over time on the <a href="calendar.html">Dashboard</a>.</p>
-                
-                <h3>Explore More Features</h3>
-                <p>MoodTask offers more than just activities! Check out our <a href="music.html">Mood Music</a> page for playlists to match or shift your mood, or visit our <a href="blog.html">Blog</a> for tips on mindfulness, stress management, and emotional wellness. Start your journey with MoodTask today and discover how small, intentional actions can lead to big improvements in how you feel!</p>
-            </div>
-            <div class="ad-player" id="adPlayer">
-                <a href="https://amzn.to/4jbEB3h" target="_blank">
-                    <video autoplay muted loop controls poster="https://via.placeholder.com/450x75?text=AG1+Product+Shot">
-                        <source src="./AG1 Clip.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </a>
-                <div class="ad-content">
-                    <a href="https://amzn.to/4jbEB3h" target="_blank" class="ad-player-text">
-                        <i class="fas fa-leaf"></i> Discover <span class="highlight">AG1</span> – a daily health drink with <span class="highlight">75 nutrients</span> to help <span class="highlight">alleviate bloating</span> and support <span class="highlight">sustained energy</span>.
-                        <span class="benefit-tooltip">Also supports gut health!</span>
-                    </a>
-                    <a href="https://amzn.to/4jbEB3h" target="_blank" class="cta-button">
-                        Try AG1 Today
-                    </a>
-                </div>
-            </div>
+            <!-- Recommendations moved inside hero section -->
             <div class="recommendation" id="SadRecommendation" data-mood="Sad" role="region" aria-label="Recommendation for Sad mood">
                 <a href="#" class="back-button" tabindex="0" aria-label="Back to mood selection">Back to Mood Selection</a>
                 <h3>You're Feeling Sad</h3>
@@ -836,6 +805,38 @@
                 </ul>
             </div>
         </div>
+        <div class="content-wrapper">
+            <div class="welcome-guide">
+                <h2>Welcome to MoodTask</h2>
+                <p>MoodTask is your go-to platform for improving your emotional well-being through personalized, science-backed activities. Whether you’re feeling sad, stressed, or excited, we’re here to help you navigate your emotions with tools designed to transform your mood. Our mission is to empower you with practical, accessible ways to manage stress, boost happiness, and find balance in your daily life.</p>
+                
+                <h3>Why MoodTask Works</h3>
+                <p>Our activities are rooted in science, drawing on principles from neuroscience and psychology to help you feel better. For example, engaging in gratitude exercises can increase dopamine and serotonin levels, enhancing your mood naturally. Breathing techniques activate the parasympathetic nervous system to reduce stress, while creative tasks like doodling stimulate the brain’s reward centers. MoodTask offers a variety of tools to suit your needs, ensuring you have the right support for any emotional state.</p>
+                
+                <h3>How to Use This Page</h3>
+                <p>Start by clicking the “How are you feeling?” button above to reveal a grid of mood options. Select the mood that best matches your current state—whether it’s anxious, happy, or tired—and you’ll receive tailored recommendations for activities to try. Each suggestion links to our <a href="activities.html">Activities</a> page, where you can explore tools like breathing exercises, guided meditation, or gratitude notes. Your mood is saved for the day, so you can track your emotional journey over time on the <a href="calendar.html">Dashboard</a>.</p>
+                
+                <h3>Explore More Features</h3>
+                <p>MoodTask offers more than just activities! Check out our <a href="music.html">Mood Music</a> page for playlists to match or shift your mood, or visit our <a href="blog.html">Blog</a> for tips on mindfulness, stress management, and emotional wellness. Start your journey with MoodTask today and discover how small, intentional actions can lead to big improvements in how you feel!</p>
+            </div>
+            <div class="ad-player" id="adPlayer">
+                <a href="https://amzn.to/4jbEB3h" target="_blank">
+                    <video autoplay muted loop controls poster="https://via.placeholder.com/450x75?text=AG1+Product+Shot">
+                        <source src="./AG1 Clip.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </a>
+                <div class="ad-content">
+                    <a href="https://amzn.to/4jbEB3h" target="_blank" class="ad-player-text">
+                        <i class="fas fa-leaf"></i> Discover <span class="highlight">AG1</span> – a daily health drink with <span class="highlight">75 nutrients</span> to help <span class="highlight">alleviate bloating</span> and support <span class="highlight">sustained energy</span>.
+                        <span class="benefit-tooltip">Also supports gut health!</span>
+                    </a>
+                    <a href="https://amzn.to/4jbEB3h" target="_blank" class="cta-button">
+                        Try AG1 Today
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="footer">
             <div>
                 <h3>MoodTask</h3>
@@ -861,13 +862,12 @@
         </div>
     </div>
     <script>
-        // Dynamically adjust padding-top for main-content based on nav-bar height
         function adjustMainContentPadding() {
             const navBar = document.querySelector('.nav-bar');
             const mainContent = document.querySelector('.main-content');
             if (navBar && mainContent) {
                 const navHeight = navBar.offsetHeight;
-                mainContent.style.paddingTop = `${navHeight + 10}px`; // Add a small buffer
+                mainContent.style.paddingTop = `${navHeight + 10}px`;
             }
         }
 
@@ -968,21 +968,17 @@
             const navLinks = document.querySelectorAll('.nav-bar .nav-links a');
             const mainContent = document.querySelector('.main-content');
 
-            // Fade in on page load
             mainContent.classList.add('fade-in');
-
-            // Adjust padding on load
             adjustMainContentPadding();
 
-            // Fade out when navigating away
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent immediate navigation
+                    e.preventDefault();
                     mainContent.classList.remove('fade-in');
                     mainContent.classList.add('fade-out');
                     setTimeout(() => {
-                        window.location.href = link.href; // Navigate after fade-out
-                    }, 500); // Match the CSS transition duration
+                        window.location.href = link.href;
+                    }, 500);
                 });
             });
 
@@ -1062,7 +1058,7 @@
                     positionMoodButtons();
                     setTimeout(positionInTwoRows, 1000);
                 }
-                adjustMainContentPadding(); // Adjust padding on resize
+                adjustMainContentPadding();
             });
         });
     </script>

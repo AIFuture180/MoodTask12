@@ -70,6 +70,12 @@
             font-weight: 600;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+        .hamburger {
+            display: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #2C3E50;
+        }
         .main-content {
             transition: opacity 0.5s ease;
             padding-top: 60px;
@@ -95,134 +101,155 @@
             font-size: 1.2em;
             margin-bottom: 30px;
         }
-        .mood-button {
-            padding: 15px 30px;
-            background-color: #FFC107;
-            color: #333;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            animation: pulse 2s infinite;
-            position: relative;
-            z-index: 10;
-        }
-        .mood-button:hover {
-            background-color: #FFB300;
-            transform: scale(1.05);
-        }
-        .mood-button:focus {
-            outline: 2px solid #FFD700;
-            outline-offset: 2px;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); }
-            50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 193, 7, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); }
-        }
-        .calendar-grid {
-            display: none;
+        .tracking-grid {
             margin-top: 30px;
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
         }
-        .calendar-grid.active {
-            display: flex !important;
-        }
-        .calendar-day {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 15px;
-            text-align: center;
+        .tracking-card {
+            background-color: #fff;
+            padding: 20px;
             border-radius: 10px;
-            font-size: 1em;
-            font-weight: 500;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            width: 100px;
-            height: 100px;
-            border: 2px solid transparent;
-            transition: transform 0.3s, background 0.3s, border 0.3s;
-            opacity: 0;
-            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
-        .calendar-grid.active .calendar-day {
-            animation: fadeIn 0.5s ease forwards;
+        .tracking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
-        .calendar-day:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.3);
-            border: 2px solid #FFD700;
+        .tracking-card i {
+            font-size: 1.8em;
+            color: #4A90E2;
+            margin-bottom: 10px;
         }
-        .calendar-day.current {
-            border: 2px solid #FFD700;
-            box-shadow: 0 0 10px #FFD700;
-            animation: glow 0.5s ease;
-        }
-        .calendar-day i {
-            font-size: 1.5em;
-            margin-bottom: 5px;
-        }
-        .calendar-day span {
-            font-size: 0.9em;
+        .tracking-card h3 {
+            font-size: 1.2em;
             font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 10px;
         }
-        .calendar-day .tooltip {
-            visibility: hidden;
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 5px 10px;
-            border-radius: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8em;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
+        .tracking-card p {
+            font-size: 1em;
+            color: #555;
+            margin: 0;
         }
-        .calendar-day:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px #FFD700; }
-            50% { box-shadow: 0 0 15px #FFD700; }
-            100% { box-shadow: 0 0 5px #FFD700; }
-        }
-        .mood-summary {
+        .modal {
             display: none;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 25px;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin: 20px auto;
-            text-align: left;
-            max-width: 600px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .modal-content h3 {
+            font-size: 1.5em;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+        .modal-content input, .modal-content select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .modal-content button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .modal-content .save-btn {
+            background-color: #4A90E2;
+            color: white;
+        }
+        .modal-content .save-btn:hover {
+            background-color: #2C3E50;
+        }
+        .modal-content .cancel-btn {
+            background-color: #ccc;
             color: #333;
         }
-        .mood-summary.active {
-            display: block !important;
+        .modal-content .cancel-btn:hover {
+            background-color: #bbb;
+        }
+        .modal-content .affiliate-link {
+            display: block;
+            margin-top: 15px;
+            color: #4A90E2;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .modal-content .recommendation {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .graph-container {
+            margin-top: 30px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .graph-controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .graph-controls select {
+            padding: 5px 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+            min-height: 300px;
+        }
+        .mood-summary {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 auto 30px;
+            text-align: left;
+            max-width: 600px;
         }
         .mood-summary .header {
             text-align: center;
@@ -279,21 +306,6 @@
             border-left: 3px solid #4A90E2;
             border-radius: 5px;
             line-height: 1.5;
-        }
-        .mood-summary .cta-button {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background-color: #4A90E2;
-            color: white;
-            text-decoration: none;
-            border-radius: 20px;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-        .mood-summary .cta-button:hover {
-            background-color: #2C3E50;
         }
         .content-wrapper {
             display: flex;
@@ -394,28 +406,40 @@
         }
         @media (max-width: 600px) {
             .nav-bar {
-                flex-direction: column;
-                gap: 8px;
-                padding: 10px 20px;
-                height: auto;
-                min-height: 120px;
+                height: 50px;
+                padding: 5px 10px;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .nav-bar .logo {
+                font-size: 1.2em;
             }
             .nav-bar .nav-links {
+                display: none;
                 flex-direction: column;
-                gap: 8px;
-                align-items: center;
+                position: absolute;
+                top: 50px;
+                left: 0;
                 width: 100%;
-                padding-left: 0;
-                padding-right: 0;
+                background-color: #fff;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                padding: 10px 0;
+            }
+            .nav-bar .nav-links.active {
+                display: flex;
             }
             .nav-bar a {
-                padding: 8px 20px;
+                padding: 10px;
                 width: 100%;
                 text-align: center;
                 box-sizing: border-box;
             }
+            .hamburger {
+                display: block;
+                margin-right: 10px;
+            }
             .main-content {
-                padding-top: 130px;
+                padding-top: 60px;
             }
             .hero {
                 padding: 40px 15px;
@@ -423,15 +447,44 @@
             .hero h1 {
                 font-size: 1.8em;
             }
-            .calendar-grid {
+            .hero p {
+                font-size: 1em;
+            }
+            .tracking-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .tracking-card {
+                padding: 15px;
+            }
+            .modal-content {
+                width: 90%;
+                padding: 15px;
+            }
+            .modal-content h3 {
+                font-size: 1.3em;
+            }
+            .modal-content input, .modal-content select {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+            .modal-content button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            .graph-container {
+                padding: 15px;
+            }
+            .graph-controls {
                 flex-direction: column;
                 align-items: center;
             }
-            .calendar-day {
+            .graph-controls select {
                 width: 100%;
-                max-width: 200px;
-                height: auto;
-                padding: 15px;
+                margin-bottom: 10px;
+            }
+            canvas {
+                height: 300px;
             }
             .mood-summary {
                 margin: 20px 10px;
@@ -474,7 +527,10 @@
 <body>
     <div class="nav-bar">
         <div class="logo">MoodTask</div>
-        <div class="nav-links">
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="calendar.html" class="active">Dashboard</a>
             <a href="activities.html">Activities</a>
@@ -488,8 +544,53 @@
         <div class="hero">
             <h1>Your Mood Dashboard</h1>
             <p>Track your emotional journey and discover science-backed insights.</p>
-            <button class="mood-button" id="moodButton" tabindex="0" aria-label="Open mood trends">Check Your Mood Trends</button>
-            <div class="calendar-grid" id="calendarGrid"></div>
+            <div class="tracking-grid">
+                <div class="tracking-card">
+                    <i class="fas fa-headphones"></i>
+                    <h3>Last Mood Music</h3>
+                    <p id="lastMusic">Not listened yet.</p>
+                </div>
+                <div class="tracking-card">
+                    <i class="fas fa-check"></i>
+                    <h3>First Activity</h3>
+                    <p id="firstActivity">None today.</p>
+                </div>
+                <div class="tracking-card" onclick="openModal('sleepModal')">
+                    <i class="fas fa-bed"></i>
+                    <h3>Sleep Duration</h3>
+                    <p id="sleepDuration">Not logged.</p>
+                </div>
+                <div class="tracking-card" onclick="openModal('waterModal')">
+                    <i class="fas fa-tint"></i>
+                    <h3>Water Intake</h3>
+                    <p id="waterIntake">0 oz (0 ml)</p>
+                </div>
+                <div class="tracking-card" onclick="openModal('exerciseModal')">
+                    <i class="fas fa-running"></i>
+                    <h3>Exercise</h3>
+                    <p id="exerciseDetails">Not logged.</p>
+                    <p id="exerciseDays" style="font-size: 0.8em; color: #777;">Days exercised: 0</p>
+                </div>
+            </div>
+            <div class="graph-container">
+                <div class="graph-controls">
+                    <label for="metricSelect">Metric: </label>
+                    <select id="metricSelect" onchange="drawGraph()">
+                        <option value="sleep">Sleep</option>
+                        <option value="water">Water</option>
+                        <option value="exercise">Exercise</option>
+                    </select>
+                    <label for="periodSelect">View Period: </label>
+                    <select id="periodSelect" onchange="drawGraph()">
+                        <option value="7">Last 7 Days</option>
+                        <option value="30">Last 30 Days</option>
+                        <option value="week">Current Week</option>
+                        <option value="month">Current Month</option>
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+                <canvas id="progressGraph" width="800" height="400"></canvas>
+            </div>
             <div class="mood-summary" id="moodSummary">
                 <div class="header">
                     <h2>Your Mood Insights</h2>
@@ -503,30 +604,21 @@
                         <div class="insight" id="frequentMoodInsight">Loading...</div>
                     </div>
                 </div>
-                <div class="trend" id="moodStreak">
-                    <i class="fas fa-fire"></i>
-                    <div>
-                        <h4>Longest Mood Streak</h4>
-                        <p id="moodStreakText">Loading...</p>
-                        <div class="insight" id="moodStreakInsight">Loading...</div>
-                    </div>
-                </div>
-                <a href="index.html" class="cta-button" id="logMoodCTA">Log Today's Mood</a>
             </div>
         </div>
         <div class="content-wrapper">
             <div class="welcome-guide">
                 <h2>Welcome to Your Mood Dashboard</h2>
-                <p>The MoodTask Dashboard is your personal hub for tracking and understanding your emotional well-being over time. Designed to help you gain insights into your mood patterns, this page lets you see how you’ve been feeling, what activities you’ve tried, and how your emotions evolve day by day. By keeping track of your moods and activities, you can identify trends, discover what works best for you, and take proactive steps to improve your mental health.</p>
+                <p>The MoodTask Dashboard is your personal hub for tracking and understanding your emotional well-being over time. Designed to help you gain insights into your mood patterns, this page lets you see how you’ve been feeling, what activities or music you’ve tried, and how your habits evolve day by day. By keeping track of your moods, activities, sleep, hydration, and exercise, you can identify trends, discover what works best for you, and take proactive steps to improve your mental health.</p>
                 
-                <h3>Why Track Your Moods?</h3>
-                <p>Tracking your moods helps you become more aware of your emotional triggers and patterns. For example, you might notice that you feel more stressed on certain days or that specific activities, like breathing exercises, consistently help you relax. This awareness empowers you to make informed decisions about your well-being, whether it’s trying a new activity from our <a href="activities.html">Activities</a> page or exploring calming playlists on our <a href="music.html">Mood Music</a> section.</p>
+                <h3>Why Track Your Habits?</h3>
+                <p>Tracking your daily habits helps you become more aware of their impact on your emotional well-being. For example, you might notice that listening to uplifting music or completing a gratitude exercise boosts your mood, while good sleep or hydration reduces tiredness. This awareness empowers you to make informed decisions about your wellness, supported by science-backed insights from experts like Dr. Andrew Huberman and Dr. Matt Walker.</p>
                 
                 <h3>How to Use This Dashboard</h3>
-                <p>Start by selecting a mood each day on the <a href="index.html">Home</a> page, and it’ll automatically appear here in your calendar above. You can also log activities you’ve completed on the <a href="activities.html">Activities</a> page, and they’ll be tracked alongside your moods (feature coming soon). Use the calendar to hover over a specific day and see your mood for that date. Check the Mood Insights section to understand your emotional trends, such as your most frequent mood or longest mood streak. In the future, you’ll be able to filter your history by mood or date and export your history as a CSV file to keep a record!</p>
+                <p>Start by selecting a mood each day on the <a href="index.html">Home</a> page, and log your music, activities, sleep, water intake, and exercise here or on the <a href="activities.html">Activities</a> page. These will appear in your dashboard and graph above. Check the Mood Insights section to understand your most frequent mood. Future features will include filtering your history and exporting data as a CSV file!</p>
                 
                 <h3>Explore More Features</h3>
-                <p>Dive deeper into your emotional journey by exploring our <a href="blog.html">Blog</a> for expert tips on mindfulness and stress management, or try recommended tools like mindfulness apps and online therapy in the footer below. Take control of your emotional well-being with MoodTask today!</p>
+                <p>Dive deeper into your emotional journey by exploring our <a href="blog.html">Blog</a> for expert tips, or try recommended tools like mindfulness apps and online therapy in the footer below. Enhance your experience with premium features coming soon!</p>
             </div>
         </div>
         <div class="footer">
@@ -553,6 +645,42 @@
             </div>
         </div>
     </div>
+
+    <!-- Modals -->
+    <div class="modal" id="sleepModal">
+        <div class="modal-content">
+            <h3>Log Sleep Duration</h3>
+            <input type="number" id="sleepInput" placeholder="Enter hours (e.g., 7.5)" step="0.1" min="0" max="24">
+            <button class="save-btn" onclick="saveSleep()">Save</button>
+            <button class="cancel-btn" onclick="closeModal('sleepModal')">Cancel</button>
+            <p class="recommendation">Good reminder: Aim for 7-8 hours per night (Dr. Matt Walker).</p>
+        </div>
+    </div>
+    <div class="modal" id="waterModal">
+        <div class="modal-content">
+            <h3>Log Water Intake</h3>
+            <input type="number" id="waterInput" placeholder="Enter amount" min="0">
+            <select id="waterUnit">
+                <option value="oz">oz</option>
+                <option value="ml">ml</option>
+            </select>
+            <button class="save-btn" onclick="saveWater()">Save</button>
+            <button class="cancel-btn" onclick="closeModal('waterModal')">Cancel</button>
+            <a href="https://amzn.to/42jEfjN" class="affiliate-link" target="_blank">Stay hydrated with Echo Go+ (affiliate link)</a>
+            <p class="recommendation">Recommended: 64-80 oz (8-10 cups) daily for adults (general guideline).</p>
+        </div>
+    </div>
+    <div class="modal" id="exerciseModal">
+        <div class="modal-content">
+            <h3>Log Exercise</h3>
+            <input type="text" id="exerciseDuration" placeholder="Duration (e.g., 30 min)">
+            <input type="text" id="exerciseType" placeholder="Type (e.g., Running)">
+            <button class="save-btn" onclick="saveExercise()">Save</button>
+            <button class="cancel-btn" onclick="closeModal('exerciseModal')">Cancel</button>
+            <p class="recommendation">Dr. Andrew Huberman suggests 150-200 min/week (~20-30 min/day).</p>
+        </div>
+    </div>
+
     <script>
         function adjustMainContentPadding() {
             const navBar = document.querySelector('.nav-bar');
@@ -560,228 +688,300 @@
             if (navBar && mainContent) {
                 const navHeight = navBar.offsetHeight;
                 mainContent.style.paddingTop = `${navHeight + 10}px`;
-                console.log('Adjusted main content padding to:', mainContent.style.paddingTop);
-            } else {
-                console.error('Nav bar or main content not found for padding adjustment');
             }
         }
 
-        function toggleCalendarGrid() {
-            const grid = document.getElementById('calendarGrid');
-            const summary = document.getElementById('moodSummary');
-            if (!grid || !summary) {
-                console.error('Calendar grid or mood summary element not found:', { grid, summary });
-                return;
-            }
-            console.log('Before toggle - Grid display:', window.getComputedStyle(grid).display);
-            console.log('Before toggle - Summary display:', window.getComputedStyle(summary).display);
-            
-            grid.classList.toggle('active');
-            summary.classList.toggle('active');
-            
-            console.log('After toggle - Grid display:', window.getComputedStyle(grid).display);
-            console.log('After toggle - Summary display:', window.getComputedStyle(summary).display);
-            console.log('Calendar grid toggled:', grid.classList.contains('active') ? 'Visible' : 'Hidden');
+        function toggleNavMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
         }
 
-        function generateCalendar() {
-            const grid = document.getElementById('calendarGrid');
-            if (!grid) {
-                console.error('Calendar grid element not found in generateCalendar');
-                return;
-            }
-            console.log('Generating calendar...');
-
-            const today = new Date('2025-04-27'); // Current date as per prompt
-            const year = today.getFullYear();
-            const month = today.getMonth();
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            const startingDay = firstDay.getDay();
-            const monthLength = lastDay.getDate();
-
-            // Clear the grid
-            grid.innerHTML = '';
-            console.log('Cleared calendar grid');
-
-            // Add empty placeholders for days before the 1st
-            for (let i = 0; i < startingDay; i++) {
-                const emptyDay = document.createElement('div');
-                emptyDay.classList.add('calendar-day');
-                emptyDay.style.background = 'transparent';
-                emptyDay.style.boxShadow = 'none';
-                grid.appendChild(emptyDay);
-            }
-
-            // Mood icons and insights
-            const moodIcons = {
-                Sad: 'fa-frown',
-                Angry: 'fa-angry',
-                Frustrated: 'fa-exclamation-circle',
-                Anxious: 'fa-heartbeat',
-                Stressed: 'fa-bolt',
-                Tired: 'fa-bed',
-                Bored: 'fa-meh',
-                Excited: 'fa-star',
-                Relaxed: 'fa-spa',
-                Happy: 'fa-smile'
-            };
-
-            const moodInsights = {
-                Sad: 'Sad: Try gratitude to boost dopamine – Dr. Andrew Huberman',
-                Angry: 'Angry: Channel energy with physical activity – Dr. John Ratey',
-                Frustrated: 'Frustrated: Expressive writing can help – Dr. James Pennebaker',
-                Anxious: 'Anxious: Slow breathing reduces anxiety – Dr. Andrew Huberman',
-                Stressed: 'Stressed: Nature exposure lowers cortisol – Dr. Roger Ulrich',
-                Tired: 'Tired: Relaxation techniques aid rest – Dr. Matt Walker',
-                Bored: 'Bored: Creative tasks spark interest – Dr. Andrew Huberman',
-                Excited: 'Excited: Express energy creatively – Dr. Lisa Feldman Barrett',
-                Relaxed: 'Relaxed: Enhance calm with nature – Dr. Roger Ulrich',
-                Happy: 'Happy: Sustain positivity with gratitude – Dr. Lisa Feldman Barrett'
-            };
-
-            // Generate days
-            for (let day = 1; day <= monthLength; day++) {
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const mood = localStorage.getItem(`mood-${dateStr}`);
-                const dayElement = document.createElement('div');
-                dayElement.classList.add('calendar-day');
-
-                // Highlight current day
-                if (dateStr === today.toISOString().split('T')[0]) {
-                    dayElement.classList.add('current');
-                }
-
-                // Add day number
-                const dayNumber = document.createElement('span');
-                dayNumber.textContent = day;
-                dayElement.appendChild(dayNumber);
-
-                // Add mood icon if exists
-                if (mood && moodIcons[mood]) {
-                    const icon = document.createElement('i');
-                    icon.classList.add('fas', moodIcons[mood]);
-                    dayElement.appendChild(icon);
-
-                    // Add tooltip with mood and insight
-                    const tooltip = document.createElement('div');
-                    tooltip.classList.add('tooltip');
-                    tooltip.textContent = moodInsights[mood] || `${mood}: No insight available`;
-                    dayElement.appendChild(tooltip);
-                }
-
-                grid.appendChild(dayElement);
-            }
-            console.log('Calendar generated with', monthLength, 'days');
-            // Analyze mood trends after generating the calendar
-            analyzeMoodTrends();
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'flex';
         }
 
-        function analyzeMoodTrends() {
-            const summary = document.getElementById('moodSummary');
-            if (!summary) {
-                console.error('Mood summary element not found in analyzeMoodTrends');
-                return;
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+            if (modalId === 'sleepModal') {
+                document.getElementById('sleepInput').value = '';
+            } else if (modalId === 'waterModal') {
+                document.getElementById('waterInput').value = '';
+                document.getElementById('waterUnit').value = 'oz';
+            } else if (modalId === 'exerciseModal') {
+                document.getElementById('exerciseDuration').value = '';
+                document.getElementById('exerciseType').value = '';
             }
-            console.log('Analyzing mood trends...');
+        }
 
-            const today = new Date('2025-04-27').toISOString().split('T')[0];
-            const moods = [];
-            const year = 2025;
-            const month = 3; // April (0-based index)
-
-            // Collect moods for the month
-            for (let day = 1; day <= 30; day++) {
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const mood = localStorage.getItem(`mood-${dateStr}`);
-                if (mood) {
-                    moods.push({ date: dateStr, mood });
+        function saveSleep() {
+            const sleepInput = parseFloat(document.getElementById('sleepInput').value);
+            const today = new Date('2025-05-01').toISOString().split('T')[0];
+            if (!isNaN(sleepInput) && sleepInput > 0) {
+                let totalSleep = 0;
+                const sleepHistory = JSON.parse(localStorage.getItem('sleep-history') || '{}');
+                if (sleepHistory[today]) {
+                    totalSleep = parseFloat(sleepHistory[today].split(' ')[0]) + sleepInput;
+                    if (totalSleep > 24) totalSleep = 24;
+                } else {
+                    totalSleep = sleepInput > 24 ? 24 : sleepInput;
                 }
+                sleepHistory[today] = `${totalSleep} hours`;
+                localStorage.setItem('sleep-history', JSON.stringify(sleepHistory));
+                localStorage.setItem(`sleep-${today}`, `${totalSleep} hours`);
+                updateTrackingCards();
+                drawGraph();
             }
-            console.log('Collected moods:', moods);
+            closeModal('sleepModal');
+        }
 
-            // Most frequent mood
-            const moodCounts = {};
-            moods.forEach(({ mood }) => {
-                moodCounts[mood] = (moodCounts[mood] || 0) + 1;
+        function saveWater() {
+            const waterInput = parseFloat(document.getElementById('waterInput').value);
+            const waterUnit = document.getElementById('waterUnit').value;
+            const today = new Date('2025-05-01').toISOString().split('T')[0];
+            if (!isNaN(waterInput) && waterInput > 0) {
+                let amountInOz = waterUnit === 'ml' ? (waterInput / 29.5735).toFixed(1) : waterInput;
+                let amountInMl = waterUnit === 'oz' ? (waterInput * 29.5735).toFixed(1) : waterInput;
+
+                let totalOz = 0, totalMl = 0;
+                const waterHistory = JSON.parse(localStorage.getItem('water-history') || '{}');
+                if (waterHistory[today]) {
+                    const [prevOz, prevMl] = waterHistory[today].match(/\d+\.\d+|\d+/g);
+                    totalOz = parseFloat(prevOz) + parseFloat(amountInOz);
+                    totalMl = parseFloat(prevMl) + parseFloat(amountInMl);
+                } else {
+                    totalOz = parseFloat(amountInOz);
+                    totalMl = parseFloat(amountInMl);
+                }
+                waterHistory[today] = `${totalOz.toFixed(1)} oz (${totalMl.toFixed(1)} ml)`;
+                localStorage.setItem('water-history', JSON.stringify(waterHistory));
+                localStorage.setItem(`water-${today}`, `${totalOz.toFixed(1)} oz (${totalMl.toFixed(1)} ml)`);
+                updateTrackingCards();
+                drawGraph();
+            }
+            closeModal('waterModal');
+        }
+
+        function saveExercise() {
+            const duration = document.getElementById('exerciseDuration').value.trim();
+            const type = document.getElementById('exerciseType').value.trim();
+            const today = new Date('2025-05-01').toISOString().split('T')[0];
+            if (duration && type) {
+                let exerciseHistory = JSON.parse(localStorage.getItem('exercise-history') || '[]');
+                const durationMatch = duration.match(/(\d+)/);
+                const minutes = durationMatch ? parseInt(durationMatch[0]) : 0;
+                exerciseHistory.push({ date: today, duration, type, minutes });
+                localStorage.setItem('exercise-history', JSON.stringify(exerciseHistory));
+
+                const uniqueDays = new Set(exerciseHistory.map(entry => entry.date));
+                document.getElementById('exerciseDays').textContent = `Days exercised: ${uniqueDays.size}`;
+
+                let currentDayExercises = exerciseHistory.filter(entry => entry.date === today)
+                    .map(entry => `${entry.duration} - ${entry.type}`).join(', ');
+                localStorage.setItem(`exercise-${today}`, currentDayExercises || 'Not logged.');
+                updateTrackingCards();
+                drawGraph();
+            }
+            closeModal('exerciseModal');
+        }
+
+        function resetDailyTrackers() {
+            const now = new Date('2025-05-01');
+            const lastReset = localStorage.getItem('lastReset') ? new Date(localStorage.getItem('lastReset')) : null;
+            if (!lastReset || now.getDate() !== lastReset.getDate()) {
+                const today = now.toISOString().split('T')[0];
+                const sleepHistory = JSON.parse(localStorage.getItem('sleep-history') || '{}');
+                const waterHistory = JSON.parse(localStorage.getItem('water-history') || '{}');
+                const exerciseHistory = JSON.parse(localStorage.getItem('exercise-history') || '[]');
+
+                delete sleepHistory[today];
+                delete waterHistory[today];
+                exerciseHistory.forEach((entry, index) => {
+                    if (entry.date === today) exerciseHistory.splice(index, 1);
+                });
+                localStorage.setItem('sleep-history', JSON.stringify(sleepHistory));
+                localStorage.setItem('water-history', JSON.stringify(waterHistory));
+                localStorage.setItem('exercise-history', JSON.stringify(exerciseHistory));
+
+                localStorage.setItem('lastReset', now.toISOString());
+                updateTrackingCards();
+                drawGraph();
+            }
+        }
+
+        function drawGraph() {
+            const canvas = document.getElementById('progressGraph');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const metric = document.getElementById('metricSelect').value;
+            const period = document.getElementById('periodSelect').value;
+            const now = new Date('2025-05-01');
+            let startDate = new Date(now);
+            let dates = [];
+
+            if (period === '7') {
+                startDate.setDate(now.getDate() - 6);
+                while (startDate.getDay() !== 0) startDate.setDate(startDate.getDate() - 1);
+                for (let d = new Date(startDate); d <= now; d.setDate(d.getDate() + 1)) {
+                    dates.push(new Date(d));
+                }
+            } else if (period === '30') {
+                startDate.setDate(now.getDate() - 29);
+                while (startDate.getDay() !== 0) startDate.setDate(startDate.getDate() - 1);
+                for (let d = new Date(startDate); d <= now; d.setDate(d.getDate() + 1)) {
+                    dates.push(new Date(d));
+                }
+            } else if (period === 'week') {
+                startDate.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1));
+                for (let d = new Date(startDate); d <= now; d.setDate(d.getDate() + 1)) {
+                    dates.push(new Date(d));
+                }
+            } else if (period === 'month') {
+                startDate.setDate(1);
+                for (let d = new Date(startDate); d <= now; d.setDate(d.getDate() + 1)) {
+                    dates.push(new Date(d));
+                }
+            } else if (period === 'all') {
+                const allDates = Object.keys({
+                    ...JSON.parse(localStorage.getItem('sleep-history') || '{}'),
+                    ...JSON.parse(localStorage.getItem('water-history') || '{}'),
+                    ...Object.fromEntries(JSON.parse(localStorage.getItem('exercise-history') || '[]').map(e => [e.date, true]))
+                }).map(d => new Date(d));
+                dates = allDates.sort((a, b) => a - b);
+                if (dates.length === 0) dates = [new Date(now)];
+            }
+
+            const sleepHistory = JSON.parse(localStorage.getItem('sleep-history') || '{}');
+            const waterHistory = JSON.parse(localStorage.getItem('water-history') || '{}');
+            const exerciseHistory = JSON.parse(localStorage.getItem('exercise-history') || '[]');
+            const moodHistory = JSON.parse(localStorage.getItem('mood-history') || '{}');
+
+            let data = [];
+            if (metric === 'sleep') {
+                data = dates.map(date => {
+                    const dateStr = date.toISOString().split('T')[0];
+                    return sleepHistory[dateStr] ? parseFloat(sleepHistory[dateStr].split(' ')[0]) : 0;
+                });
+            } else if (metric === 'water') {
+                data = dates.map(date => {
+                    const dateStr = date.toISOString().split('T')[0];
+                    return waterHistory[dateStr] ? parseFloat(waterHistory[dateStr].match(/\d+\.\d+|\d+/)[0]) : 0;
+                });
+            } else if (metric === 'exercise') {
+                data = dates.map(date => {
+                    const dateStr = date.toISOString().split('T')[0];
+                    const dayExercises = exerciseHistory.filter(e => e.date === dateStr);
+                    return dayExercises.reduce((sum, e) => sum + (e.minutes || 0), 0);
+                });
+            }
+
+            const maxValue = Math.max(...data, 10) || 10; // Minimum 10 for scaling
+            const barWidth = Math.min(40, (canvas.width - 40) / dates.length - 10);
+            const barSpacing = 10;
+            const barHeight = (canvas.height - 100) / maxValue;
+
+            // Grid
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= maxValue; i += 5) {
+                const y = canvas.height - 50 - (i * barHeight);
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+                ctx.fillStyle = '#666';
+                ctx.font = '12px Poppins';
+                ctx.fillText(i, 5, y - 5);
+            }
+
+            // Bars
+            ctx.lineWidth = 1;
+            data.forEach((value, index) => {
+                const x = index * (barWidth + barSpacing);
+                const height = value * barHeight;
+                let gradient;
+                if (metric === 'sleep') gradient = ctx.createLinearGradient(x, canvas.height - 50, x, canvas.height - 50 - height);
+                else if (metric === 'water') gradient = ctx.createLinearGradient(x, canvas.height - 50, x, canvas.height - 50 - height);
+                else gradient = ctx.createLinearGradient(x, canvas.height - 50, x, canvas.height - 50 - height);
+                gradient.addColorStop(0, metric === 'sleep' ? '#4A90E2' : metric === 'water' ? '#6BCB77' : '#E74C3C');
+                gradient.addColorStop(1, metric === 'sleep' ? '#85C1E9' : metric === 'water' ? '#A9DFBF' : '#F1948A');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x, canvas.height - 50 - height, barWidth, height);
+                ctx.fillStyle = '#333';
+                ctx.font = '12px Poppins';
+                ctx.textAlign = 'center';
+                if (metric === 'exercise') {
+                    ctx.fillText(`Total: ${value} min`, x + barWidth / 2, canvas.height - 60 - height);
+                } else {
+                    ctx.fillText(value.toFixed(1), x + barWidth / 2, canvas.height - 60 - height);
+                }
+                const dateStr = dates[index].toISOString().split('T')[0];
+                if (moodHistory[dateStr]) {
+                    const moodIcon = getMoodIcon(moodHistory[dateStr]);
+                    ctx.fillText(moodIcon, x + barWidth / 2, canvas.height - 40);
+                }
+                ctx.fillText(dates[index].toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' }), x + barWidth / 2, canvas.height - 20);
             });
-            const mostFrequentMood = Object.keys(moodCounts).reduce((a, b) => moodCounts[a] > moodCounts[b] ? a : b, null);
-            const frequentMoodText = document.getElementById('frequentMoodText');
-            const frequentMoodInsight = document.getElementById('frequentMoodInsight');
-            if (!frequentMoodText || !frequentMoodInsight) {
-                console.error('Frequent mood elements not found:', { frequentMoodText, frequentMoodInsight });
-                return;
-            }
-            if (mostFrequentMood) {
-                frequentMoodText.textContent = `${mostFrequentMood} (${moodCounts[mostFrequentMood]} days)`;
-                if (mostFrequentMood === 'Stressed') {
-                    frequentMoodInsight.textContent = 'Frequent stress may indicate high cortisol – try breathing exercises.';
-                } else if (mostFrequentMood === 'Happy') {
-                    frequentMoodInsight.textContent = 'Sustaining happiness strengthens optimism – keep up the gratitude!';
-                } else {
-                    frequentMoodInsight.textContent = `Reflect on your ${mostFrequentMood.toLowerCase()} days to understand patterns.`;
-                }
-            } else {
-                frequentMoodText.textContent = 'No moods logged yet.';
-                frequentMoodInsight.textContent = 'Start logging your moods to see trends.';
-            }
 
-            // Longest mood streak
-            let currentStreak = 1;
-            let maxStreak = 1;
-            let streakMood = null;
-            for (let i = 1; i < moods.length; i++) {
-                if (moods[i].mood === moods[i - 1].mood) {
-                    currentStreak++;
-                    if (currentStreak > maxStreak) {
-                        maxStreak = currentStreak;
-                        streakMood = moods[i].mood;
-                    }
-                } else {
-                    currentStreak = 1;
-                }
-            }
-            const moodStreakText = document.getElementById('moodStreakText');
-            const moodStreakInsight = document.getElementById('moodStreakInsight');
-            if (!moodStreakText || !moodStreakInsight) {
-                console.error('Mood streak elements not found:', { moodStreakText, moodStreakInsight });
-                return;
-            }
-            if (streakMood && maxStreak > 1) {
-                moodStreakText.textContent = `${streakMood} (${maxStreak} days)`;
-                moodStreakInsight.textContent = `A ${maxStreak}-day streak of ${streakMood.toLowerCase()} – consistency can reflect habits!`;
-            } else {
-                moodStreakText.textContent = 'No streaks yet.';
-                moodStreakInsight.textContent = 'Log moods on consecutive days to build a streak.';
-            }
+            // Legend
+            ctx.fillStyle = '#4A90E2';
+            ctx.fillRect(10, 10, 20, 10);
+            ctx.fillStyle = '#333';
+            ctx.fillText('Sleep', 35, 18);
+            ctx.fillStyle = '#6BCB77';
+            ctx.fillRect(90, 10, 20, 10);
+            ctx.fillStyle = '#333';
+            ctx.fillText('Water', 115, 18);
+            ctx.fillStyle = '#E74C3C';
+            ctx.fillRect(170, 10, 20, 10);
+            ctx.fillStyle = '#333';
+            ctx.fillText('Exercise', 195, 18);
+        }
 
-            // Update CTA button
-            const logMoodCTA = document.getElementById('logMoodCTA');
-            if (!logMoodCTA) {
-                console.error('Log mood CTA element not found');
-                return;
-            }
-            const todayMood = localStorage.getItem(`mood-${today}`);
-            if (todayMood) {
-                logMoodCTA.textContent = `Today's Mood: ${todayMood}`;
-                logMoodCTA.style.backgroundColor = '#A9A9A9';
-                logMoodCTA.removeAttribute('href');
-            }
-            console.log('Mood trends analyzed');
+        function getMoodIcon(mood) {
+            const moodIcons = {
+                Sad: '😔',
+                Angry: '😠',
+                Frustrated: '😣',
+                Anxious: '😰',
+                Stressed: '😓',
+                Tired: '😴',
+                Bored: '😐',
+                Excited: '😃',
+                Relaxed: '😌',
+                Happy: '😊'
+            };
+            return moodIcons[mood] || '';
+        }
+
+        function updateTrackingCards() {
+            const today = new Date('2025-05-01').toISOString().split('T')[0];
+            document.getElementById('lastMusic').textContent = localStorage.getItem(`music-last-${today}`) || 'Not listened yet.';
+            document.getElementById('firstActivity').textContent = localStorage.getItem(`activity-first-${today}`) || 'None today.';
+            document.getElementById('sleepDuration').textContent = localStorage.getItem(`sleep-${today}`) || 'Not logged.';
+            document.getElementById('waterIntake').textContent = localStorage.getItem(`water-${today}`) || '0 oz (0 ml)';
+            const exerciseHistory = JSON.parse(localStorage.getItem('exercise-history') || '[]');
+            const currentDayExercises = exerciseHistory.filter(entry => entry.date === today)
+                .map(entry => `${entry.duration} - ${entry.type}`).join(', ');
+            document.getElementById('exerciseDetails').textContent = currentDayExercises || 'Not logged.';
+            const uniqueDays = new Set(exerciseHistory.map(entry => entry.date));
+            document.getElementById('exerciseDays').textContent = `Days exercised: ${uniqueDays.size}`;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM fully loaded');
             const navLinks = document.querySelectorAll('.nav-bar .nav-links a');
             const mainContent = document.querySelector('.main-content');
+            const hamburger = document.getElementById('hamburger');
 
-            if (!mainContent) {
-                console.error('Main content not found');
-                return;
-            }
+            if (!mainContent) return;
 
             mainContent.classList.add('fade-in');
             adjustMainContentPadding();
+            resetDailyTrackers();
+            updateTrackingCards();
+            drawGraph();
 
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -794,27 +994,14 @@
                 });
             });
 
-            const moodButton = document.getElementById('moodButton');
-            if (moodButton) {
-                moodButton.addEventListener('click', () => {
-                    console.log('Mood button clicked');
-                    toggleCalendarGrid();
-                    generateCalendar();
-                });
-                moodButton.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        console.log('Mood button activated via keyboard');
-                        toggleCalendarGrid();
-                        generateCalendar();
-                    }
-                });
-                console.log('Mood button event listeners attached');
-            } else {
-                console.error('Mood button not found');
+            if (hamburger) {
+                hamburger.addEventListener('click', toggleNavMenu);
             }
 
-            window.addEventListener('resize', adjustMainContentPadding);
+            window.addEventListener('resize', () => {
+                adjustMainContentPadding();
+                drawGraph();
+            });
         });
     </script>
 </body>

@@ -71,6 +71,12 @@
             font-weight: 600;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+        .burger-menu {
+            display: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #2C3E50;
+        }
         .main-content {
             transition: opacity 0.5s ease;
             padding-top: 60px;
@@ -238,9 +244,6 @@
         .activity-card.pmr .thumbnail-area {
             background: linear-gradient(135deg, #2C7A7B, #4C9A9B);
         }
-        .activity-card.walk .thumbnail-area {
-            background: linear-gradient(135deg, #68D391, #48BB78);
-        }
         .activity-card.journaling .thumbnail-area {
             background: linear-gradient(135deg, #6B46C1, #805AD5);
         }
@@ -249,87 +252,6 @@
         }
         .activity-card.exercise .thumbnail-area {
             background: linear-gradient(135deg, #4A90E2, #77AADD);
-        }
-        .activity-summary {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin: 20px auto;
-            text-align: left;
-            max-width: 600px;
-            color: #333;
-        }
-        .activity-summary .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .activity-summary .header h2 {
-            font-size: 1.8em;
-            font-weight: 600;
-            color: #2C3E50;
-            margin-bottom: 5px;
-        }
-        .activity-summary .header p {
-            font-size: 1em;
-            color: #555;
-            font-style: italic;
-        }
-        .activity-summary .trend {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        .activity-summary .trend:hover {
-            background: #f5f5f5;
-        }
-        .activity-summary .trend i {
-            font-size: 1.5em;
-            color: #4A90E2;
-        }
-        .activity-summary .trend div {
-            flex: 1;
-        }
-        .activity-summary .trend h4 {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .activity-summary .trend p {
-            font-size: 0.95em;
-            color: #555;
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-        .activity-summary .trend .insight {
-            font-size: 0.9em;
-            color: #666;
-            font-style: italic;
-            background: #f0f0f0;
-            padding: 10px;
-            border-left: 3px solid #4A90E2;
-            border-radius: 5px;
-            line-height: 1.5;
-        }
-        .activity-summary .cta-button {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background-color: #4A90E2;
-            color: white;
-            text-decoration: none;
-            border-radius: 20px;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-        .activity-summary .cta-button:hover {
-            background-color: #2C3E50;
         }
         .footer {
             background-color: #333;
@@ -478,12 +400,6 @@
         .task-tile.pmr-type:hover {
             background: linear-gradient(135deg, #1A5F60, #2C7A7B);
         }
-        .task-tile.walk-type {
-            background: linear-gradient(135deg, #68D391, #48BB78);
-        }
-        .task-tile.walk-type:hover {
-            background: linear-gradient(135deg, #48BB78, #38A169);
-        }
         .task-tile.journaling-type {
             background: linear-gradient(135deg, #6B46C1, #805AD5);
         }
@@ -560,7 +476,7 @@
             margin-top: 5px;
             opacity: 0.9;
         }
-        #breathing-instruction, #meditation-prompt, #pmr-prompt, #walk-timer, #journaling-prompt, #reframing-prompt, #exercise-timer {
+        #breathing-instruction, #meditation-prompt, #pmr-prompt, #journaling-prompt, #reframing-prompt {
             margin: 10px 0;
             font-size: 1.1em;
             line-height: 1.6;
@@ -576,6 +492,27 @@
             font-size: 1em;
             line-height: 1.6;
             font-weight: 400;
+        }
+        .gratitude-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #F4A261;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 10px 0;
+            resize: vertical;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .gratitude-textarea:focus {
+            border-color: #FF6F61;
+            box-shadow: 0 6px 15px rgba(255, 111, 97, 0.2);
+            outline: none;
         }
         .action-button {
             background: #4A90E2;
@@ -596,33 +533,51 @@
         .action-button:hover {
             background: #2C3E50;
         }
-        .log-button {
-            padding: 8px 15px;
-            background-color: #6BCB77;
-            color: white;
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .timer-adjust-button {
+            background: #4A90E2;
+            color: #fff;
+            padding: 5px 10px;
             border: none;
-            border-radius: 20px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 0.9em;
             transition: background-color 0.3s;
-            margin-top: 10px;
-            display: none;
         }
-        .log-button.active {
-            display: inline-block;
+        .timer-adjust-button:hover {
+            background: #2C3E50;
         }
-        .log-button:hover {
-            background-color: #5BBF66;
+        .timer-pause-button {
+            background: #FF6F61;
+            color: #fff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
         }
-        .log-button:disabled {
-            background-color: #A9A9A9;
-            cursor: not-allowed;
+        .timer-pause-button:hover {
+            background: #E53E3E;
         }
-        .affirmation {
-            display: none;
-            color: #4A90E2;
-            font-style: italic;
-            margin-top: 10px;
+        .timer-start-button {
+            background: #6BCB77;
+            color: #fff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .timer-start-button:hover {
+            background: #5BBF66;
         }
         .progress-container {
             width: 100%;
@@ -637,30 +592,72 @@
             border-radius: 5px;
             transition: width 1s linear;
         }
+        .timer-display {
+            font-size: 2em;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 10px 0;
+        }
+        .timer-info {
+            font-size: 1em;
+            color: #555;
+            margin: 5px 0;
+        }
+        .timer-settings {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .timer-setting {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        .timer-setting label {
+            font-weight: 500;
+            color: #333;
+        }
+        .timer-setting input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
         @media (max-width: 600px) {
             .nav-bar {
-                flex-direction: column;
-                gap: 8px;
+                flex-direction: row;
                 padding: 10px 20px;
-                height: auto;
-                min-height: 120px;
+                height: 60px;
+                align-items: center;
             }
             .nav-bar .nav-links {
+                display: none;
                 flex-direction: column;
-                gap: 8px;
-                align-items: center;
+                position: absolute;
+                top: 60px;
+                left: 0;
                 width: 100%;
-                padding-left: 0;
-                padding-right: 0;
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 10px 0;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            .nav-bar .nav-links.active {
+                display: flex;
             }
             .nav-bar a {
-                padding: 8px 20px;
+                padding: 10px 20px;
                 width: 100%;
                 text-align: center;
                 box-sizing: border-box;
             }
+            .burger-menu {
+                display: block;
+            }
             .main-content {
-                padding-top: 130px;
+                padding-top: 70px;
             }
             .hero {
                 padding: 40px 15px;
@@ -693,23 +690,6 @@
             .activity-card h3 {
                 font-size: 0.9em;
                 margin-bottom: 0;
-            }
-            .activity-summary {
-                margin: 20px 10px;
-                max-width: 100%;
-                padding: 20px;
-            }
-            .activity-summary .header h2 {
-                font-size: 1.5em;
-            }
-            .activity-summary .header p {
-                font-size: 0.95em;
-            }
-            .activity-summary .trend h4 {
-                font-size: 1.1em;
-            }
-            .activity-summary .trend p {
-                font-size: 0.9em;
             }
             .content-wrapper {
                 flex-direction: column;
@@ -757,6 +737,9 @@
 <body>
     <div class="nav-bar">
         <div class="logo">MoodTask</div>
+        <div class="burger-menu" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="calendar.html">Dashboard</a>
@@ -802,6 +785,39 @@
                                 <i class="fas fa-square"></i>
                             </div>
                             <h3>Box Breathing</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-section">
+                    <h2>Exercise Activity</h2>
+                    <div class="expert-quote">
+                        Exercise boosts mood by releasing endorphins and reducing stress hormones.
+                        <span class="quote">"Physical activity can increase endorphin levels, improving mood and reducing anxiety in just 10 minutes." — Dr. John Ratey, Exercise Researcher (Spark, 2008)</span>
+                    </div>
+                    <div class="activity-row">
+                        <div class="activity-card exercise" data-tool="exercise" data-technique="amrap" onclick="openPopup('exercise', 'amrap')">
+                            <div class="thumbnail-area">
+                                <i class="fas fa-stopwatch"></i>
+                            </div>
+                            <h3>AMRAP</h3>
+                        </div>
+                        <div class="activity-card exercise" data-tool="exercise" data-technique="for-time" onclick="openPopup('exercise', 'for-time')">
+                            <div class="thumbnail-area">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>For Time</h3>
+                        </div>
+                        <div class="activity-card exercise" data-tool="exercise" data-technique="emom" onclick="openPopup('exercise', 'emom')">
+                            <div class="thumbnail-area">
+                                <i class="fas fa-hourglass"></i>
+                            </div>
+                            <h3>EMOM</h3>
+                        </div>
+                        <div class="activity-card exercise" data-tool="exercise" data-technique="tabata" onclick="openPopup('exercise', 'tabata')">
+                            <div class="thumbnail-area">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <h3>Tabata</h3>
                         </div>
                     </div>
                 </div>
@@ -887,33 +903,6 @@
                     </div>
                 </div>
                 <div class="activity-section">
-                    <h2>Nature Walk</h2>
-                    <div class="expert-quote">
-                        Nature walks improve mood by connecting you with the calming effects of the outdoors.
-                        <span class="quote">"Spending time in nature can reduce stress hormones by 20% in just 20 minutes." — Dr. Qing Li, Forest Bathing Expert (Forest Bathing, 2018)</span>
-                    </div>
-                    <div class="activity-row">
-                        <div class="activity-card walk" data-tool="walk" data-technique="mindful" onclick="openPopup('walk', 'mindful')">
-                            <div class="thumbnail-area">
-                                <i class="fas fa-tree"></i>
-                            </div>
-                            <h3>Mindful Walk</h3>
-                        </div>
-                        <div class="activity-card walk" data-tool="walk" data-technique="sensory" onclick="openPopup('walk', 'sensory')">
-                            <div class="thumbnail-area">
-                                <i class="fas fa-eye"></i>
-                            </div>
-                            <h3>Sensory Focus</h3>
-                        </div>
-                        <div class="activity-card walk" data-tool="walk" data-technique="gratitude" onclick="openPopup('walk', 'gratitude')">
-                            <div class="thumbnail-area">
-                                <i class="fas fa-flower"></i>
-                            </div>
-                            <h3>Gratitude Walk</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="activity-section">
                     <h2>Mindful Journaling</h2>
                     <div class="expert-quote">
                         Journaling helps process emotions by providing a safe space for reflection.
@@ -967,71 +956,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="activity-section">
-                    <h2>Exercise Activity</h2>
-                    <div class="expert-quote">
-                        Exercise boosts mood by releasing endorphins and reducing stress hormones.
-                        <span class="quote">"Physical activity can increase endorphin levels, improving mood and reducing anxiety in just 10 minutes." — Dr. John Ratey, Exercise Researcher (Spark, 2008)</span>
-                    </div>
-                    <div class="activity-row">
-                        <div class="activity-card exercise" data-tool="exercise" data-technique="stretching" onclick="openPopup('exercise', 'stretching')">
-                            <div class="thumbnail-area">
-                                <i class="fas fa-running"></i>
-                            </div>
-                            <h3>Stretching</h3>
-                        </div>
-                        <div class="activity-card exercise" data-tool="exercise" data-technique="cardio" onclick="openPopup('exercise', 'cardio')">
-                            <div class="thumbnail-area">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <h3>Cardio</h3>
-                        </div>
-                        <div class="activity-card exercise" data-tool="exercise" data-technique="strength" onclick="openPopup('exercise', 'strength')">
-                            <div class="thumbnail-area">
-                                <i class="fas fa-dumbbell"></i>
-                            </div>
-                            <h3>Strength</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="activity-summary" id="activitySummary">
-                <div class="header">
-                    <h2>Your Activity Insights</h2>
-                    <p>Track Your Progress and See What Works</p>
-                </div>
-                <div class="trend" id="recentActivity">
-                    <i class="fas fa-history"></i>
-                    <div>
-                        <h4>Most Recent Activity</h4>
-                        <p id="recentActivityText">Loading...</p>
-                        <div class="insight" id="recentActivityInsight">Loading...</div>
-                    </div>
-                </div>
-                <div class="trend" id="frequentActivity">
-                    <i class="fas fa-chart-bar"></i>
-                    <div>
-                        <h4>Most Frequent Activity</h4>
-                        <p id="frequentActivityText">Loading...</p>
-                        <div class="insight" id="frequentActivityInsight">Loading...</div>
-                    </div>
-                </div>
-                <a href="index.html" class="cta-button" id="logMoodCTA">Log Today's Mood</a>
             </div>
         </div>
         <div class="content-wrapper">
             <div class="welcome-guide">
                 <h2>Your Guide to Mood-Boosting Activities</h2>
-                <p>Welcome to MoodTask’s Activities page, your go-to resource for improving emotional well-being through science-backed tools. We understand that life can be overwhelming, and small, intentional actions can make a big difference in how you feel. That’s why we’ve curated a variety of activities—such as Breathing Exercises, Gratitude Notes, Guided Meditation, Progressive Muscle Relaxation, Nature Walks, Mindful Journaling, and Cognitive Reframing—to support you in moments of stress, anxiety, or low energy. Each activity is designed to help you reconnect with yourself, reduce negative emotions, and foster a sense of balance. Whether you’re looking to calm your mind, boost positivity, or process your feelings, there’s an activity here for you. Dive in and discover how these tools can transform your daily experience.</p>
+                <p>Welcome to MoodTask’s Activities page, your go-to resource for improving emotional well-being through science-backed tools. We understand that life can be overwhelming, and small, intentional actions can make a big difference in how you feel. That’s why we’ve curated a variety of activities—such as Breathing Exercises, Gratitude Notes, Guided Meditation, Progressive Muscle Relaxation, Mindful Journaling, and Cognitive Reframing—to support you in moments of stress, anxiety, or low energy. Each activity is designed to help you reconnect with yourself, reduce negative emotions, and foster a sense of balance. Whether you’re looking to calm your mind, boost positivity, or process your feelings, there’s an activity here for you. Dive in and discover how these tools can transform your daily experience.</p>
                 
                 <h3>Why These Activities Work</h3>
                 <p>Engaging in intentional activities can profoundly impact your mental health by targeting specific neurological and physiological pathways. For example, deep breathing exercises, as noted by neuroscientist Dr. Andrew Huberman, activate the parasympathetic nervous system, which slows your heart rate and reduces cortisol levels, helping you feel calmer within minutes. A 2018 study in <em>Psychophysiology</em> supports this, showing a 20% reduction in stress after just 2 minutes of diaphragmatic breathing (Ma et al., 2018). Similarly, gratitude practices increase dopamine and enhance activity in the brain’s prefrontal cortex, improving emotional regulation, according to a 2016 study in the <em>Journal of Neuroscience</em> (Fox et al., 2016). Activities like Mindful Journaling and Cognitive Reframing, rooted in cognitive-behavioral therapy, help you process emotions and shift negative thought patterns, fostering resilience. At MoodTask, we’ve carefully selected these tools to provide quick, effective ways to improve your emotional state, backed by decades of research in psychology and neuroscience.</p>
                 
                 <h3>How to Use This Page</h3>
-                <p>Getting started with MoodTask’s activities is simple and intuitive. Browse the sections below, each dedicated to a unique tool like Breathing Exercises or Gratitude Notes. Within each section, you’ll find a row of options—like 4-7-8 or Box Breathing for Breathing Exercises. Select an option by clicking on the card to open a popup with guided prompts. After finishing, log your activity to track your journey over time on our <a href="calendar.html">Dashboard</a>. We recommend exploring all the options to discover which ones resonate most with you—whether you need to relax, refocus, or build emotional strength. Each activity takes just a few minutes but can have a lasting impact on your day.</p>
+                <p>Getting started with MoodTask’s activities is simple and intuitive. Browse the sections below, each dedicated to a unique tool like Breathing Exercises or Gratitude Notes. Within each section, you’ll find a row of options—like 4-7-8 or Box Breathing for Breathing Exercises. Select an option by clicking on the card to open a popup with guided prompts. After finishing, explore our other activities to find what suits you best. We recommend exploring all the options to discover which ones resonate most with you—whether you need to relax, refocus, or build emotional strength. Each activity takes just a few minutes but can have a lasting impact on your day.</p>
                 
                 <h3>Maximizing Your Experience</h3>
-                <p>To get the most out of these activities, consistency and mindfulness are key. Start by setting aside 5-10 minutes each day to try one activity—perhaps a breathing exercise in the morning to start your day calmly, or a gratitude reflection before bed to end on a positive note. Pair activities with complementary tools on MoodTask: for example, listen to our <a href="music.html">Relaxation playlist</a> during a Guided Meditation session to enhance the calming effect. Track your mood before and after each activity on our Dashboard to see patterns over time—this can help you identify which activities work best for you. Don’t rush; focus on being fully present during each session, whether you’re journaling or taking a nature walk. Over time, these small habits can become powerful tools for managing stress and cultivating a more balanced, joyful life.</p>
+                <p>To get the most out of these activities, consistency and mindfulness are key. Start by setting aside 5-10 minutes each day to try one activity—perhaps a breathing exercise in the morning to start your day calmly, or a gratitude reflection before bed to end on a positive note. Pair activities with complementary tools on MoodTask: for example, listen to our <a href="music.html">Relaxation playlist</a> during a Guided Meditation session to enhance the calming effect. Don’t rush; focus on being fully present during each session. Over time, these small habits can become powerful tools for managing stress and cultivating a more balanced, joyful life.</p>
                 
                 <h3>Explore More with MoodTask</h3>
                 <p>Your journey to emotional wellness doesn’t stop here—MoodTask offers a variety of resources to support you. After trying these activities, visit our <a href="music.html">Mood Music</a> page to find calming tracks for relaxation or upbeat playlists to energize your day. Our <a href="blog.html">Blog</a> offers in-depth articles on mindfulness, stress management, and mental health, packed with science-backed tips to complement your activities. For a more personalized experience, explore our affiliate partners’ offerings, such as <a href="https://www.mindfulness.com/?aff_id=67890">mindfulness apps</a> for guided meditations or <a href="https://www.online-therapy.com/?aff_id=12345">online therapy</a> for professional support. MoodTask is here to help you create a more balanced, joyful life, one activity at a time. Start exploring today and see the difference these tools can make!</p>
@@ -1073,9 +1012,6 @@
                         <span id="breathing-timer">4s</span>
                     </div>
                 </div>
-                <button class="action-button" id="breathing-try-another" style="display: none;" onclick="resetBreathing()">Try Another</button>
-                <button class="log-button" id="breathing-log">Log Activity</button>
-                <p class="affirmation">Well done completing the breathing exercise.</p>
                 <button class="close-button" onclick="closePopup('breathing')"><i class="fas fa-times"></i></button>
             </div>
         </div>
@@ -1083,10 +1019,7 @@
             <div class="popup-content">
                 <h4>Gratitude Notes</h4>
                 <p id="gratitude-prompt"></p>
-                <textarea id="gratitude-text" rows="3" style="display: none;"></textarea>
-                <button class="action-button" id="gratitude-save" style="display: none;" onclick="saveGratitude()">Save Gratitude</button>
-                <button class="log-button" id="gratitude-log">Log Activity</button>
-                <p class="affirmation">Your gratitude note has been saved successfully.</p>
+                <textarea class="gratitude-textarea" id="gratitude-text" rows="3" style="display: none;"></textarea>
                 <button class="close-button" onclick="closePopup('gratitude')"><i class="fas fa-times"></i></button>
             </div>
         </div>
@@ -1094,9 +1027,6 @@
             <div class="popup-content">
                 <h4>Guided Meditation</h4>
                 <p id="meditation-prompt"></p>
-                <button class="action-button" id="meditation-try-another" style="display: none;" onclick="resetMeditation()">Try Another</button>
-                <button class="log-button" id="meditation-log">Log Activity</button>
-                <p class="affirmation">Thank you for taking time to center yourself.</p>
                 <button class="close-button" onclick="closePopup('meditation')"><i class="fas fa-times"></i></button>
             </div>
         </div>
@@ -1104,20 +1034,7 @@
             <div class="popup-content">
                 <h4>Progressive Muscle Relaxation</h4>
                 <p id="pmr-prompt"></p>
-                <button class="action-button" id="pmr-try-another" style="display: none;" onclick="resetPMR()">Try Another</button>
-                <button class="log-button" id="pmr-log">Log Activity</button>
-                <p class="affirmation">Thank you for taking time to relax your body.</p>
                 <button class="close-button" onclick="closePopup('pmr')"><i class="fas fa-times"></i></button>
-            </div>
-        </div>
-        <div id="walk-popup" class="popup">
-            <div class="popup-content">
-                <h4>Nature Walk</h4>
-                <div class="progress-container"><div id="walk-progress" class="progress-bar"></div></div>
-                <p id="walk-timer"></p>
-                <button class="log-button" id="walk-log">Log Activity</button>
-                <p class="affirmation">Great job connecting with nature.</p>
-                <button class="close-button" onclick="closePopup('walk')"><i class="fas fa-times"></i></button>
             </div>
         </div>
         <div id="journaling-popup" class="popup">
@@ -1125,9 +1042,6 @@
                 <h4>Mindful Journaling</h4>
                 <p id="journaling-prompt"></p>
                 <textarea id="journaling-text" rows="3" style="display: none;"></textarea>
-                <button class="action-button" id="journaling-save" style="display: none;" onclick="saveJournaling()">Save Entry</button>
-                <button class="log-button" id="journaling-log">Log Activity</button>
-                <p class="affirmation">Thank you for reflecting mindfully.</p>
                 <button class="close-button" onclick="closePopup('journaling')"><i class="fas fa-times"></i></button>
             </div>
         </div>
@@ -1136,24 +1050,45 @@
                 <h4>Cognitive Reframing</h4>
                 <p id="reframing-prompt"></p>
                 <textarea id="reframing-text" rows="3" style="display: none;"></textarea>
-                <button class="action-button" id="reframing-save" style="display: none;" onclick="saveReframing()">Save Reframe</button>
-                <button class="log-button" id="reframing-log">Log Activity</button>
-                <p class="affirmation">Great job shifting your perspective.</p>
                 <button class="close-button" onclick="closePopup('reframing')"><i class="fas fa-times"></i></button>
             </div>
         </div>
         <div id="exercise-popup" class="popup">
             <div class="popup-content">
                 <h4>Exercise Activity</h4>
+                <div class="timer-settings">
+                    <div class="timer-setting">
+                        <label>Rounds:</label>
+                        <input type="number" id="exercise-rounds" value="5" min="1">
+                    </div>
+                    <div class="timer-setting">
+                        <label>Work (s):</label>
+                        <input type="number" id="exercise-work" value="20" min="1">
+                    </div>
+                    <div class="timer-setting">
+                        <label>Rest (s):</label>
+                        <input type="number" id="exercise-rest" value="10" min="0">
+                    </div>
+                </div>
+                <div class="timer-display" id="exercise-timer">00:00</div>
+                <div class="timer-info" id="exercise-info"></div>
                 <div class="progress-container"><div id="exercise-progress" class="progress-bar"></div></div>
-                <p id="exercise-timer"></p>
-                <button class="log-button" id="exercise-log">Log Activity</button>
-                <p class="affirmation">Great job getting active!</p>
+                <div class="timer-controls">
+                    <button class="timer-start-button" id="exercise-start" onclick="startExercise()">Start</button>
+                    <button class="timer-pause-button" id="exercise-pause" onclick="pauseResumeExercise()" style="display: none;">Pause</button>
+                    <button class="timer-adjust-button" onclick="adjustTimer('exercise', -10)">-10s</button>
+                    <button class="timer-adjust-button" onclick="adjustTimer('exercise', 10)">+10s</button>
+                </div>
                 <button class="close-button" onclick="closePopup('exercise')"><i class="fas fa-times"></i></button>
             </div>
         </div>
     </div>
     <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
         function adjustMainContentPadding() {
             const navBar = document.querySelector('.nav-bar');
             const mainContent = document.querySelector('.main-content');
@@ -1176,47 +1111,22 @@
                     console.log(`Opened popup for activity: ${tool}, technique: ${technique}`);
                 });
             });
-
-            const logButtons = document.querySelectorAll('.log-button');
-            logButtons.forEach((button) => {
-                button.addEventListener('click', () => {
-                    const popup = button.closest('.popup');
-                    const tool = popup.id.split('-')[0];
-                    const activityName = popup.querySelector('h4').textContent;
-                    const today = new Date('2025-05-01').toISOString().split('T')[0];
-                    const activityKey = `activity-${today}`;
-                    let activities = JSON.parse(localStorage.getItem(activityKey)) || [];
-                    activities.push({ name: activityName, timestamp: new Date().toISOString() });
-                    localStorage.setItem(activityKey, JSON.stringify(activities));
-                    console.log(`Logged activity: ${activityName} on ${today}`);
-                    analyzeActivityTrends();
-                    button.textContent = 'Logged!';
-                    button.disabled = true;
-                    button.style.backgroundColor = '#A9A9A9';
-                });
-            });
             console.log('Activity cards set up with', activityCards.length, 'cards');
         }
 
         function openPopup(tool, technique) {
             const popup = document.getElementById(`${tool}-popup`);
             popup.style.display = 'flex';
-            const logButton = popup.querySelector('.log-button');
-            logButton.classList.add('active');
 
             if (tool === 'breathing') startBreathingTechnique(technique);
             if (tool === 'gratitude') startGratitudeTechnique(technique);
             if (tool === 'meditation') startMeditationTechnique(technique);
             if (tool === 'pmr') startPMRTechnique(technique);
-            if (tool === 'walk') {
-                initWalk();
-                startWalkTechnique(technique);
-            }
             if (tool === 'journaling') startJournalingTechnique(technique);
             if (tool === 'reframing') startReframingTechnique(technique);
             if (tool === 'exercise') {
                 initExercise();
-                startExerciseTechnique(technique);
+                setupExerciseTechnique(technique);
             }
         }
 
@@ -1226,7 +1136,6 @@
             if (tool === 'breathing') stopBreathing();
             if (tool === 'meditation') resetMeditation();
             if (tool === 'pmr') resetPMR();
-            if (tool === 'walk') stopWalk();
             if (tool === 'gratitude') resetGratitude();
             if (tool === 'journaling') resetJournaling();
             if (tool === 'reframing') resetReframing();
@@ -1241,7 +1150,6 @@
             const stepText = document.getElementById('breathing-step');
             const timerText = document.getElementById('breathing-timer');
             const instruction = document.getElementById('breathing-instruction');
-            const tryAnotherButton = document.getElementById('breathing-try-another');
             let phaseIndex = 0;
             let phaseTime = 0;
             let countdown = 0;
@@ -1285,7 +1193,6 @@
             const phases = selectedTechnique.phases;
             instruction.textContent = selectedTechnique.instruction;
             circle.style.display = 'flex';
-            tryAnotherButton.style.display = 'inline-flex';
 
             if (breathingInterval) clearInterval(breathingInterval);
             if (countdownInterval) clearInterval(countdownInterval);
@@ -1317,7 +1224,6 @@
 
             setTimeout(() => {
                 stopBreathing();
-                document.querySelector('#breathing-popup .affirmation').style.display = 'block';
             }, 60000);
         }
 
@@ -1332,22 +1238,9 @@
             }
         }
 
-        function resetBreathing() {
-            stopBreathing();
-            const circle = document.getElementById('breathing-circle');
-            const instruction = document.getElementById('breathing-instruction');
-            const tryAnotherButton = document.getElementById('breathing-try-another');
-            const affirmation = document.querySelector('#breathing-popup .affirmation');
-            circle.style.display = 'none';
-            instruction.textContent = '';
-            tryAnotherButton.style.display = 'none';
-            affirmation.style.display = 'none';
-        }
-
         // Gratitude Notes
         function startGratitudeTechnique(type) {
             const textArea = document.getElementById('gratitude-text');
-            const saveButton = document.getElementById('gratitude-save');
             const prompt = document.getElementById('gratitude-prompt');
             const prompts = {
                 'daily': 'Write about three things you are grateful for today.',
@@ -1356,38 +1249,20 @@
             };
             prompt.textContent = prompts[type];
             textArea.style.display = 'block';
-            saveButton.style.display = 'inline-flex';
             textArea.placeholder = prompts[type];
-        }
-
-        function saveGratitude() {
-            const text = document.getElementById('gratitude-text').value;
-            if (text) {
-                const today = new Date('2025-05-01').toISOString().split('T')[0];
-                let entries = JSON.parse(localStorage.getItem(`gratitude-${today}`)) || [];
-                entries.push({ text, timestamp: new Date().toISOString() });
-                localStorage.setItem(`gratitude-${today}`, JSON.stringify(entries));
-                document.querySelector('#gratitude-popup .affirmation').style.display = 'block';
-                document.getElementById('gratitude-save').style.display = 'none';
-            }
         }
 
         function resetGratitude() {
             const prompt = document.getElementById('gratitude-prompt');
             const textArea = document.getElementById('gratitude-text');
-            const saveButton = document.getElementById('gratitude-save');
-            const affirmation = document.querySelector('#gratitude-popup .affirmation');
             prompt.textContent = '';
             textArea.style.display = 'none';
             textArea.value = '';
-            saveButton.style.display = 'none';
-            affirmation.style.display = 'none';
         }
 
         // Guided Meditation
         function startMeditationTechnique(type) {
             const prompt = document.getElementById('meditation-prompt');
-            const tryAnotherButton = document.getElementById('meditation-try-another');
             const prompts = {
                 'breath-awareness': 'Focus on your breath. Inhale deeply, exhale slowly, and notice the air moving through your body for 60 seconds.',
                 'body-scan': 'Close your eyes and mentally scan your body from head to toe, noticing any sensations without judgment for 60 seconds.',
@@ -1396,18 +1271,12 @@
             prompt.textContent = prompts[type];
             setTimeout(() => {
                 prompt.textContent = 'Meditation complete. Take a moment to notice how you feel.';
-                tryAnotherButton.style.display = 'inline-flex';
-                document.querySelector('#meditation-popup .affirmation').style.display = 'block';
             }, 60000);
         }
 
         function resetMeditation() {
             const prompt = document.getElementById('meditation-prompt');
-            const tryAnotherButton = document.getElementById('meditation-try-another');
-            const affirmation = document.querySelector('#meditation-popup .affirmation');
             prompt.textContent = '';
-            tryAnotherButton.style.display = 'none';
-            affirmation.style.display = 'none';
         }
 
         // Progressive Muscle Relaxation
@@ -1415,7 +1284,6 @@
         let pmrInterval = null;
         function startPMRTechnique(type) {
             const prompt = document.getElementById('pmr-prompt');
-            const tryAnotherButton = document.getElementById('pmr-try-another');
             const muscleGroups = {
                 'full-body': [
                     'Clench your fists tightly for 5 seconds, then relax for 10 seconds.',
@@ -1449,8 +1317,6 @@
                     }, 5000);
                 } else {
                     prompt.textContent = 'PMR session complete. Take a moment to notice how relaxed you feel.';
-                    tryAnotherButton.style.display = 'inline-flex';
-                    document.querySelector('#pmr-popup .affirmation').style.display = 'block';
                     clearInterval(pmrInterval);
                 }
             }
@@ -1460,64 +1326,15 @@
 
         function resetPMR() {
             const prompt = document.getElementById('pmr-prompt');
-            const tryAnotherButton = document.getElementById('pmr-try-another');
-            const affirmation = document.querySelector('#pmr-popup .affirmation');
             prompt.textContent = '';
-            tryAnotherButton.style.display = 'none';
-            affirmation.style.display = 'none';
             pmrIndex = 0;
             if (pmrInterval) clearInterval(pmrInterval);
-        }
-
-        // Nature Walk
-        let walkInterval = null;
-        function initWalk() {
-            // Placeholder for initialization if needed
-        }
-
-        function startWalkTechnique(type) {
-            const timer = document.getElementById('walk-timer');
-            const progress = document.getElementById('walk-progress');
-            const prompts = {
-                'mindful': 'Walk slowly and notice your surroundings—focus on each step and your breath.',
-                'sensory': 'Pay attention to the sights, sounds, and smells around you as you walk.',
-                'gratitude': 'Reflect on things you’re grateful for in your environment as you walk.'
-            };
-            timer.textContent = prompts[type];
-            let timeLeft = 300;
-            progress.style.width = '100%';
-
-            walkInterval = setInterval(() => {
-                timeLeft--;
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                progress.style.width = `${(timeLeft / 300) * 100}%`;
-                if (timeLeft <= 0) {
-                    clearInterval(walkInterval);
-                    timer.textContent = 'Walk complete! Take a moment to reflect on how you feel.';
-                    document.querySelector('#walk-popup .affirmation').style.display = 'block';
-                }
-            }, 1000);
-        }
-
-        function stopWalk() {
-            if (walkInterval) {
-                clearInterval(walkInterval);
-                walkInterval = null;
-            }
-            const timer = document.getElementById('walk-timer');
-            const progress = document.getElementById('walk-progress');
-            const affirmation = document.querySelector('#walk-popup .affirmation');
-            timer.textContent = '';
-            progress.style.width = '0%';
-            affirmation.style.display = 'none';
         }
 
         // Mindful Journaling
         function startJournalingTechnique(type) {
             const prompt = document.getElementById('journaling-prompt');
             const textArea = document.getElementById('journaling-text');
-            const saveButton = document.getElementById('journaling-save');
             const prompts = {
                 'emotions': 'Write about how you’re feeling right now and why you might feel this way.',
                 'goals': 'Reflect on a goal you’d like to achieve and what steps you can take toward it.',
@@ -1525,38 +1342,20 @@
             };
             prompt.textContent = prompts[type];
             textArea.style.display = 'block';
-            saveButton.style.display = 'inline-flex';
-        }
-
-        function saveJournaling() {
-            const text = document.getElementById('journaling-text').value;
-            if (text) {
-                const today = new Date('2025-05-01').toISOString().split('T')[0];
-                let entries = JSON.parse(localStorage.getItem(`journaling-${today}`)) || [];
-                entries.push({ text, timestamp: new Date().toISOString() });
-                localStorage.setItem(`journaling-${today}`, JSON.stringify(entries));
-                document.querySelector('#journaling-popup .affirmation').style.display = 'block';
-                document.getElementById('journaling-save').style.display = 'none';
-            }
         }
 
         function resetJournaling() {
             const prompt = document.getElementById('journaling-prompt');
             const textArea = document.getElementById('journaling-text');
-            const saveButton = document.getElementById('journaling-save');
-            const affirmation = document.querySelector('#journaling-popup .affirmation');
             prompt.textContent = '';
             textArea.style.display = 'none';
             textArea.value = '';
-            saveButton.style.display = 'none';
-            affirmation.style.display = 'none';
         }
 
         // Cognitive Reframing
         function startReframingTechnique(type) {
             const prompt = document.getElementById('reframing-prompt');
             const textArea = document.getElementById('reframing-text');
-            const saveButton = document.getElementById('reframing-save');
             const prompts = {
                 'negative-thought': 'Write a negative thought you’re having, then reframe it into a more balanced perspective.',
                 'stressful-event': 'Describe a recent stressful event, then find a positive or neutral way to view it.',
@@ -1564,62 +1363,134 @@
             };
             prompt.textContent = prompts[type];
             textArea.style.display = 'block';
-            saveButton.style.display = 'inline-flex';
-        }
-
-        function saveReframing() {
-            const text = document.getElementById('reframing-text').value;
-            if (text) {
-                const today = new Date('2025-05-01').toISOString().split('T')[0];
-                let entries = JSON.parse(localStorage.getItem(`reframing-${today}`)) || [];
-                entries.push({ text, timestamp: new Date().toISOString() });
-                localStorage.setItem(`reframing-${today}`, JSON.stringify(entries));
-                document.querySelector('#reframing-popup .affirmation').style.display = 'block';
-                document.getElementById('reframing-save').style.display = 'none';
-            }
         }
 
         function resetReframing() {
             const prompt = document.getElementById('reframing-prompt');
             const textArea = document.getElementById('reframing-text');
-            const saveButton = document.getElementById('reframing-save');
-            const affirmation = document.querySelector('#reframing-popup .affirmation');
             prompt.textContent = '';
             textArea.style.display = 'none';
             textArea.value = '';
-            saveButton.style.display = 'none';
-            affirmation.style.display = 'none';
         }
 
-        // Exercise Activity
+        // Exercise Activity (Refined SmartWOD Style)
         let exerciseInterval = null;
-        function initExercise() {
-            // Placeholder for initialization if needed
-        }
+        let exercisePaused = false;
+        let exerciseTimeLeft = 0;
+        let exerciseTotalTime = 0;
+        let currentRound = 0;
+        let totalRounds = 0;
+        let workTime = 0;
+        let restTime = 0;
+        let isWorkPhase = true;
+        let exerciseType = '';
+        let forTimeElapsed = 0;
 
-        function startExerciseTechnique(type) {
+        function initExercise() {
             const timer = document.getElementById('exercise-timer');
             const progress = document.getElementById('exercise-progress');
-            const prompts = {
-                'stretching': 'Perform gentle stretches for your arms, legs, and back. Hold each stretch for 10 seconds.',
-                'cardio': 'Do a quick cardio burst—jumping jacks or high knees—for 5 minutes.',
-                'strength': 'Do a set of bodyweight exercises like squats or push-ups for 5 minutes.'
-            };
-            timer.textContent = prompts[type];
-            let timeLeft = 300;
-            progress.style.width = '100%';
+            const info = document.getElementById('exercise-info');
+            const startButton = document.getElementById('exercise-start');
+            const pauseButton = document.getElementById('exercise-pause');
+            timer.textContent = '00:00';
+            progress.style.width = '0%';
+            info.textContent = '';
+            startButton.style.display = 'inline-block';
+            pauseButton.style.display = 'none';
+            exercisePaused = false;
+            currentRound = 0;
+            exerciseTimeLeft = 0;
+            forTimeElapsed = 0;
+        }
 
-            exerciseInterval = setInterval(() => {
-                timeLeft--;
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                progress.style.width = `${(timeLeft / 300) * 100}%`;
-                if (timeLeft <= 0) {
-                    clearInterval(exerciseInterval);
-                    timer.textContent = 'Exercise complete! Take a moment to cool down.';
-                    document.querySelector('#exercise-popup .affirmation').style.display = 'block';
+        function setupExerciseTechnique(type) {
+            exerciseType = type;
+            const roundsInput = document.getElementById('exercise-rounds');
+            const workInput = document.getElementById('exercise-work');
+            const restInput = document.getElementById('exercise-rest');
+            totalRounds = parseInt(roundsInput.value) || 5;
+            workTime = parseInt(workInput.value) || 20;
+            restTime = parseInt(restInput.value) || 10;
+            exerciseTotalTime = (type === 'tabata') ? (20 + 10) * 8 : (type === 'emom') ? (workTime + restTime) * totalRounds : workTime;
+            exerciseTimeLeft = (type === 'amrap' || type === 'for-time') ? workTime : (type === 'tabata') ? 20 : workTime;
+            const info = document.getElementById('exercise-info');
+            const timer = document.getElementById('exercise-timer');
+            const minutes = Math.floor(exerciseTimeLeft / 60);
+            const seconds = exerciseTimeLeft % 60;
+            timer.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            info.textContent = `${type.toUpperCase()} - ${type === 'for-time' ? 'Elapsed Time' : 'Time Remaining'}`;
+        }
+
+        function startExercise() {
+            const startButton = document.getElementById('exercise-start');
+            const pauseButton = document.getElementById('exercise-pause');
+            startButton.style.display = 'none';
+            pauseButton.style.display = 'inline-block';
+
+            totalRounds = parseInt(document.getElementById('exercise-rounds').value) || 5;
+            workTime = parseInt(document.getElementById('exercise-work').value) || 20;
+            restTime = parseInt(document.getElementById('exercise-rest').value) || 10;
+            exerciseTotalTime = (exerciseType === 'tabata') ? (20 + 10) * 8 : (exerciseType === 'emom') ? (workTime + restTime) * totalRounds : (exerciseType === 'amrap') ? workTime : 0;
+            exerciseTimeLeft = (exerciseType === 'amrap' || exerciseType === 'tabata') ? ((exerciseType === 'tabata') ? 20 : workTime) : (exerciseType === 'emom') ? workTime : 0;
+            forTimeElapsed = 0;
+
+            const timer = document.getElementById('exercise-timer');
+            const progress = document.getElementById('exercise-progress');
+            const info = document.getElementById('exercise-info');
+
+            function updateTimer() {
+                if (!exercisePaused) {
+                    const minutes = Math.floor((exerciseType === 'for-time' ? forTimeElapsed : exerciseTimeLeft) / 60);
+                    const seconds = (exerciseType === 'for-time' ? forTimeElapsed : exerciseTimeLeft) % 60;
+                    timer.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+                    if (exerciseType === 'for-time') {
+                        forTimeElapsed++;
+                        progress.style.width = `${(forTimeElapsed / 3600) * 100}%`; // Cap at 1 hour for progress
+                    } else if (exerciseType === 'amrap' || exerciseType === 'tabata') {
+                        progress.style.width = `${((workTime - exerciseTimeLeft) / workTime) * 100}%`;
+                        if (exerciseTimeLeft <= 0) {
+                            if (exerciseType === 'tabata' && currentRound < 7) {
+                                currentRound++;
+                                exerciseTimeLeft = (currentRound % 2 === 0) ? 10 : 20;
+                                info.textContent = `TABATA - ${currentRound % 2 === 0 ? 'Rest' : 'Work'} (${currentRound + 1}/8)`;
+                            } else if (exerciseType === 'amrap') {
+                                clearInterval(exerciseInterval);
+                                info.textContent = 'AMRAP - Complete!';
+                                pauseButton.style.display = 'none';
+                                return;
+                            }
+                        }
+                        exerciseTimeLeft--;
+                    } else if (exerciseType === 'emom') {
+                        progress.style.width = `${((currentRound * (workTime + restTime) + (isWorkPhase ? workTime - exerciseTimeLeft : workTime + restTime - exerciseTimeLeft)) / exerciseTotalTime) * 100}%`;
+                        if (exerciseTimeLeft <= 0) {
+                            if (isWorkPhase) {
+                                isWorkPhase = false;
+                                exerciseTimeLeft = restTime;
+                                info.textContent = `EMOM - Rest (Round ${currentRound + 1}/${totalRounds})`;
+                            } else {
+                                isWorkPhase = true;
+                                currentRound++;
+                                if (currentRound < totalRounds) {
+                                    exerciseTimeLeft = workTime;
+                                    info.textContent = `EMOM - Work (Round ${currentRound + 1}/${totalRounds})`;
+                                } else {
+                                    clearInterval(exerciseInterval);
+                                    info.textContent = 'EMOM - Complete!';
+                                    pauseButton.style.display = 'none';
+                                    return;
+                                }
+                            }
+                        }
+                        exerciseTimeLeft--;
+                    }
                 }
-            }, 1000);
+            }
+
+            if (exerciseInterval) clearInterval(exerciseInterval);
+            exerciseInterval = setInterval(updateTimer, 1000);
+            updateTimer(); // Initial call
         }
 
         function stopExercise() {
@@ -1627,52 +1498,49 @@
                 clearInterval(exerciseInterval);
                 exerciseInterval = null;
             }
+            exercisePaused = false;
+            currentRound = 0;
+            exerciseTimeLeft = 0;
+            exerciseTotalTime = 0;
+            isWorkPhase = true;
+            forTimeElapsed = 0;
             const timer = document.getElementById('exercise-timer');
             const progress = document.getElementById('exercise-progress');
-            const affirmation = document.querySelector('#exercise-popup .affirmation');
-            timer.textContent = '';
+            const info = document.getElementById('exercise-info');
+            const pauseButton = document.getElementById('exercise-pause');
+            const startButton = document.getElementById('exercise-start');
+            timer.textContent = '00:00';
             progress.style.width = '0%';
-            affirmation.style.display = 'none';
+            info.textContent = '';
+            pauseButton.style.display = 'none';
+            startButton.style.display = 'inline-block';
         }
 
-        // Activity Trends Analysis
-        function analyzeActivityTrends() {
-            const today = new Date('2025-05-01').toISOString().split('T')[0];
-            const activityKey = `activity-${today}`;
-            let activities = JSON.parse(localStorage.getItem(activityKey)) || [];
-            const recentActivityText = document.getElementById('recentActivityText');
-            const recentActivityInsight = document.getElementById('recentActivityInsight');
-            const frequentActivityText = document.getElementById('frequentActivityText');
-            const frequentActivityInsight = document.getElementById('frequentActivityInsight');
+        function pauseResumeExercise() {
+            const pauseButton = document.getElementById('exercise-pause');
+            exercisePaused = !exercisePaused;
+            pauseButton.textContent = exercisePaused ? 'Resume' : 'Pause';
+        }
 
-            if (activities.length > 0) {
-                const latestActivity = activities[activities.length - 1];
-                recentActivityText.textContent = latestActivity.name;
-                recentActivityInsight.textContent = 'Completing this activity may help you feel more centered or energized depending on the technique.';
-
-                const activityCount = activities.reduce((acc, curr) => {
-                    acc[curr.name] = (acc[curr.name] || 0) + 1;
-                    return acc;
-                }, {});
-                const mostFrequent = Object.keys(activityCount).reduce((a, b) => activityCount[a] > activityCount[b] ? a : b);
-                frequentActivityText.textContent = mostFrequent;
-                frequentActivityInsight.textContent = `You’ve done ${mostFrequent} ${activityCount[mostFrequent]} times today, suggesting it might be a good fit for your routine.`;
-            } else {
-                recentActivityText.textContent = 'No activities logged yet.';
-                recentActivityInsight.textContent = 'Try an activity to start tracking your progress!';
-                frequentActivityText.textContent = 'No activities logged yet.';
-                frequentActivityInsight.textContent = 'Log a few activities to see trends.';
+        function adjustTimer(tool, adjustment) {
+            if (tool === 'exercise' && exerciseTimeLeft > 0) {
+                exerciseTimeLeft = Math.max(0, exerciseTimeLeft + adjustment);
+                const minutes = Math.floor(exerciseTimeLeft / 60);
+                const seconds = exerciseTimeLeft % 60;
+                document.getElementById('exercise-timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                exerciseTotalTime = Math.max(exerciseTotalTime, exerciseTimeLeft);
             }
-            console.log('Activity trends analyzed for', today);
         }
 
         // Initial Setup
         window.addEventListener('load', () => {
             adjustMainContentPadding();
             setupActivityCards();
-            analyzeActivityTrends();
             window.addEventListener('resize', adjustMainContentPadding);
             console.log('Page loaded and initialized');
+
+            // Google AdSense initialization
+            (adsbygoogle = window.adsbygoogle || []).push({});
         });
 
         // Smooth page transitions
@@ -1690,6 +1558,19 @@
                 }
             });
         });
+
+        // AdSense placement example (can be adjusted as needed)
+        const adContainer = document.createElement('div');
+        adContainer.className = 'ad-container';
+        adContainer.innerHTML = `
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-15181337633801567"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        `;
+        document.querySelector('.content-wrapper').appendChild(adContainer);
     </script>
 </body>
 </html>

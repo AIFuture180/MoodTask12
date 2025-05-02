@@ -629,6 +629,12 @@
             border-radius: 5px;
             text-align: center;
         }
+        .ad-container {
+            min-width: 300px;
+            width: 100%;
+            margin: 20px auto;
+            text-align: center;
+        }
         @media (max-width: 600px) {
             .nav-bar {
                 flex-direction: row;
@@ -736,6 +742,9 @@
             #breathing-pulse {
                 width: 100px;
                 height: 100px;
+            }
+            .ad-container {
+                min-width: 250px;
             }
         }
     </style>
@@ -1379,7 +1388,7 @@
             textArea.value = '';
         }
 
-        // Exercise Activity (Refined Timers)
+        // Exercise Activity
         let exerciseInterval = null;
         let exercisePaused = false;
         let exerciseTimeLeft = 0;
@@ -1388,7 +1397,6 @@
         let totalRounds = 0;
         let workTime = 0;
         let restTime = 0;
-        let isWorkPhase = true;
         let exerciseType = '';
         let forTimeElapsed = 0;
 
@@ -1453,7 +1461,7 @@
 
                     if (exerciseType === 'for-time') {
                         forTimeElapsed++;
-                        progress.style.width = `${(forTimeElapsed / 3600) * 100}%`; // Cap at 1 hour for progress
+                        progress.style.width = `${(forTimeElapsed / 3600) * 100}%`;
                     } else if (exerciseType === 'amrap') {
                         progress.style.width = `${((workTime - exerciseTimeLeft) / workTime) * 100}%`;
                         if (exerciseTimeLeft <= 0) {
@@ -1499,7 +1507,7 @@
 
             if (exerciseInterval) clearInterval(exerciseInterval);
             exerciseInterval = setInterval(updateTimer, 1000);
-            updateTimer(); // Initial call
+            updateTimer();
         }
 
         function stopExercise() {
@@ -1511,7 +1519,6 @@
             currentRound = 0;
             exerciseTimeLeft = 0;
             exerciseTotalTime = 0;
-            isWorkPhase = true;
             forTimeElapsed = 0;
             const timer = document.getElementById('exercise-timer');
             const progress = document.getElementById('exercise-progress');
@@ -1541,6 +1548,36 @@
             }
         }
 
+        // AdSense initialization with delay and visibility check
+        function initializeAds() {
+            const adContainer = document.querySelector('.ad-container');
+            if (!adContainer) {
+                console.error('Ad container not found');
+                return;
+            }
+
+            const isContainerReady = () => {
+                const rect = adContainer.getBoundingClientRect();
+                return rect.width > 0 && rect.height > 0;
+            };
+
+            const tryPushAd = () => {
+                try {
+                    if (isContainerReady()) {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        console.log('AdSense initialized successfully');
+                    } else {
+                        console.warn('Ad container not ready, retrying...');
+                        setTimeout(tryPushAd, 500);
+                    }
+                } catch (e) {
+                    console.error('AdSense push failed:', e);
+                }
+            };
+
+            setTimeout(tryPushAd, 100);
+        }
+
         // Initial Setup
         window.addEventListener('load', () => {
             adjustMainContentPadding();
@@ -1548,8 +1585,21 @@
             window.addEventListener('resize', adjustMainContentPadding);
             console.log('Page loaded and initialized');
 
-            // Google AdSense initialization
-            (adsbygoogle = window.adsbygoogle || []).push({});
+            // AdSense placement
+            const adContainer = document.createElement('div');
+            adContainer.className = 'ad-container';
+            adContainer.innerHTML = `
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-15181337633801567"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            `;
+            document.querySelector('.content-wrapper').appendChild(adContainer);
+
+            // Initialize ads after DOM is ready
+            initializeAds();
         });
 
         // Smooth page transitions
@@ -1567,19 +1617,6 @@
                 }
             });
         });
-
-        // AdSense placement example (can be adjusted as needed)
-        const adContainer = document.createElement('div');
-        adContainer.className = 'ad-container';
-        adContainer.innerHTML = `
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-15181337633801567"
-                 data-ad-slot="1234567890"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        `;
-        document.querySelector('.content-wrapper').appendChild(adContainer);
     </script>
 </body>
 </html>
